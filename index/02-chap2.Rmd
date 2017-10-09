@@ -1,68 +1,50 @@
-# Math typesetting {#math}
+# Data {#math}
 
-<!-- Required to number equations in HTML files -->
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
+## Raw Data
 
-## Math
+The Risk Screening Environmental Indicators (RSEI) Model is a very detailed data set produced by the Environmental Protection Agency (EPA). It is based upon the Toxic Release Inventory (TRI), which (for about 30 years) has been. The TRI program manages the regulations, policies and facilities that are ultimately reported. 
 
-\TeX\ is the best way to typeset mathematics. Donald Knuth designed \TeX\ when he got frustrated at how long it was taking the typesetters to finish his book, which contained a lot of mathematics.  One nice feature of _R Markdown_ is its ability to read LaTeX code directly.
+TRI data is self reported, with each observation being a release of a reporting facility for a reporting chemical. For each observation, data is collected on which chemical was released, how much of it was released, and the specific facility from which it was released. 
 
-If you are doing a thesis that will involve lots of math, you will want to read the following section.
+The detailed location and chemical data that is collected through TRI, as well as detailed weather data from NOAA is reformatted through a fate and transport model across an 800m grid across the USA to create the RSEI data. The ultimate data we have access to through the RSEI data is an observation for each release, for each square in the grid the release hits. This gives us an idea of how the chemicals spread from the release locations, and enables us to create a map across the entire nation for where TRI chemicals are spreading at any time between 1988 and 2014. 
 
-$$\sum_{j=1}^n (\delta\theta_j)^2 \leq {{\beta_i^2}\over{\delta_i^2 + \rho_i^2}}
-\left[ 2\rho_i^2 + {\delta_i^2\beta_i^2\over{\delta_i^2 + \rho_i^2}} \right] \equiv \omega_i^2
-$$
+## Important Caveats
 
-From Informational Dynamics, we have the following (Dave Braden):
+Due to the nature of the data, there are a few interesting caveats to consider. 
 
-After _n_ such encounters the posterior density for $\theta$ is
+* The RSEI data is self reported, and has been thought to contain some severe underreporting. 
 
-$$
-\pi(\theta|X_1< y_1,\dots,X_n<y_n) \varpropto \pi(\theta) \prod_{i=1}^n\int_{-\infty}^{y_i}
-   \exp\left(-{(x-\theta)^2\over{2\sigma^2}}\right)\ dx
-$$
+* The data is entirely based off a black box fate and transport model. The model has uncertainty that we are not addressing. 
 
-Another equation:
+* The data only captures releases from certain industries, for certain facility types within those industries, for certain chemical types within those facilities. Not all chemicals are mandated reporting, and any analysis that is done based off the data can't be extrapolated to discuss toxicity more generally. 
 
-$$\det\left|\,\begin{matrix}%
-c_0&c_1\hfill&c_2\hfill&\ldots&c_n\hfill\cr
-c_1&c_2\hfill&c_3\hfill&\ldots&c_{n+1}\hfill\cr
-c_2&c_3\hfill&c_4\hfill&\ldots&c_{n+2}\hfill\cr
-\,\vdots\hfill&\,\vdots\hfill&
-  \,\vdots\hfill&&\,\vdots\hfill\cr
-c_n&c_{n+1}\hfill&c_{n+2}\hfill&\ldots&c_{2n}\hfill\cr
-\end{matrix}\right|>0$$
+* Not only does the data not capture all chemicals, it also doesn't broach many common nuicances, both enviromental and toxic. Because of this, it is difficult to relate the RSEI scores to health outcomes in an area. In discussion of hte toxicity, it is worth noting that certain toxicity types may not present themselves as easily (eg. may or may not reach local water systems). There are also more obvious environmental hazards, that are likely to have strong influence on public health and living conditions that TRI doesn't address, eg: brownfields, solid waste disposal, animal farming, hazardous waste, etc.
 
+* RSEI gives the weight of the release and the chemical of the release, but as chemicals have very different levels of toxicity. To that end, the EPA assigned each chemical a 'toxicity' weight, by which the amount of the chemical is multiplied. This means that we can aggregate all the chemicals in an area, and compare the overall toxicity over space and time. The toxicity weights allow us to compare locations, but also means that the values only have meaning in comparison.
 
-Lapidus and Pindar, Numerical Solution of Partial Differential Equations in Science and
-Engineering.  Page 54
+Despite the limitations that the data presents, it provides an incredibly detailed and complex view of toxicity in America that is worth delving in to. 
 
-$$
-\int_t\left\{\sum_{j=1}^3 T_j \left({d\phi_j\over dt}+k\phi_j\right)-kT_e\right\}w_i(t)\ dt=0,
-   \qquad\quad i=1,2,3.
-$$
+## Consistency in Reporting (detailed data description)
 
-L\&P  Galerkin method weighting functions.  Page 55
+### Census Comparability
 
-$$
-\sum_{j=1}^3 T_j\int_0^1\left\{{d\phi_j\over dt} + k\phi_j\right\} \phi_i\ dt
-   = \int_{0}^1k\,T_e\phi_idt, \qquad i=1,2,3 $$
+For the time period that RSEI data is available during (1988 - 2014), Census geographies have experienced considerable overhaul. Many of our questions of interest involve demographics, and the changes we see in environmental toxicity over time for those demographics. As such, we need to be able to aggregate the toxicity to block group or tract level to be able to merge with Census data. As such, we caluclate the toxicity values for each geographic unit for the closest temporal census geography (1990, 2000 or 2010).
 
-Another L\&P (p145)
+### Details of Chemical Consistency
 
-$$
-\int_{-1}^1\!\int_{-1}^1\!\int_{-1}^1 f\big(\xi,\eta,\zeta\big)
-   = \sum_{k=1}^n\sum_{j=1}^n\sum_{i=1}^n w_i w_j w_k f\big( \xi,\eta,\zeta\big).
-$$
+Using the consistent_chemicals table provided by Rich Puchalsky, the chemicals that are relevant to the specific years of interest are calculated in the runDatabase.R file in the define_consistent_chemicals function. They are found by selecting the subset of chemicals where the year of initial regulation is before the interest period, and the year of deregulation is after the interest period, while also excluding delisted chemicals. 
 
-Another L\&P (p126)
+### Details of NAICS Code Consistency
 
-$$
-\int_{A_e} (\,\cdot\,) dx dy = \int_{-1}^1\!\int_{-1}^1 (\,\cdot\,) \det[J] d\xi d\eta.
-$$
+NAICS codes are a form of industry code. In the RSEI data the only NAICS code reference is in the facility data table. This table provides a list of 6 NAICS codes that are most relevant to the facility. However, NAICS codes are release specific, not facility specific, meaning that for each emission reported a NAICS code is reported. Since NAICS codes are regulated independently of chemical codes, NAICS codes that are not consistently reported across the time period of interest must be removed to maintain continuity. For a toy example, a textiles facility releasing mercury might have to report it, but the neighboring mining facility might not. If that changes over the time period, and suddenly mining needs to report, we will see an artificial huge jump in the mercury present in that area if we don't remove by industry. Removing by facility is also not accurate, since facilities might have different types of NAICS emissions. The textiles facility might make both shoes and jackets, with different industry codes and therefore different reporting requirements.
+
+To get data on the NAICS codes by submission, data must be taken from the original TRI data, and linked to the microdata by the submission and release tables.   The Document Control Number (doc_ctrl_num) and Industry Code (industry_code) columns from the Submission NAICS Codes (v_tri_submission_naics) table provide the information necessary to link to our microdata.
 
 
+## Ultimate Data Form
+
+The initial data from RSEI is in the form of one observation per release per block on the 800m grid that it hit. Given that the 800m grid across the United States has on the order of 10 billion squares, each release hits many squares, we have many releases, and the data covers 27 years, this is an enormous data set. Overall, the disaggregated microdata is approximately 4 terabytes of data. 
+
+In the data cleansing process, we filter the data to remove industries and chemicals that were not consistent over the period of inquiry, and aggregate the data to the relevant Census geographies. The data, after an extensive and computationally intesive process, forms a data set with an observation for each year, for each block group/tract, with just a toxicity level. 
+
+The pollution estimate must be interpreted in the context of the consistency adjustments. For example, towns with extremely high mining emissions may not show as exceptionally high pollution, as mining is one of the industries that had different regulations over the 1990-2010 time period, and therefore the reported mining emissions have been removed entirely. Essentially, the pollution estimates are comparable across time and location, but only in the context of continuous EPA regulation. 
