@@ -84,6 +84,3 @@ on chapters.
 Environmental justice literature has focused largely on the motivations and policy approaches to help account for the disproportionate burden of environmental hazards on minority communities. The questions being asked are critical to building a knowledge base that allows us to create policy that helps correct the problem of hazard allocation, but aren't significantly addressing the canges in the hazard burden over time as it relates to policy already in place and natural sorting. 
 
 This thesis seeks to address the investigative question of if minority communities have experienced substantial reductions in their relative environmental toxicity, when those shifts are occuring, and a look in to the traits that are predictive of high environmental toxicity.
-
-##Keywords
-Environmental Inequality, Racial Inequality, Non-parametric analysis
