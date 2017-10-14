@@ -11,23 +11,61 @@ library(tidyr)
 library(devtools)
 devtools::install_github("amd112/rseiAnalysis")
 library("rseiAnalysis")
+#needed for RSEI
+library(plyr)
 ```
 
 # Approaches and Methods {#ref-labels}
 
 ## Level of Analysis
 
-The questions we would like to pose - how the distributions of toxicity that individuals experience over time are predicted by their complex, multidimensional identities - is inherently a person level analysis. 
+The questions we would like to pose - how the distributions of toxicity that individuals experience over time are predicted by their complex, multidimensional identities - is inherently intended to be a person level analysis. That intent may not be achievable given the available data. 
 
-~~insert more explanation of level of analysis choices. 
- 
 This analysis depends on two data sources, the disaggregated RSEI toxic release data as compiled to contain only releases that are consistently reported between 1990 and 2010, as well as relevant demographic information from the census. 
 
 RSEI environmental data can be obtained at extremely fine level (the 800 meter grid across the United States,) but the finest grain Census data is available at is the block level, which contains between 0 and a few hundred people. At such low geographic levels, few variables are available for demographics due to identifiability concerns. Additionally, few cross tabulations are available, due to concerns of identifiability. Using a low level of geography (like census blocks or block groups) is important for the environmental aspect of this analysis, since environmental hazards can be very localized, especially along neighborhood lines in urban areas. 
 
-Unfortunately, the availability of cross tabulations is equally important to the goal of this work in examining inequality of environmental burden held by minorty groups in America. The intersection of social identies, especially those steeped in systems of oppression, is extremely important for identifying unequal burdens. For example, low income populations across the board may be more likely to experience environmental hazards, but low income minority populations could be much more likely than low income white populations to experience extreme hazard. The intersections of demographic charictersitics, such as race and income or race and education are likely to be important in teasing out differences in toxicity for a given person or region. 
+Unfortunately, the availability of cross tabulations is equally important to the goal of this work in examining inequality of environmental burden held by minority groups in America. The intersection of social identies, especially those steeped in systems of oppression, is extremely important for identifying unequal burdens. For example, low income populations across the board may be more likely to experience environmental hazards, but low income minority populations could be much more likely than low income white populations to experience extreme hazard. The intersections of demographic charictersitics, such as race and income or race and education are likely to be important in teasing out differences true inequality burden. 
 
-~~insert the look at how the distributions differ when aggregated at each census level.
+To combine the data, we assign the aggregated releases to their respective geographies. For each census geography, we also have estimates of number of various population groups. From there, we move to a person level analysis by assigning each of the people the toxicity for the geography they originated in. By assigning each person the toxicity of their block group, we can aggregate nationally to find the distribution of toxicity that each group experiences. This approach is restricted in ability to approach the problem in an intersectional manner, since we can only build a distribution for each of the crosstabs we have available. For higher levels of geography (where we might, for example, have race by income) we would be able to build national distributions for each income by race group.
+
+```{r, echo = FALSE}
+#import toxicity data
+bg2010 = read_csv("data/toxic_2010_2010_blockgroup.csv")
+
+#import census data
+census_bg = read_csv("data/ecologicalFallacy/census_bg_race.csv", skip = 1)
+census_tract = read_csv("data/ecologicalFallacy/census_tract_race.csv", skip = 1)
+census_county = read_csv("data/ecologicalFallacy/census_county_race.csv", skip = 1)
+census_state = read_csv("data/ecologicalFallacy/census_state_race.csv", skip = 1)
+
+#munge census data
+census_bg = select(census_bg, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
+names(census_bg)  = c("fips", "total", "white", "black")
+census_tract = select(census_tract, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
+names(census_tract)  = c("fips", "total", "white", "black")
+census_county = select(census_county, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
+names(census_county)  = c("fips", "total", "white", "black")
+census_state = select(census_state, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
+names(census_state)  = c("fips", "total", "white", "black")
+
+#merge census and toxicity data
+tract2010 = aggregateGeography(bg2010, "tract")
+tract2010 = merge(tract2010, census_tract, by.x = "block", by.y = "fips")
+county2010 = aggregateGeography(tract2010, "county")
+county2010 = merge(county2010, census_county, by.x = "block", by.y = "fips")
+state2010 = aggregateGeography(county2010, "state")
+state2010 = merge(state2010, census_state, by.x = "block", by.y = "fips")
+bg2010 = merge(bg2010, census_bg, by.x = "block", by.y = "fips")
+
+#plot national distributions
+g = ggplot() + geom_density(aes(log(bg2010$concentration), weight = bg2010$total/sum(bg2010$total), color = "Block Group"), bw = 0.05)
+g = g + geom_density(aes(log(tract2010$concentration), weight = tract2010$total/sum(tract2010$total), color = "Tract"), bw = 0.05)
+g = g + geom_density(aes(log(county2010$concentration), weight = county2010$total/sum(county2010$total), color = "County"), bw = 0.2)
+g = g + geom_density(aes(log(state2010$concentration), weight = state2010$total/sum(state2010$total), color = "State"), bw = 0.35)
+g = g + labs(x = "Log Toxicity", colour = "Geographic Level", caption = "(as assigned by different levels of geography)", title = "Distribution of Toxicity for US Population")
+```
+
 
 
 ##Need to get census data for income, education, and cross tabs on race and income. 
@@ -87,12 +125,3 @@ p2010[vars] = p2010[vars]/p2010$tot_pop
 p2010$density = p2010$tot_pop/p2010$area
 m = lm(lconcentration ~ 1 + owners + renters + black + hispanic + density, data = p2010)
 ```
-
-
-```{r}
-nonParametricExtrapolate(t2010, t1990)
-```
-
-testing testing 
-
-123
