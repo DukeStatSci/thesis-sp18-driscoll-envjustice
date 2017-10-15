@@ -351,7 +351,8 @@ time and location, but only in the context of continuous EPA regulation.
 
 \chapter{Approaches and Methods}\label{ref-labels}
 
-\section{Level of Analysis}\label{level-of-analysis}
+\section{Geographic Level of
+Analysis}\label{geographic-level-of-analysis}
 
 The questions we would like to pose - how the distributions of toxicity
 that individuals experience over time are predicted by their complex,
@@ -401,45 +402,32 @@ we have available. For higher levels of geography (where we might, for
 example, have race by income) we would be able to build national
 distributions for each income by race group.
 
-\textasciitilde{}\textasciitilde{}insert the look at how the
-distributions differ when aggregated at each census level.
+In choosing the level of aggregation at which to assign toxicity, in
+order to balance the needs of accuracy of toxicity and availability of
+cross tabulations, we create the overall toxicity distribution for
+Americans by assigning each individual a toxicity level for each level
+of geography. Using block group as the smallest form of geography, and
+aggregating up to state (including tract and county in between) we see
+how the distribution changes at each level of aggregation.
 
-\section{Need to get census data for income, education, and cross tabs
-on race and
-income.}\label{need-to-get-census-data-for-income-education-and-cross-tabs-on-race-and-income.}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-2-1.pdf}
 
-\section{Need to figure out how to do a time series analysis. do I want
-to do
-a}\label{need-to-figure-out-how-to-do-a-time-series-analysis.-do-i-want-to-do-a}
+We see expected results when looking at the aggregation at state level.
+Given that we are assigning each individual the mean toxicity in their
+entire state, we are eliminating most of the variation from the data.
+States seem to have overall similar toxicity levels, but interestingly
+the tract data seems to build a distribution very similar to the block
+group level assignment. This may be because the block group level is
+aggregating a large group of our fine grain toxicity data, and has
+therefore already lost the street block by street block variation that
+we had deemed so crucial, so aggregating several block groups leaves us
+in a similar neighborhood level of aggregation.
 
-\section{I want to do a non-parametric simulation of what would have
-happened to the distributions if they had stayed in the same place as
-they were in the original
-distribution.}\label{i-want-to-do-a-non-parametric-simulation-of-what-would-have-happened-to-the-distributions-if-they-had-stayed-in-the-same-place-as-they-were-in-the-original-distribution.}
+\section{Temporal Level of Analysis}\label{temporal-level-of-analysis}
 
-How does the comparison there work? Do I just say wow look the real new
-distribution is actually significantly better, showing that there is
-real improvement for people of color. If we break it up by the states
-that implemented laws regarding environmental justice do we see a
-significant difference in the difference in differences?
+\section{Non-Parametric Analysis}\label{non-parametric-analysis}
 
-AKAA Step 1) simulate the new distribution and see how the new and old
-dists. compare to the simulated new dist. Step 2) do we see that hte new
-is better than the simulated new? Step 3) do we see the same
-``positional advancement'' in the states with and without laws regarding
-ej? Step 4) can we test that there is a difference in ``positional
-advancement'' (aka difference in simulated and real means) Step 5) can
-we test that there is a difference in ``positional advancement'' for the
-states that have good general environmental laws? Conclusions: there has
-been an improvement in the position of poc in the american toxicity
-distribution, and it is not/may be related to the specific ej laws.
-
-????? what time period do I want to do that over? This is an iterational
-process, right? I can't just do one block of time (eg 1990 to 2010) so
-how do I incorporate all the jumps in time? ????? how can I do a
-longitudinal linear analysis? I would have a toxicity at each point,
-with the trend predicted by both the contents of the tract and the
-changes in the tract contents.
+\section{Trends Over Time}\label{trends-over-time}
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{vars =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"white"}\NormalTok{, }\StringTok{"black"}\NormalTok{, }\StringTok{"hispanic"}\NormalTok{, }\StringTok{"owners"}\NormalTok{, }\StringTok{"renters"}\NormalTok{)}

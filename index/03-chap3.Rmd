@@ -1,4 +1,6 @@
 ```{r, include = FALSE}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
 library(magrittr)
 library(readr)
 library(ggplot2)
@@ -17,7 +19,7 @@ library(plyr)
 
 # Approaches and Methods {#ref-labels}
 
-## Level of Analysis
+## Geographic Level of Analysis
 
 The questions we would like to pose - how the distributions of toxicity that individuals experience over time are predicted by their complex, multidimensional identities - is inherently intended to be a person level analysis. That intent may not be achievable given the available data. 
 
@@ -29,7 +31,9 @@ Unfortunately, the availability of cross tabulations is equally important to the
 
 To combine the data, we assign the aggregated releases to their respective geographies. For each census geography, we also have estimates of number of various population groups. From there, we move to a person level analysis by assigning each of the people the toxicity for the geography they originated in. By assigning each person the toxicity of their block group, we can aggregate nationally to find the distribution of toxicity that each group experiences. This approach is restricted in ability to approach the problem in an intersectional manner, since we can only build a distribution for each of the crosstabs we have available. For higher levels of geography (where we might, for example, have race by income) we would be able to build national distributions for each income by race group.
 
-```{r, echo = FALSE}
+In choosing the level of aggregation at which to assign toxicity, in order to balance the needs of accuracy of toxicity and availability of cross tabulations, we create the overall toxicity distribution for Americans by assigning each individual a toxicity level for each level of geography. Using block group as the smallest form of geography, and aggregating up to state (including tract and county in between) we see how the distribution changes at each level of aggregation. 
+
+```{r, echo = FALSE, fig.width=6, fig.height=3, message = FALSE}
 #import toxicity data
 bg2010 = read_csv("data/toxic_2010_2010_blockgroup.csv")
 
@@ -59,32 +63,22 @@ state2010 = merge(state2010, census_state, by.x = "block", by.y = "fips")
 bg2010 = merge(bg2010, census_bg, by.x = "block", by.y = "fips")
 
 #plot national distributions
-g = ggplot() + geom_density(aes(log(bg2010$concentration), weight = bg2010$total/sum(bg2010$total), color = "Block Group"), bw = 0.05)
-g = g + geom_density(aes(log(tract2010$concentration), weight = tract2010$total/sum(tract2010$total), color = "Tract"), bw = 0.05)
-g = g + geom_density(aes(log(county2010$concentration), weight = county2010$total/sum(county2010$total), color = "County"), bw = 0.2)
+g = ggplot() + geom_density(aes(log(county2010$concentration), weight = county2010$total/sum(county2010$total), color = "County"), bw = 0.2)
 g = g + geom_density(aes(log(state2010$concentration), weight = state2010$total/sum(state2010$total), color = "State"), bw = 0.35)
+g = g + geom_density(aes(log(bg2010$concentration), weight = bg2010$total/sum(bg2010$total), color = "Block Group"), bw = 0.05)
+g = g + geom_density(aes(log(tract2010$concentration), weight = tract2010$total/sum(tract2010$total), color = "Tract"), bw = 0.05)
 g = g + labs(x = "Log Toxicity", colour = "Geographic Level", caption = "(as assigned by different levels of geography)", title = "Distribution of Toxicity for US Population")
+g = g + theme(axis.text=element_text(size = 7), legend.text = element_text(size = 7), legend.title = element_text(size = 8))
+g
 ```
 
+We see expected results when looking at the aggregation at state level. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. States seem to have overall similar toxicity levels, but interestingly the tract data seems to build a distribution very similar to the block group level assignment. This may be because the block group level is aggregating a large group of our fine grain toxicity data, and has therefore already lost the street block by street block variation that we had deemed so crucial, so aggregating several block groups leaves us in a similar neighborhood level of aggregation. 
 
+## Temporal Level of Analysis 
 
-##Need to get census data for income, education, and cross tabs on race and income. 
-##Need to figure out how to do a time series analysis. do I want to do a 
+## Non-Parametric Analysis
 
-## I want to do a non-parametric simulation of what would have happened to the distributions if they had stayed in the same place as they were in the original distribution. 
-How does the comparison there work? Do I just say wow look the real new distribution is actually significantly better, showing that there is real improvement for people of color. If we break it up by the states that implemented laws regarding environmental justice do we see a significant difference in the difference in differences? 
-
-AKAA
-Step 1) simulate the new distribution and see how the new and old dists. compare to the simulated new dist. 
-Step 2) do we see that hte new is better than the simulated new?
-Step 3) do we see the same "positional advancement" in the states with and without laws regarding ej?
-Step 4) can we test that there is a difference in "positional advancement" (aka difference in simulated and real means)
-Step 5) can we test that there is a difference in "positional advancement" for the states that have good general environmental laws?
-Conclusions: there has been an improvement in the position of poc in the american toxicity distribution, and it is not/may be related to the specific ej laws.
-
-????? what time period do I want to do that over? This is an iterational process, right? I can't just do one block of time (eg 1990 to 2010) so how do I incorporate all the jumps in time?
-????? how can I do a longitudinal linear analysis? I would have a toxicity at each point, with the trend predicted by both the contents of the tract and the changes in the tract contents. 
-
+## Trends Over Time
 
 ```{r, include = FALSE}
 t1990 <- read_csv("data/toxic_1990_1990_blockgroup.csv")

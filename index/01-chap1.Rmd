@@ -7,7 +7,3 @@ The {#rmd-basics} text after the chapter declaration will allow us to link throu
 -->
 
 # Introduction to Environmental Justice {#rmd-basics}
-
-testing testing 
-
-123 
