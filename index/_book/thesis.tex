@@ -204,10 +204,6 @@ Environmental Inequality, Racial Inequality, Non-parametric analysis
 
 \chapter{Introduction to Environmental Justice}\label{rmd-basics}
 
-testing testing
-
-123
-
 \chapter{Data}\label{math}
 
 \section{Raw Data}\label{raw-data}
@@ -410,7 +406,7 @@ of geography. Using block group as the smallest form of geography, and
 aggregating up to state (including tract and county in between) we see
 how the distribution changes at each level of aggregation.
 
-\includegraphics{thesis_files/figure-latex/unnamed-chunk-2-1.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-1-1.pdf}
 
 We see expected results when looking at the aggregation at state level.
 Given that we are assigning each individual the mean toxicity in their
@@ -427,26 +423,60 @@ in a similar neighborhood level of aggregation.
 
 \section{Non-Parametric Analysis}\label{non-parametric-analysis}
 
+To examine the change of environmental burden over time for groups we
+first use a non-parametric simulation technique to tease apart the
+forces in play as each group's distribution changes over time. At any
+point, any given percentile in a minority distribution is likely to be a
+much higher percentile in the overall distribution. For example, in 2010
+the 75th percentile of the black distribution is 4734.0664347, while
+that same value is the 80.74th percentile in the overall distribution.
+
+Over time we expect those two percentiles to approach each other. We
+expect the minority distributions to have lower mean toxicity for two
+reasons: first we assume the entire distribution will slowly be shifting
+right as we see improvements in sequestering technology and improved
+envirnmental regulation. Secondly, we expect that with Title IV
+protetections, and the work of civil rights advocates, we hope that
+minority communities will cease to be exploited though the power
+dynamics of polluters.
+
+In order to track how minority and the overall distribution have changed
+over the period of study, we use the positions that minority groups held
+in the overall distribution at the start of the period of study and
+simulate how each group would have progressed through time assuming a
+static position in society at large. This simulation proceeds as
+follows:
+\begin{itemize}
+\item
+  Build an emipirical distribution of toxicity experienced for the
+  entire population and for groups of interest in the starting year.
+\item
+  Sample individuals from the empirical distributions for the entire
+  population and the groups of interest.
+\item
+  For each sampled value, find the percentile in the empirical
+  distribution for the entire population in the starting year.
+\item
+  Create an empirical distribution for the entire population in the
+  ending year.
+\item
+  For each sampled percentile, find the corresponding value in the full
+  empirical distribution of the ending year.
+\end{itemize}
+Using this method we can hold constant the place each individual, and
+more broadly each group, holds in the overall distribution, but follow
+the changes in the distribution as a whole. The collection of values
+simulated for each group now represents where each individual or group
+would have been had there been no positional improvement for the group
+as a whole.
+
+If there had been improvement for minorities, we would expect the
+simulated distributions to paint a much bleaker picture of the
+environmental burden borne.
+
 \section{Trends Over Time}\label{trends-over-time}
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{vars =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"white"}\NormalTok{, }\StringTok{"black"}\NormalTok{, }\StringTok{"hispanic"}\NormalTok{, }\StringTok{"owners"}\NormalTok{, }\StringTok{"renters"}\NormalTok{)}
-\NormalTok{p1990 =}\StringTok{ }\NormalTok{t1990}
-\NormalTok{p1990[vars] =}\StringTok{ }\NormalTok{p1990[vars]/p1990$tot_pop}
-\NormalTok{p1990$density =}\StringTok{ }\NormalTok{p1990$tot_pop/p1990$area}
-\NormalTok{m =}\StringTok{ }\KeywordTok{lm}\NormalTok{(lconcentration ~}\StringTok{ }\DecValTok{1} \NormalTok{+}\StringTok{ }\NormalTok{owners +}\StringTok{ }\NormalTok{renters +}\StringTok{ }\NormalTok{black +}\StringTok{ }\NormalTok{hispanic +}\StringTok{ }\NormalTok{density, }\DataTypeTok{data =} \NormalTok{p1990)}
 
-\NormalTok{p2010 =}\StringTok{ }\NormalTok{t2010}
-\NormalTok{p2010[vars] =}\StringTok{ }\NormalTok{p2010[vars]/p2010$tot_pop}
-\NormalTok{p2010$density =}\StringTok{ }\NormalTok{p2010$tot_pop/p2010$area}
-\NormalTok{m =}\StringTok{ }\KeywordTok{lm}\NormalTok{(lconcentration ~}\StringTok{ }\DecValTok{1} \NormalTok{+}\StringTok{ }\NormalTok{owners +}\StringTok{ }\NormalTok{renters +}\StringTok{ }\NormalTok{black +}\StringTok{ }\NormalTok{hispanic +}\StringTok{ }\NormalTok{density, }\DataTypeTok{data =} \NormalTok{p2010)}
-\end{Highlighting}
-\end{Shaded}
 \chapter{Results}\label{organization}
-
-testing testing
-
-123
 
 \chapter*{Conclusion}\label{conclusion}
 \addcontentsline{toc}{chapter}{Conclusion}
@@ -469,11 +499,32 @@ to help with readibility and/or setup.
 \CommentTok{# This chunk ensures that the thesisdowndss package is}
 \CommentTok{# installed and loaded. This thesisdowndss package includes}
 \CommentTok{# the template files for the thesis.}
-\NormalTok{if(!}\KeywordTok{require}\NormalTok{(devtools))}
-  \KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
-\NormalTok{if(!}\KeywordTok{require}\NormalTok{(thesisdowndss))}
-  \NormalTok{devtools::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"mine-cetinkaya-rundel/thesisdowndss"}\NormalTok{)}
+\NormalTok{if (!}\KeywordTok{require}\NormalTok{(devtools)) }\KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{, }\DataTypeTok{repos =} \StringTok{"http://cran.rstudio.com"}\NormalTok{)}
+\NormalTok{if (!}\KeywordTok{require}\NormalTok{(thesisdowndss)) devtools::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"mine-cetinkaya-rundel/thesisdowndss"}\NormalTok{)}
 \KeywordTok{library}\NormalTok{(thesisdowndss)}
+\KeywordTok{library}\NormalTok{(knitr)}
+\NormalTok{opts_chunk$}\KeywordTok{set}\NormalTok{(}\DataTypeTok{tidy.opts =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{width.cutoff =} \DecValTok{60}\NormalTok{), }\DataTypeTok{tidy =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(magrittr)}
+\KeywordTok{library}\NormalTok{(readr)}
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\KeywordTok{library}\NormalTok{(plyr)}
+\KeywordTok{library}\NormalTok{(spatstat)}
+\KeywordTok{library}\NormalTok{(choroplethrMaps)}
+\KeywordTok{library}\NormalTok{(choroplethr)}
+\KeywordTok{library}\NormalTok{(tidyr)}
+\KeywordTok{library}\NormalTok{(devtools)}
+\NormalTok{devtools::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"amd112/rseiAnalysis"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+\begin{verbatim}
+Skipping install of 'rseiAnalysis' from a github remote, the SHA1 (25a31935) has not changed since last install.
+  Use `force = TRUE` to force installation
+\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"rseiAnalysis"}\NormalTok{)}
+\CommentTok{# needed for RSEI}
 \end{Highlighting}
 \end{Shaded}
 \textbf{In Chapter \ref{ref-labels}:}

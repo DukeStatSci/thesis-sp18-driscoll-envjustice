@@ -68,6 +68,21 @@ if(!require(devtools))
 if(!require(thesisdowndss))
   devtools::install_github("mine-cetinkaya-rundel/thesisdowndss")
 library(thesisdowndss)
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+library(magrittr)
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(plyr)
+library(spatstat)
+library(choroplethrMaps)
+library(choroplethr)
+library(tidyr)
+library(devtools)
+devtools::install_github("amd112/rseiAnalysis")
+library("rseiAnalysis")
+#needed for RSEI
 ```
 
 <!-- You'll need to include the order that you'd like Rmd files to appear in the _bookdown.yml file for
