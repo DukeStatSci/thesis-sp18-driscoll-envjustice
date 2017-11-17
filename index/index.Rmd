@@ -251,7 +251,11 @@ Environmental justice literature has focused largely on the motivations behind f
 
 *Breaking the self fulfilling cycle
 
+<<<<<<< HEAD
 This thesis seeks to address the question of how the toxicity experienced by minority communities has changed. Specifically, we look for substantial reductions in relative environmental toxicity, when shifts are occur, and what traits that are predictive of high environmental toxicity.
 
 ### Keywords
 Environmental Inequality, Racial Inequality, Non-parametric analysis
+=======
+This thesis seeks to address the investigative question of if minority communities have experienced substantial reductions in their relative environmental toxicity, when those shifts are occuring, and a look in to the traits that are predictive of high environmental toxicity.
+>>>>>>> master
