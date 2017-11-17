@@ -199,7 +199,8 @@ hazard allocation over time.
 
 *Breaking the self fulfilling cycle
 
-This thesis seeks to address the question of how the toxicity
+\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}
+HEAD This thesis seeks to address the question of how the toxicity
 experienced by minority communities has changed. Specifically, we look
 for substantial reductions in relative environmental toxicity, when
 shifts are occur, and what traits that are predictive of high
@@ -207,7 +208,15 @@ environmental toxicity.
 
 \subsection{Keywords}\label{keywords}
 
-Environmental Inequality, Racial Inequality, Non-parametric analysis
+\chapter{Environmental Inequality, Racial Inequality, Non-parametric
+analysis}\label{environmental-inequality-racial-inequality-non-parametric-analysis}
+
+This thesis seeks to address the investigative question of if minority
+communities have experienced substantial reductions in their relative
+environmental toxicity, when those shifts are occuring, and a look in to
+the traits that are predictive of high environmental toxicity.
+\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}
+master
 
 \chapter{Introduction to Environmental Justice}\label{rmd-basics}
 
@@ -552,7 +561,7 @@ forces in play as each group's distribution changes over time. For any
 given value, the percentile it holds in a minority distribution is
 likely to be different from the percentile it holds in the overall
 distribution. For example, in 2010 the 75th percentile of the black
-distribution is 4734.07, while that same value is the 80.74th percentile
+distribution is 2528.45, while that same value is the 81.44th percentile
 in the overall distribution.
 
 We expect the mean of minority distributions to reduce over time for two
@@ -610,14 +619,95 @@ that we have snapshots of data from 1990, 2000, and continuous data for
 2010 on.
 
 \section{Trends Over Time}\label{trends-over-time}
-
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  year = col_integer(),
+  white_sd = col_double(),
+  black_sd = col_double(),
+  asian_sd = col_double(),
+  native_sd = col_double(),
+  other_sd = col_double()
+)
+Parsed with column specification:
+cols(
+  year = col_integer(),
+  white_sd = col_double(),
+  black_sd = col_double(),
+  asian_sd = col_double(),
+  native_sd = col_double(),
+  other_sd = col_double()
+)
+Parsed with column specification:
+cols(
+  year = col_integer(),
+  white_sd = col_double(),
+  black_sd = col_double(),
+  asian_sd = col_double(),
+  native_sd = col_double(),
+  other_sd = col_double()
+)
+\end{verbatim}
 \includegraphics{thesis_files/figure-latex/unnamed-chunk-4-1.pdf}
 \includegraphics{thesis_files/figure-latex/unnamed-chunk-4-2.pdf}
 \includegraphics{thesis_files/figure-latex/unnamed-chunk-4-3.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-4.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-5.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-6.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-7.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-8.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-9.pdf}
 
 \subsection{Notes on Simulation}\label{notes-on-simulation}
-
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  n = col_integer(),
+  sd = col_double(),
+  mean = col_double()
+)
+Parsed with column specification:
+cols(
+  n = col_integer(),
+  sd = col_double(),
+  mean = col_double()
+)
+Parsed with column specification:
+cols(
+  n = col_integer(),
+  sd = col_double(),
+  mean = col_double()
+)
+\end{verbatim}
 \includegraphics{thesis_files/figure-latex/unnamed-chunk-5-1.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-5-2.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-5-3.pdf}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# ggplot(race_data) + geom_line(aes(x = year, y =}
+\CommentTok{# lconcentration, color = (black/pop), group = id), alpha =}
+\CommentTok{# 0.3) + labs(x = 'Year', colour = '% Black', title =}
+\CommentTok{# 'Toxicity Trend for all Census Tracts')}
+
+\NormalTok{x =}\StringTok{ }\NormalTok{race_data[race_data$year ==}\StringTok{ }\DecValTok{1993} \NormalTok{&}\StringTok{ }\NormalTok{race_data$concentration <}\StringTok{ }
+\StringTok{    }\DecValTok{400}\NormalTok{, }\DecValTok{1}\NormalTok{:}\DecValTok{8}\NormalTok{]}
+\NormalTok{y =}\StringTok{ }\NormalTok{race_data[race_data$year ==}\StringTok{ }\DecValTok{1994} \NormalTok{&}\StringTok{ }\NormalTok{race_data$concentration <}\StringTok{ }
+\StringTok{    }\DecValTok{400}\NormalTok{, }\DecValTok{1}\NormalTok{:}\DecValTok{8}\NormalTok{]}
+
+\KeywordTok{names}\NormalTok{(x) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"pop93"}\NormalTok{, }\StringTok{"white93"}\NormalTok{, }\StringTok{"black93"}\NormalTok{, }\StringTok{"native93"}\NormalTok{, }
+    \StringTok{"asian93"}\NormalTok{, }\StringTok{"other93"}\NormalTok{, }\StringTok{"concentration93"}\NormalTok{)}
+\KeywordTok{names}\NormalTok{(y) =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"id"}\NormalTok{, }\StringTok{"pop94"}\NormalTok{, }\StringTok{"white94"}\NormalTok{, }\StringTok{"black94"}\NormalTok{, }\StringTok{"native94"}\NormalTok{, }
+    \StringTok{"asian94"}\NormalTok{, }\StringTok{"other94"}\NormalTok{, }\StringTok{"concentration94"}\NormalTok{)}
+
+\NormalTok{x =}\StringTok{ }\KeywordTok{merge}\NormalTok{(x, y, }\DataTypeTok{by =} \StringTok{"id"}\NormalTok{)}
+
+\NormalTok{z =}\StringTok{ }\NormalTok{(x$concentration94 *}\StringTok{ }\NormalTok{(x$black94/}\KeywordTok{sum}\NormalTok{(x$black94))) -}\StringTok{ }\NormalTok{(x$concentration93 *}\StringTok{ }
+\StringTok{    }\NormalTok{(x$black93/}\KeywordTok{sum}\NormalTok{(x$black93)))}
+
+\KeywordTok{ggplot}\NormalTok{(x) +}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \NormalTok{concentration93, }\DataTypeTok{y =} \NormalTok{concentration94))}
+\end{Highlighting}
+\end{Shaded}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-6-1.pdf}
 
 \chapter{Results}\label{organization}
 
@@ -630,11 +720,11 @@ testing testing
 
 \appendix
 
-\chapter{Code Appendix}\label{code-appendix}
+\chapter{The First Appendix}\label{the-first-appendix}
 
-This appendix includes all of the R chunks of code that were hidden
-throughout the document (using the \texttt{include\ =\ FALSE} chunk tag)
-to help with readibility and/or setup.
+This first appendix includes all of the R chunks of code that were
+hidden throughout the document (using the \texttt{include\ =\ FALSE}
+chunk tag) to help with readibility and/or setup.
 
 \textbf{In the main Rmd file}
 \begin{Shaded}
@@ -652,16 +742,16 @@ to help with readibility and/or setup.
 \KeywordTok{library}\NormalTok{(ggplot2)}
 \KeywordTok{library}\NormalTok{(dplyr)}
 \KeywordTok{library}\NormalTok{(plyr)}
+\KeywordTok{library}\NormalTok{(stringr)}
 \KeywordTok{library}\NormalTok{(spatstat)}
-\KeywordTok{library}\NormalTok{(choroplethrMaps)}
-\KeywordTok{library}\NormalTok{(choroplethr)}
+\KeywordTok{library}\NormalTok{(readr)}
 \KeywordTok{library}\NormalTok{(tidyr)}
 \KeywordTok{library}\NormalTok{(devtools)}
 \NormalTok{devtools::}\KeywordTok{install_github}\NormalTok{(}\StringTok{"amd112/rseiAnalysis"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 \begin{verbatim}
-Skipping install of 'rseiAnalysis' from a github remote, the SHA1 (fdcd8196) has not changed since last install.
+Skipping install of 'rseiAnalysis' from a github remote, the SHA1 (19dfcc35) has not changed since last install.
   Use `force = TRUE` to force installation
 \end{verbatim}
 \begin{Shaded}
@@ -673,6 +763,9 @@ Skipping install of 'rseiAnalysis' from a github remote, the SHA1 (fdcd8196) has
 \end{Highlighting}
 \end{Shaded}
 \textbf{In Chapter \ref{ref-labels}:}
+
+\chapter{The Second Appendix, for
+Fun}\label{the-second-appendix-for-fun}
 
 \backmatter
 
