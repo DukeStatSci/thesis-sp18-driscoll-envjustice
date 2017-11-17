@@ -1,0 +1,84 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11503079
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Census 2010
+Dataset:          Social Explorer Tables
+Tables:
+
+      1. Race
+         Universe:  Total population
+         Name:      T54
+         Variables:
+            T054_001:   Total population:
+            T054_002:      White alone
+            T054_003:      Black or African American alone
+            T054_004:      American Indian and Alaska Native alone
+            T054_005:      Asian alone
+            T054_006:      Native Hawaiian and Other Pacific Islander alone
+            T054_007:      Some Other Race alone
+            T054_008:      Two or More Races
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      NAME:           Area Name-Legal/Statistical Area Description
+      QName:          Qualifying Name
+      FIPS:           FIPS
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      STATE:          State (FIPS)
+      COUNTY:         County
+      COUNTYSC:       County Size Code
+      COUSUB:         County Subdivision (FIPS)
+      TRACT:          Census Tract
+      T054_001:       Total population
+      T054_002:       Total population: White alone
+      T054_003:       Total population: Black or African American alone
+      T054_004:       Total population: American Indian and Alaska Native alone
+      T054_005:       Total population: Asian alone
+      T054_006:       Total population: Native Hawaiian and Other Pacific Islander alone
+      T054_007:       Total population: Some Other Race alone
+      T054_008:       Total population: Two or More Races
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11503079
+
+If you have any questions contact info@socialexplorer.com

@@ -1,0 +1,203 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11522326
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           ACS 2012 (5-Year Estimates)
+Dataset:          Social Explorer Tables:  ACS 2012 (5-Year Estimates)
+Tables:
+
+      1. Poverty Status in 2012 (White Alone)
+         Universe:  White Alone Population for whom poverty status Is determined
+         Name:      T119
+         Variables:
+            T119_001:   White Alone Population for whom poverty status Is  determined:
+            T119_002:      Income in 2012 below poverty level
+            T119_003:      Income in 2012 at or above poverty level
+
+
+      2. Poverty Status in 2012 (Black or African American Alone)
+         Universe:  Black or African American Alone Population for whom poverty status Is determined
+         Name:      T120
+         Variables:
+            T120_001:   Black or African American Alone Population for  whom poverty status Is determined:
+            T120_002:      Income in 2012 below poverty level
+            T120_003:      Income in 2012 at or above poverty level
+
+
+      3. Poverty Status in 2012 (American Indian and Alaska Native Alone)
+         Universe:  American Indian and Alaska Native Alone Population for whom poverty status Is determined
+         Name:      T121
+         Variables:
+            T121_001:   American Indian and Alaska Native Alone  Population for whom poverty status Is determined:
+            T121_002:      Income in 2012 below poverty level
+            T121_003:      Income in 2012 at or above poverty level
+
+
+      4. Poverty Status in 2012 (Asian Alone)
+         Universe:  Asian Alone Population for whom poverty status Is determined
+         Name:      T122
+         Variables:
+            T122_001:   Asian Alone Population for whom poverty status Is  determined:
+            T122_002:      Income in 2012 below poverty level
+            T122_003:      Income in 2012 at or above poverty level
+
+
+      5. Poverty Status in 2012 (Native Hawaiian and Other Pacific Islander Alone)
+         Universe:  Native Hawaiian and Other Pacific Islander Alone Population for whom poverty status Is determined
+         Name:      T123
+         Variables:
+            T123_001:   Native Hawaiian and Other Pacific Islander Alone  Population for whom poverty status Is determined:
+            T123_002:      Income in 2012 below poverty level
+            T123_003:      Income in 2012 at or above poverty level
+
+
+      6. Poverty Status in 2012 (Some Other Race Alone)
+         Universe:  Some Other Race Alone Population for whom poverty status Is determined
+         Name:      T124
+         Variables:
+            T124_001:   Some Other Race Alone Population for whom poverty  status Is determined:
+            T124_002:      Income in 2012 below poverty level
+            T124_003:      Income in 2012 at or above poverty level
+
+
+      7. Poverty Status in 2012 (Two or More Races)
+         Universe:  Two or More races Population for whom poverty status Is determined
+         Name:      T125
+         Variables:
+            T125_001:   Two or More races Population for whom poverty  status Is determined:
+            T125_002:      Income in 2012 below poverty level
+            T125_003:      Income in 2012 at or above poverty level
+
+
+      8. Poverty Status in 2012 (Hispanic or Latino)
+         Universe:  Hispanic or Latino Population for whom poverty status Is determined
+         Name:      T126
+         Variables:
+            T126_001:   Hispanic or Latino Population for whom poverty  status Is determined:
+            T126_002:      Income in 2012 below poverty level
+            T126_003:      Income in 2012 at or above poverty level
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      FIPS:           FIPS
+      GEOID:          Geographic Identifier
+      NAME:           Name of Area
+      QName:          Qualifying Name
+      STUSAB:         State/U.S.-Abbreviation (USPS)
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      FILEID:         File Identification
+      LOGRECNO:       Logical Record Number
+      US:             US
+      REGION:         Region
+      DIVISION:       Division
+      STATECE:        State (Census Code)
+      STATE:          State (FIPS)
+      COUNTY:         County
+      COUSUB:         County Subdivision (FIPS)
+      PLACE:          Place (FIPS Code)
+      PLACESE:        Place (State FIPS + Place FIPS)
+      TRACT:          Census Tract
+      BLKGRP:         Block Group
+      CONCIT:         Consolidated City
+      AIANHH:         American Indian Area/Alaska Native Area/Hawaiian Home Land (Census)
+      AIANHHFP:       American Indian Area/Alaska Native Area/Hawaiian Home Land (FIPS)
+      AIHHTLI:        American Indian Trust Land/Hawaiian Home Land Indicator
+      AITSCE:         American Indian Tribal Subdivision (Census)
+      AITS:           American Indian Tribal Subdivision (FIPS)
+      ANRC:           Alaska Native Regional Corporation (FIPS)
+      CBSA:           Metropolitan and Micropolitan Statistical Area
+      CSA:            Combined Statistical Area
+      METDIV:         Metropolitan Division
+      MACC:           Metropolitan Area Central City
+      MEMI:           Metropolitan/Micropolitan Indicator Flag
+      NECTA:          New England City and Town Combined Statistical Area
+      CNECTA:         New England City and Town Area
+      NECTADIV:       New England City and Town Area Division
+      UA:             Urban Area
+      UACP:           Urban Area Central Place
+      CDCURR:         Current Congressional District ***
+      SLDU:           State Legislative District Upper
+      SLDL:           State Legislative District Lower
+      VTD:            Voting District
+      ZCTA3:          ZIP Code Tabulation Area (3-digit)
+      ZCTA5:          ZIP Code Tabulation Area (5-digit)
+      SUBMCD:         Subbarrio (FIPS)
+      SDELM:          School District (Elementary)
+      SDSEC:          School District (Secondary)
+      SDUNI:          School District (Unified)
+      UR:             Urban/Rural
+      PCI:            Principal City Indicator
+      TAZ:            Traffic Analysis Zone
+      UGA:            Urban Growth Area
+      BTTR:           Tribal Tract
+      BTBG:           Tribal Block Group
+      PUMA5:          Public Use Microdata Area - 5% File
+      PUMA1:          Public Use Microdata Area - 1% File
+      T119_001:       White Alone Population for whom poverty status Is  determined:
+      T119_002:       White Alone Population for whom poverty status Is  determined: Income in 2012 below poverty level
+      T119_003:       White Alone Population for whom poverty status Is  determined: Income in 2012 at or above poverty level
+      T120_001:       Black or African American Alone Population for  whom<br /> poverty status Is determined:
+      T120_002:       Black or African American Alone Population for  whom<br /> poverty status Is determined: Income in 2012 below poverty level
+      T120_003:       Black or African American Alone Population for  whom<br /> poverty status Is determined: Income in 2012 at or above poverty level
+      T121_001:       American Indian and Alaska Native Alone  Population for<br /> whom poverty status Is determined:
+      T121_002:       American Indian and Alaska Native Alone  Population for<br /> whom poverty status Is determined: Income in 2012 below poverty level
+      T121_003:       American Indian and Alaska Native Alone  Population for<br /> whom poverty status Is determined: Income in 2012 at or above poverty level
+      T122_001:       Asian Alone Population for whom poverty status Is  determined:
+      T122_002:       Asian Alone Population for whom poverty status Is  determined: Income in 2012 below poverty level
+      T122_003:       Asian Alone Population for whom poverty status Is  determined: Income in 2012 at or above poverty level
+      T123_001:       Native Hawaiian and Other Pacific Islander Alone <br /> Population for whom poverty status Is determined:
+      T123_002:       Native Hawaiian and Other Pacific Islander Alone <br /> Population for whom poverty status Is determined: Income in 2012 below poverty level
+      T123_003:       Native Hawaiian and Other Pacific Islander Alone <br /> Population for whom poverty status Is determined: Income in 2012 at or above poverty level
+      T124_001:       Some Other Race Alone Population for whom poverty  status Is determined:
+      T124_002:       Some Other Race Alone Population for whom poverty  status Is determined: Income in 2012 below poverty level
+      T124_003:       Some Other Race Alone Population for whom poverty  status Is determined: Income in 2012 at or above poverty level
+      T125_001:       Two or More races Population for whom poverty  status Is determined:
+      T125_002:       Two or More races Population for whom poverty  status Is determined: Income in 2012 below poverty level
+      T125_003:       Two or More races Population for whom poverty  status Is determined: Income in 2012 at or above poverty level
+      T126_001:       Hispanic or Latino Population for whom poverty  status Is determined:
+      T126_002:       Hispanic or Latino Population for whom poverty  status Is determined: Income in 2012 below poverty level
+      T126_003:       Hispanic or Latino Population for whom poverty  status Is determined: Income in 2012 at or above poverty level
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11522326
+
+If you have any questions contact info@socialexplorer.com

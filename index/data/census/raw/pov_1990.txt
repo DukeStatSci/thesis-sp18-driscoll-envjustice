@@ -1,0 +1,94 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11522328
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Census 1990
+Dataset:          Social Explorer - Custom tables made from STF1 and STF3
+Tables:
+
+      1. Poverty Status In 1989 By Race
+         Universe:  Persons for whom poverty status is determined
+         Name:      T99
+         Variables:
+            T099_001:   Persons for whom poverty status is determined:
+            T099_002:      Income in 1989 above poverty level:
+            T099_003:         White
+            T099_004:         Black
+            T099_005:         American Indian, Eskimo, or Aleut
+            T099_006:         Asian or Pacific Islander
+            T099_007:         Other race
+            T099_008:      Income in 1989 below poverty level:
+            T099_009:         White
+            T099_010:         Black
+            T099_011:         American Indian, Eskimo, or Aleut
+            T099_012:         Asian or Pacific Islander
+            T099_013:         Other race
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      NAME:           Area Name-Legal/Statistical Area Description (LSAD) Term-Part Indicator
+      QName:          Qualifying Name
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      REGION:         Region
+      DIVISION:       Division
+      FIPS:           FIPS
+      STATE:          State-FIPS
+      COUNTY:         County
+      TRACT:          Census Tract/Block Numbering Area
+      T099_001:       Persons for whom poverty status is determined
+      T099_002:       Persons for whom poverty status is determined: Income in 1989 above poverty level
+      T099_003:       Persons for whom poverty status is determined: Income in 1989 above poverty level: White
+      T099_004:       Persons for whom poverty status is determined: Income in 1989 above poverty level: Black
+      T099_005:       Persons for whom poverty status is determined: Income in 1989 above poverty level: American Indian, Eskimo, or Aleut
+      T099_006:       Persons for whom poverty status is determined: Income in 1989 above poverty level: Asian or Pacific Islander
+      T099_007:       Persons for whom poverty status is determined: Income in 1989 above poverty level: Other race
+      T099_008:       Persons for whom poverty status is determined: Income in 1989 below poverty level
+      T099_009:       Persons for whom poverty status is determined: Income in 1989 below poverty level: White
+      T099_010:       Persons for whom poverty status is determined: Income in 1989 below poverty level: Black
+      T099_011:       Persons for whom poverty status is determined: Income in 1989 below poverty level: American Indian, Eskimo, or Aleut
+      T099_012:       Persons for whom poverty status is determined: Income in 1989 below poverty level: Asian or Pacific Islander
+      T099_013:       Persons for whom poverty status is determined: Income in 1989 below poverty level: Other race
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11522328
+
+If you have any questions contact info@socialexplorer.com
