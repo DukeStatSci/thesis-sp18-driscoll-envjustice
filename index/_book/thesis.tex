@@ -193,8 +193,11 @@ policy that helps correct the problem of hazard allocation. A gap in the
 literature is the need for an investigation of the dynamic world of
 hazard allocation over time.
 
-\emph{what is natural sorting }How are env dumps created? *Breaking the
-self fulfilling cycle
+*what is natural sorting
+
+*How are env dumps created?
+
+*Breaking the self fulfilling cycle
 
 This thesis seeks to address the question of how the toxicity
 experienced by minority communities has changed. Specifically, we look
@@ -528,7 +531,7 @@ block group as the smallest form of geography, and state as the largest
 (including tract and county in between) we see how the distribution
 changes at each level of aggregation.
 
-\includegraphics{thesis_files/figure-latex/unnamed-chunk-1-1.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-2-1.pdf}
 
 As expected, the state level assignment is a poor approximation of the
 lower level assignments. Given that we are assigning each individual the
@@ -555,10 +558,10 @@ in the overall distribution.
 We expect the mean of minority distributions to reduce over time for two
 reasons: first we assume the entire distribution will slowly be shifting
 right as we see improvements in environmentally friendly production
-technology and improved envirnmental regulation. Secondly, we hope that
-with Title VI protetections, and the work of civil rights advocates,
-minority communities will better protected against the economic power
-frequently held by polluters.
+technology and more comprehensive envirnmental regulation. Secondly, we
+hope that with Title VI protetections, and the work of civil rights
+advocates, minority communities will better protected against the
+economic power frequently held by polluters.
 
 In order to track how minority distribution and the overall distribution
 have changed over the period of study, we use the positions that
@@ -591,8 +594,8 @@ simulated now represents where each individual or group would have been
 had there been no positional improvement for the group as a whole.
 
 If there had been improvement for a group, we would expect the simulated
-distributions to paint a much bleaker picture of the environmental
-burden borne than the true distribution of the ending year.
+distributions to paint a bleaker picture of the environmental burden
+borne than the true distribution of the ending year.
 
 \section{Temporal Level of Analysis}\label{temporal-level-of-analysis}
 
@@ -607,6 +610,14 @@ that we have snapshots of data from 1990, 2000, and continuous data for
 2010 on.
 
 \section{Trends Over Time}\label{trends-over-time}
+
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-2.pdf}
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-4-3.pdf}
+
+\subsection{Notes on Simulation}\label{notes-on-simulation}
+
+\includegraphics{thesis_files/figure-latex/unnamed-chunk-5-1.pdf}
 
 \chapter{Results}\label{organization}
 
@@ -650,13 +661,15 @@ to help with readibility and/or setup.
 \end{Highlighting}
 \end{Shaded}
 \begin{verbatim}
-Skipping install of 'rseiAnalysis' from a github remote, the SHA1 (25a31935) has not changed since last install.
+Skipping install of 'rseiAnalysis' from a github remote, the SHA1 (fdcd8196) has not changed since last install.
   Use `force = TRUE` to force installation
 \end{verbatim}
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(}\StringTok{"rseiAnalysis"}\NormalTok{)}
 \CommentTok{# needed for RSEI}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{4012}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(data.table)}
 \end{Highlighting}
 \end{Shaded}
 \textbf{In Chapter \ref{ref-labels}:}

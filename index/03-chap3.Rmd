@@ -26,30 +26,32 @@ In choosing the level of aggregation at which to assign toxicity, in order to ba
 
 ```{r, echo = FALSE, fig.width=6, fig.height=3, message = FALSE}
 #import toxicity data
-bg2010 = read_csv("data/toxic_2010_2010_blockgroup.csv")
+bg2010 = read_csv("data/toxic/bg/toxic_2010_2010_blockgroup.csv")
 
 #import census data
-census_bg = read_csv("data/ecologicalFallacy/census_bg_race.csv", skip = 1)
-census_tract = read_csv("data/ecologicalFallacy/census_tract_race.csv", skip = 1)
-census_county = read_csv("data/ecologicalFallacy/census_county_race.csv", skip = 1)
-census_state = read_csv("data/ecologicalFallacy/census_state_race.csv", skip = 1)
+census_bg = fread("data/ecologicalFallacy/census_bg_race.csv", skip = 1)
+census_tract = fread("data/ecologicalFallacy/census_tract_race.csv")
+census_county = fread("data/ecologicalFallacy/census_county_race.csv", skip = 1)
+census_state = fread("data/ecologicalFallacy/census_state_race.csv", skip = 1)
 
 #munge census data
 census_bg = select(census_bg, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
 names(census_bg)  = c("fips", "total", "white", "black")
+census_bg$fips = str_pad(census_bg$fips, 12, pad = "0", "left")
 census_tract = select(census_tract, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
 names(census_tract)  = c("fips", "total", "white", "black")
 census_county = select(census_county, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
 names(census_county)  = c("fips", "total", "white", "black")
+census_county$fips = str_pad(census_county$fips, 5, pad = "0", side = "left")
 census_state = select(census_state, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
 names(census_state)  = c("fips", "total", "white", "black")
 
 #merge census and toxicity data
-tract2010 = aggregateGeography(bg2010, "tract")
+tract2010 = fread("data/ecologicalFallacy/toxic_2010_2010_tract.csv")
 tract2010 = merge(tract2010, census_tract, by.x = "block", by.y = "fips")
-county2010 = aggregateGeography(tract2010, "county")
+county2010 = fread("data/ecologicalFallacy/toxic_2010_2010_county.csv")
 county2010 = merge(county2010, census_county, by.x = "block", by.y = "fips")
-state2010 = aggregateGeography(county2010, "state")
+state2010 = fread("data/ecologicalFallacy/toxic_2010_2010_state.csv")
 state2010 = merge(state2010, census_state, by.x = "block", by.y = "fips")
 bg2010 = merge(bg2010, census_bg, by.x = "block", by.y = "fips")
 
@@ -75,7 +77,7 @@ overallperc = round(density_overall(black2010), 4)*100
 
 To examine the change of environmental burden over time for groups we first use a non-parametric simulation technique to tease apart the forces in play as each group's distribution changes over time. For any given value, the percentile it holds in a minority distribution is likely to be different from the percentile it holds in the overall distribution. For example, in 2010 the 75th percentile of the black distribution is `r black2010`, while that same value is the `r overallperc`th percentile in the overall distribution. 
 
-We expect the mean of minority distributions to reduce over time for two reasons: first we assume the entire distribution will slowly be shifting right as we see improvements in environmentally friendly production technology and improved envirnmental regulation. Secondly, we hope that with Title VI protetections, and the work of civil rights advocates, minority communities will better protected against the economic power frequently held by polluters. 
+We expect the mean of minority distributions to reduce over time for two reasons: first we assume the entire distribution will slowly be shifting right as we see improvements in environmentally friendly production technology and more comprehensive envirnmental regulation. Secondly, we hope that with Title VI protetections, and the work of civil rights advocates, minority communities will better protected against the economic power frequently held by polluters. 
 
 In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority groups held in the overall distribution at the start of the period of study to simulate how each group's distribution would have progressed through time assuming a static position in society at large. This simulation proceeds as follows:
 
@@ -91,7 +93,7 @@ In order to track how minority distribution and the overall distribution have ch
 
 Using this method we can hold constant the place each individual (and more broadly each group) holds in the overall distribution, but follow the changes in the distribution as a whole. The collection of values simulated now represents where each individual or group would have been had there been no positional improvement for the group as a whole.
 
-If there had been improvement for a group, we would expect the simulated distributions to paint a much bleaker picture of the environmental burden borne than the true distribution of the ending year. 
+If there had been improvement for a group, we would expect the simulated distributions to paint a bleaker picture of the environmental burden borne than the true distribution of the ending year. 
 
 ## Temporal Level of Analysis 
 
@@ -99,50 +101,155 @@ Given the layout of this non-parametric method, we can find the changes in posit
 
 ## Trends Over Time
 
-```{r, include = FALSE}
-t1990 <- read_csv("data/toxic_1990_1990_blockgroup.csv")
-t1990$block = substr(t1990$block, 2, 12)
-c1990 <- read_csv("data/LTDB_Std_1990_fullcount.csv")
-t1990 = merge(t1990, c1990, by.x = "block", by.y = "TRTID10")
-t1990$lconcentration = log(t1990$concentration)
-t1990 = select(t1990, block, lconcentration, concentration, POP90, NHWHT90, NHBLK90, HISP90, OWN90, RENT90, area)
-names(t1990) = c("block", "lconcentration", "concentration", "tot_pop", "white", "black", "hispanic", "owners", "renters", "area")
+```{r, echo = FALSE}
+get_race_perc = function(quant) {
+  temp = ddply(race_data, .(year), function(x) c(weighted.quantile(x$concentration, x$white/sum(x$white), quant), 
+                                                 weighted.quantile(x$concentration, x$black/sum(x$black), quant), 
+                                                 weighted.quantile(x$concentration, x$asian/sum(x$asian), quant), 
+                                                 weighted.quantile(x$concentration, x$native/sum(x$native), quant),
+                                                 weighted.quantile(x$concentration, x$other/sum(x$other), quant)))
+  return(temp)
+}
+get_pov_perc = function(quant) {
+   temp = ddply(pov_data, .(year), function(x) c(weighted.quantile(x$concentration, x$whiteh/sum(x$whiteh), quant),
+                                                 weighted.quantile(x$concentration, x$blackh/sum(x$blackh), quant), 
+                                                 weighted.quantile(x$concentration, x$asianh/sum(x$asianh), quant), 
+                                                 weighted.quantile(x$concentration, x$nativeh/sum(x$nativeh), quant),
+                                                 weighted.quantile(x$concentration, x$otherh/sum(x$otherh), quant),
+                                                 weighted.quantile(x$concentration, x$whitel/sum(x$whitel), quant), 
+                                                 weighted.quantile(x$concentration, x$blackl/sum(x$blackl), quant), 
+                                                 weighted.quantile(x$concentration, x$asianl/sum(x$asianl), quant), 
+                                                 weighted.quantile(x$concentration, x$nativel/sum(x$nativel), quant),
+                                                 weighted.quantile(x$concentration, x$otherl/sum(x$otherl), quant)))
+   names(temp) = c("year", "whiteh", "blackh", "asianh", "nativeh", "otherh", "whitel", "blackl", "asianl", "nativel", "otherl")
+   return(temp)
+}
 
-t2000 <- read_csv("data/toxic_2000_2010_blockgroup.csv")
-t2000 = aggregateGeography(t2000, "tract")
-c2000 <- read_csv("data/LTDB_Std_2000_fullcount.csv")
-t2000 = merge(t2000, c2000, by.x = "block", by.y = "TRTID10")
-t2000$lconcentration = log(t2000$concentration)
-t2000 = select(t2000, block, lconcentration, concentration, POP00, NHWHT00, NHBLK00, HISP00, OWN00, RENT00)
-names(t2000) = c("block", "lconcentration", "concentration", "tot_pop", "white", "black", "hispanic", "owners", "renters")
+perc05 = get_race_perc(0.05)
+perc50 = get_race_perc(0.50)
+perc95 = get_race_perc(0.95)
 
-t2010 <- read_csv("data/toxic_2010_2010_blockgroup.csv")
-t2010 = aggregateGeography(t2010, "tract")
-c2010 <- read_csv("data/LTDB_Std_2010_fullcount.csv", col_types = cols(tractid = col_character()))
-c2010$tractid = str_pad(c2010$tractid, 11, pad = "0")
-t2010 = merge(t2010, c2010, by.x = "block", by.y = "tractid")
-t2010$lconcentration = log(t2010$concentration)
-t2010 = select(t2010, block, lconcentration, concentration, pop10, nhwht10, nhblk10, hisp10, own10, rent10, area)
-names(t2010) = c("block", "lconcentration", "concentration", "tot_pop", "white", "black", "hispanic", "owners", "renters", "area")
+perc_pov_05 = get_pov_perc(0.05)
+perc_pov_50 = get_pov_perc(0.50)
+perc_pov_95 = get_pov_perc(0.95)
 
-#w_est, b_est, w_tru, b_tru
-t = nonParametricExtrapolate(t1990, t2010)
-w_est = t[[1]]
-b_est = t[[2]]
-w_tru = t[[3]]
-b_tru = t[[4]]
-ggplot() + geom_density(aes(w_tru), color = "orange", fill = "orange", alpha = 0.2) + geom_density(aes(b_tru), color = "cornflowerblue", fill = "cornflowerblue", alpha = 0.2) + xlim(-2, 16) + geom_density(aes(w_est), color = "red") + geom_density(aes(b_est), color = "blue")
+names_perc
+
+names(perc05)= c("year", "white", "black", "asian", "native", "other")
+names(perc50)= c("year", "white", "black", "asian", "native", "other")
+names(perc95)= c("year", "white", "black", "asian", "native", "other")
+
+perc05$sim = NA
+perc50$sim = NA
+perc95$sim = NA
+
+for (i in 1:nrow(perc05)){
+  year = perc05$year[i]
+  simulated = extrapolate(race_data[race_data$year == year, 1:11], race_data[race_data$year == 1990, 1:11], "black", n = 50000)
+  perc05$sim[i] = quantile(simulated, 0.05)
+  perc50$sim[i] = quantile(simulated, 0.50)
+  perc95$sim[i] = quantile(simulated, 0.95)
+}
+
+se_race_05 = read_csv("data/bootstrap_race_se_05.csv")
+se_race_50 = read_csv("data/bootstrap_race_se_50.csv")
+se_race_95 = read_csv("data/bootstrap_race_se_95.csv")
+
+perc05 = merge(perc05, se_race_05, by = "year")
+perc50 = merge(perc50, se_race_50, by = "year")
+perc95 = merge(perc95, se_race_95, by = "year")
+
+create_group_tox = function(cur_data, se) {
+  ggplot(data = cur_data) + 
+  geom_line(aes(x = year, y = white, color = "white")) +
+  geom_ribbon(aes(x = year, ymin = white-white_sd, ymax = white+white_sd, fill = "white"), alpha=0.2) + 
+  geom_line(aes(x = year, y = black, color = "black")) + 
+  geom_ribbon(aes(x = year, ymin = black-black_sd, ymax = black+black_sd, fill = "black"), alpha=0.2) +
+  geom_line(aes(x = year, y = native, color = "native")) + 
+  geom_ribbon(aes(x = year, ymin = native-native_sd, ymax = native+native_sd, fill = "native"), alpha=0.2) +
+  geom_line(aes(x = year, y = asian, color = "asian")) + 
+  geom_ribbon(aes(x = year, ymin = asian-asian_sd, ymax = asian+asian_sd, fill = "asian"), alpha=0.2) +
+  geom_line(aes(x = year, y = other, color = "other")) + 
+  geom_ribbon(aes(x = year, ymin = other-other_sd, ymax = other+other_sd, fill = "other"), alpha=0.2) +
+  geom_line(aes(x = year, y = sim, color = "simulated, black")) + 
+  geom_ribbon(aes(x = year, ymin = sim-se, ymax = sim+se, fill = "simulated, black"), alpha=0.2) +
+  labs(x = "Year", y = "Average Group Toxicity", fill = "Legend") + guides(color = FALSE)
+}
+
+create_relative_tox = function(data) {
+  ggplot(data) + 
+    geom_line(aes(x = year, y = (white/white), color = "baseline"))
+    geom_line(aes(x = year, y = (black/white), color = "black"))  +
+    geom_line(aes(x = year, y = (native/white), color = "native"))  +
+    geom_line(aes(x = year, y = (asian/white), color = "asian"))  +
+    geom_line(aes(x = year, y = (other/white), color = "other"))  +
+    geom_line(aes(x = year, y = (sim/white), color = "simulated, black")) + 
+    labs(x = "Year", y = "Group Toxicity Relative to White Distribution", colour = "Legend") 
+}
+
+create_group_tox(perc05, 1.3)
+create_group_tox(perc50, 74)
+create_group_tox(perc95, 2235)
+
+create_relative_tox(perc05)
+create_relative_tox(perc50)
+create_relative_tox(perc95)
+
+
+create_pov_tox = function(cur_data) {
+  ggplot(data = cur_data) + 
+  geom_line(aes(x = year, y = whiteh, color = "white, high")) +
+  geom_line(aes(x = year, y = blackh, color = "black, high")) + 
+  geom_line(aes(x = year, y = nativeh, color = "native, high")) + 
+  geom_line(aes(x = year, y = asianh, color = "asian, high")) + 
+  geom_line(aes(x = year, y = otherh, color = "other, high")) + 
+  geom_line(aes(x = year, y = whitel, color = "white, low")) +
+  geom_line(aes(x = year, y = blackl, color = "black, low")) + 
+  geom_line(aes(x = year, y = nativel, color = "native, low")) + 
+  geom_line(aes(x = year, y = asianl, color = "asian, low")) + 
+  geom_line(aes(x = year, y = otherl, color = "other, low")) + 
+  labs(x = "Year", y = "Average Group Toxicity", color = "Legend")
+}
+
+create_pov_tox(perc_pov_05)
+create_pov_tox(perc_pov_50)
+create_pov_tox(perc_pov_95)
 ```
 
-```{r, include = FALSE}
-vars = c("white", "black", "hispanic", "owners", "renters")
-p1990 = t1990
-p1990[vars] = p1990[vars]/p1990$tot_pop
-p1990$density = p1990$tot_pop/p1990$area
-m = lm(lconcentration ~ 1 + owners + renters + black + hispanic + density, data = p1990)
+###Notes on Simulation 
+```{r, echo = FALSE, warning = FALSE, fig.height = 5}
+sim_05 = read_csv("data/bootstrap_simulation_se_05.csv")
+sim_50 = read_csv("data/bootstrap_simulation_se_50.csv")
+sim_95 = read_csv("data/bootstrap_simulation_se_95.csv")
 
-p2010 = t2010
-p2010[vars] = p2010[vars]/p2010$tot_pop
-p2010$density = p2010$tot_pop/p2010$area
-m = lm(lconcentration ~ 1 + owners + renters + black + hispanic + density, data = p2010)
+ggplot() + 
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_05) +
+  geom_line(aes(x = n, y = mean), data = sim_05) +
+  labs(x = "Size of simulated group", y = "Simulated 5th Percentile", fill = "Variance of Simulation Percentile")
+
+ggplot() + 
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_50) +
+  geom_line(aes(x = n, y = mean), data = sim_50) +
+  labs(x = "Size of simulated group", y = "Simulated 50th Percentile", fill = "Variance of Simulation Percentile")
+
+ggplot() + 
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_95) +
+  geom_line(aes(x = n, y = mean), data = sim_95) +
+  labs(x = "Size of simulated group", y = "Simulated 95th Percentile", fill = "Variance of Simulation Percentile")
 ```
+```{r}
+#ggplot(race_data) + geom_line(aes(x = year, y = lconcentration, color = (black/pop), group = id), alpha = 0.3) + labs(x = "Year", colour = "% Black", title = "Toxicity Trend for all Census Tracts")
+
+x = race_data[race_data$year == 1993 & race_data$concentration < 400, 1:8]
+y = race_data[race_data$year == 1994 & race_data$concentration < 400, 1:8]
+
+names(x) = c("id", "pop93", "white93", "black93", "native93", "asian93", "other93", "concentration93")
+names(y) = c("id", "pop94", "white94", "black94", "native94", "asian94", "other94", "concentration94")
+
+x = merge(x, y, by = "id")
+
+z = (x$concentration94 * (x$black94/sum(x$black94))) - (x$concentration93 * (x$black93/sum(x$black93)))
+
+ggplot(x) + geom_point(aes(x = concentration93, y = concentration94))
+```
+

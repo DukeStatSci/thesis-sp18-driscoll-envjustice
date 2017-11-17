@@ -1,0 +1,85 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11503053
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Census 2000
+Dataset:          Social Explorer Tables (made from SF1 and SF3)
+Tables:
+
+      1. Race
+         Universe:  Total Population
+         Name:      T14
+         Variables:
+            T014_001:   Total Population:
+            T014_002:      White Alone
+            T014_003:      Black or African American Alone
+            T014_004:      American Indian and Alaska Native Alone
+            T014_005:      Asian Alone
+            T014_006:      Native Hawaiian and Other Pacific Islander Alone
+            T014_007:      Some other race Alone
+            T014_008:      Two or more races
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      NAME:           Area Name-Legal/Statistical Area Description
+      QName:          Qualifying Name
+      FIPS:           FIPS
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      STATECE:        State (Census)
+      STATE:          State (FIPS)
+      COUNTY:         County
+      COUNTYSC:       County Size Code
+      COUSUB:         County Subdivision (FIPS)
+      TRACT:          Census Tract
+      T014_001:       Total Population
+      T014_002:       White Alone
+      T014_003:       Black or African American Alone
+      T014_004:       American Indian and Alaska Native Alone
+      T014_005:       Asian Alone
+      T014_006:       Native Hawaiian and Other Pacific Islander Alone
+      T014_007:       Some other race Alone
+      T014_008:       Two or more races
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11503053
+
+If you have any questions contact info@socialexplorer.com
