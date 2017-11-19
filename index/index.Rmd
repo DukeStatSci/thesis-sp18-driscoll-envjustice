@@ -59,17 +59,15 @@ If you'd like to include a comment that won't be produced in your resulting file
 If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
 -->
 
-```{r include_packages, include = FALSE}
-# This chunk ensures that the thesisdowndss package is
-# installed and loaded. This thesisdowndss package includes
-# the template files for the thesis.
+```{r libraries, include_packages, include = FALSE}
 if(!require(devtools))
   install.packages("devtools", repos = "http://cran.rstudio.com")
 if(!require(thesisdowndss))
   devtools::install_github("mine-cetinkaya-rundel/thesisdowndss")
 library(thesisdowndss)
 library(knitr)
-opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+knitr::opts_chunk$set(fig.width=8, fig.height=5) 
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
 library(magrittr)
 library(readr)
 library(ggplot2)
@@ -87,7 +85,7 @@ set.seed(4012)
 library(data.table)
 ```
 
-```{r, include = FALSE}
+```{r readInData, include = FALSE}
 t1990 = as.data.frame(fread("data/toxic/tract/toxic_1990_2010_tract.csv", data.table = FALSE))
 t1991 = as.data.frame(fread("data/toxic/tract/toxic_1991_2010_tract.csv", data.table = FALSE))
 t1992 = as.data.frame(fread("data/toxic/tract/toxic_1992_2010_tract.csv", data.table = FALSE))
@@ -243,7 +241,7 @@ and 00-abstract.Rmd since they are handled in the YAML above differently for the
 on chapters.
 -->
 
-# Introduction {.unnumbered}
+# Abstract {.unnumbered}
 
 Environmental justice literature has focused largely on the motivations behind facility siting that lead to inequality and policy approaches to help fix the disproportionate burden of environmental hazards on minority communities. The questions being asked are critical to creating policy that helps correct the problem of hazard allocation. A gap in the literature is the need for an investigation of the dynamic world of hazard allocation over time. 
 

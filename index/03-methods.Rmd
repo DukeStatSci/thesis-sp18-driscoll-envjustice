@@ -26,7 +26,7 @@ In the case of the table above, to build a distribution for the white population
 
 In choosing the level of aggregation at which to assign toxicity, in order to balance the needs of accuracy of toxicity and availability of cross tabulations, we create the overall toxicity distribution for Americans at each of the levels of geography. The process described above can be excecuted with the data shown above, or at a cruder level of geography, such as state. Using block group as the smallest form of geography, and state as the largest (including tract and county in between) we see how the distribution changes at each level of aggregation. 
 
-```{r, echo = FALSE, fig.width=6, fig.height=3, message = FALSE}
+```{r ecologicalFallacy, echo = FALSE, fig.width=6, fig.height=3, message = FALSE}
 #import toxicity data
 bg2010 = read_csv("data/toxic/bg/toxic_2010_2010_blockgroup.csv")
 
@@ -70,7 +70,7 @@ g
 As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly the tract data seems to build a distribution very similar to the block group level assignment. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it lost the street block by street block variation that we had deemed so crucial, so aggregating several block groups gives us a conceptual equivalent 'neighborhood' level of aggregation. 
 
 ## Non-Parametric Analysis
-```{r, include = FALSE}
+```{r densityCalcs, include = FALSE}
 density_black = ewcdf(bg2010$concentration, weights = bg2010$black/sum(bg2010$black))
 black2010 = round(quantile(density_black, 0.75), 2)
 density_overall = ewcdf(bg2010$concentration, weights = bg2010$total/sum(bg2010$total))
@@ -103,7 +103,7 @@ Given the layout of this non-parametric method, we can find the changes in posit
 
 ## Trends Over Time
 
-```{r, echo = FALSE}
+```{r quantileCalcs, echo = FALSE, message = FALSE}
 get_race_perc = function(quant) {
   temp = ddply(race_data, .(year), function(x) c(weighted.quantile(x$concentration, x$white/sum(x$white), quant), 
                                                  weighted.quantile(x$concentration, x$black/sum(x$black), quant), 
@@ -143,13 +143,13 @@ perc05$sim = NA
 perc50$sim = NA
 perc95$sim = NA
 
-for (i in 1:nrow(perc05)){
-  year = perc05$year[i]
-  simulated = extrapolate(race_data[race_data$year == year, 1:11], race_data[race_data$year == 1990, 1:11], "black", n = 50000)
-  perc05$sim[i] = quantile(simulated, 0.05)
-  perc50$sim[i] = quantile(simulated, 0.50)
-  perc95$sim[i] = quantile(simulated, 0.95)
-}
+sim05 = read_csv("data/simulation05.csv")
+sim50 = read_csv("data/simulation50.csv")
+sim95 = read_csv("data/simulation95.csv")
+
+perc05 = merge(perc05, sim05, by = "year")
+perc50 = merge(perc50, sim50, by = "year")
+perc95 = merge(perc95, sim95, by = "year")
 
 se_race_05 = read_csv("data/bootstrap_race_se_05.csv")
 se_race_50 = read_csv("data/bootstrap_race_se_50.csv")
@@ -158,8 +158,10 @@ se_race_95 = read_csv("data/bootstrap_race_se_95.csv")
 perc05 = merge(perc05, se_race_05, by = "year")
 perc50 = merge(perc50, se_race_50, by = "year")
 perc95 = merge(perc95, se_race_95, by = "year")
+```
 
-create_group_tox = function(cur_data, se) {
+```{r plottingQuantiles, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
+create_group_tox = function(cur_data, se, perc) {
   ggplot(data = cur_data) + 
   geom_line(aes(x = year, y = white, color = "white")) +
   geom_ribbon(aes(x = year, ymin = white-white_sd, ymax = white+white_sd, fill = "white"), alpha=0.2) + 
@@ -171,32 +173,32 @@ create_group_tox = function(cur_data, se) {
   geom_ribbon(aes(x = year, ymin = asian-asian_sd, ymax = asian+asian_sd, fill = "asian"), alpha=0.2) +
   geom_line(aes(x = year, y = other, color = "other")) + 
   geom_ribbon(aes(x = year, ymin = other-other_sd, ymax = other+other_sd, fill = "other"), alpha=0.2) +
-  geom_line(aes(x = year, y = sim, color = "simulated, black")) + 
-  geom_ribbon(aes(x = year, ymin = sim-se, ymax = sim+se, fill = "simulated, black"), alpha=0.2) +
-  labs(x = "Year", y = "Average Group Toxicity", fill = "Legend") + guides(color = FALSE)
+  geom_line(aes(x = year, y = sim_b, color = "simulated, black")) + 
+  geom_ribbon(aes(x = year, ymin = sim_b-se, ymax = sim_b+se, fill = "simulated, black"), alpha=0.2) +
+  labs(x = "Year", y = paste0(perc, "th Percentile Group Toxicity"), fill = "Legend") + guides(color = FALSE)
 }
 
-create_relative_tox = function(data) {
+create_relative_tox = function(data, perc) {
   ggplot(data) + 
     geom_line(aes(x = year, y = (white/white), color = "baseline")) +
     geom_line(aes(x = year, y = (black/white), color = "black"))  +
     geom_line(aes(x = year, y = (native/white), color = "native")) +
     geom_line(aes(x = year, y = (asian/white), color = "asian")) +
     geom_line(aes(x = year, y = (other/white), color = "other")) +
-    geom_line(aes(x = year, y = (sim/white), color = "simulated, black")) + 
-    labs(x = "Year", y = "Group Toxicity Relative to White Distribution", colour = "Legend") 
+    geom_line(aes(x = year, y = (sim_b/white), color = "simulated, black")) + 
+    labs(x = "Year", y = paste0("Group ", perc, "th Percentile Toxicity Relative to White Distribution"), colour = "Legend") 
 }
 
-create_group_tox(perc05, 1.3)
-create_group_tox(perc50, 74)
-create_group_tox(perc95, 2235)
+create_group_tox(perc05, 1.3, 5)
+create_group_tox(perc50, 74, 50)
+create_group_tox(perc95, 2235, 95)
 
-create_relative_tox(perc05)
-create_relative_tox(perc50)
-create_relative_tox(perc95)
+create_relative_tox(perc05, 5)
+create_relative_tox(perc50, 50)
+create_relative_tox(perc95, 95)
 
 
-create_pov_tox = function(cur_data) {
+create_pov_tox = function(cur_data, perc) {
   ggplot(data = cur_data) + 
   geom_line(aes(x = year, y = whiteh, color = "white, high")) +
   geom_line(aes(x = year, y = blackh, color = "black, high")) + 
@@ -208,16 +210,16 @@ create_pov_tox = function(cur_data) {
   geom_line(aes(x = year, y = nativel, color = "native, low")) + 
   geom_line(aes(x = year, y = asianl, color = "asian, low")) + 
   geom_line(aes(x = year, y = otherl, color = "other, low")) + 
-  labs(x = "Year", y = "Average Group Toxicity", color = "Legend")
+  labs(x = "Year", y = paste0(perc, "th Percentile Group Toxicity"), color = "Legend")
 }
 
-create_pov_tox(perc_pov_05)
-create_pov_tox(perc_pov_50)
-create_pov_tox(perc_pov_95)
+create_pov_tox(perc_pov_05, 5)
+create_pov_tox(perc_pov_50, 50)
+create_pov_tox(perc_pov_95, 95)
 ```
 
 ###Notes on Simulation 
-```{r, echo = FALSE, warning = FALSE, fig.height = 5}
+```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=4}
 sim_05 = read_csv("data/bootstrap_simulation_se_05.csv")
 sim_50 = read_csv("data/bootstrap_simulation_se_50.csv")
 sim_95 = read_csv("data/bootstrap_simulation_se_95.csv")
@@ -237,7 +239,8 @@ ggplot() +
   geom_line(aes(x = n, y = mean), data = sim_95) +
   labs(x = "Size of simulated group", y = "Simulated 95th Percentile", fill = "Variance of Simulation Percentile")
 ```
-```{r}
+
+```{r, echo = FALSE}
 #ggplot(race_data) + geom_line(aes(x = year, y = lconcentration, color = (black/pop), group = id), alpha = 0.3) + labs(x = "Year", colour = "% Black", title = "Toxicity Trend for all Census Tracts")
 
 x = race_data[race_data$year == 1993 & race_data$concentration < 400, 1:8]
@@ -250,5 +253,5 @@ x = merge(x, y, by = "id")
 
 z = (x$concentration94 * (x$black94/sum(x$black94))) - (x$concentration93 * (x$black93/sum(x$black93)))
 
-ggplot(x) + geom_point(aes(x = concentration93, y = concentration94))
+#ggplot(x) + geom_point(aes(x = concentration93, y = concentration94))
 ```
