@@ -1,2 +1,120 @@
 # Results {#organization}
 
+
+## Trends Over Time
+
+```{r quantileCalcs, echo = FALSE, message = FALSE}
+library(plyr)
+get_race_perc = function(quant) {
+  temp = ddply(race_data, .(year), function(x) c(weighted.quantile(x$concentration, x$white/sum(x$white), quant), 
+                                                 weighted.quantile(x$concentration, x$black/sum(x$black), quant), 
+                                                 weighted.quantile(x$concentration, x$asian/sum(x$asian), quant), 
+                                                 weighted.quantile(x$concentration, x$native/sum(x$native), quant),
+                                                 weighted.quantile(x$concentration, x$other/sum(x$other), quant)))
+  return(temp)
+}
+get_pov_perc = function(quant) {
+   temp = ddply(pov_data, .(year), function(x) c(weighted.quantile(x$concentration, x$whiteh/sum(x$whiteh), quant),
+                                                 weighted.quantile(x$concentration, x$blackh/sum(x$blackh), quant), 
+                                                 weighted.quantile(x$concentration, x$asianh/sum(x$asianh), quant), 
+                                                 weighted.quantile(x$concentration, x$nativeh/sum(x$nativeh), quant),
+                                                 weighted.quantile(x$concentration, x$otherh/sum(x$otherh), quant),
+                                                 weighted.quantile(x$concentration, x$whitel/sum(x$whitel), quant), 
+                                                 weighted.quantile(x$concentration, x$blackl/sum(x$blackl), quant), 
+                                                 weighted.quantile(x$concentration, x$asianl/sum(x$asianl), quant), 
+                                                 weighted.quantile(x$concentration, x$nativel/sum(x$nativel), quant),
+                                                 weighted.quantile(x$concentration, x$otherl/sum(x$otherl), quant)))
+   names(temp) = c("year", "whiteh", "blackh", "asianh", "nativeh", "otherh", "whitel", "blackl", "asianl", "nativel", "otherl")
+   return(temp)
+}
+
+perc05 = get_race_perc(0.05)
+perc50 = get_race_perc(0.50)
+perc95 = get_race_perc(0.95)
+
+perc_pov_05 = get_pov_perc(0.05)
+perc_pov_50 = get_pov_perc(0.50)
+perc_pov_95 = get_pov_perc(0.95)
+
+names(perc05)= c("year", "white", "black", "asian", "native", "other")
+names(perc50)= c("year", "white", "black", "asian", "native", "other")
+names(perc95)= c("year", "white", "black", "asian", "native", "other")
+
+perc05$sim = NA
+perc50$sim = NA
+perc95$sim = NA
+
+sim05 = read_csv("data/simulation05.csv")
+sim50 = read_csv("data/simulation50.csv")
+sim95 = read_csv("data/simulation95.csv")
+
+perc05 = merge(perc05, sim05, by = "year")
+perc50 = merge(perc50, sim50, by = "year")
+perc95 = merge(perc95, sim95, by = "year")
+
+se_race_05 = read_csv("data/bootstrap_race_se_05.csv")
+se_race_50 = read_csv("data/bootstrap_race_se_50.csv")
+se_race_95 = read_csv("data/bootstrap_race_se_95.csv")
+
+perc05 = merge(perc05, se_race_05, by = "year")
+perc50 = merge(perc50, se_race_50, by = "year")
+perc95 = merge(perc95, se_race_95, by = "year")
+```
+
+```{r plottingQuantiles, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
+create_group_tox = function(cur_data, se, perc) {
+  ggplot(data = cur_data) + 
+  geom_line(aes(x = year, y = white, color = "white")) +
+  geom_ribbon(aes(x = year, ymin = white-white_sd, ymax = white+white_sd, fill = "white"), alpha=0.2) + 
+  geom_line(aes(x = year, y = black, color = "black")) + 
+  geom_ribbon(aes(x = year, ymin = black-black_sd, ymax = black+black_sd, fill = "black"), alpha=0.2) +
+  geom_line(aes(x = year, y = native, color = "native")) + 
+  geom_ribbon(aes(x = year, ymin = native-native_sd, ymax = native+native_sd, fill = "native"), alpha=0.2) +
+  geom_line(aes(x = year, y = asian, color = "asian")) + 
+  geom_ribbon(aes(x = year, ymin = asian-asian_sd, ymax = asian+asian_sd, fill = "asian"), alpha=0.2) +
+  geom_line(aes(x = year, y = other, color = "other")) + 
+  geom_ribbon(aes(x = year, ymin = other-other_sd, ymax = other+other_sd, fill = "other"), alpha=0.2) +
+  geom_line(aes(x = year, y = sim_b, color = "simulated, black")) + 
+  geom_ribbon(aes(x = year, ymin = sim_b-se, ymax = sim_b+se, fill = "simulated, black"), alpha=0.2) +
+  labs(x = "Year", y = "Toxicity", title = paste0(perc, "th Percentile Group Toxicity"), fill = "Legend") + guides(color = FALSE)
+}
+
+create_relative_tox = function(data, perc) {
+  ggplot(data) + 
+    geom_line(aes(x = year, y = (white/white), color = "baseline")) +
+    geom_line(aes(x = year, y = (black/white), color = "black"))  +
+    geom_line(aes(x = year, y = (native/white), color = "native")) +
+    geom_line(aes(x = year, y = (asian/white), color = "asian")) +
+    geom_line(aes(x = year, y = (other/white), color = "other")) +
+    geom_line(aes(x = year, y = (sim_b/white), color = "simulated, black")) + 
+    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0("Group ", perc, "th Percentile Toxicity Relative to White Distribution"), colour = "Legend") 
+}
+
+create_group_tox(perc05, 1.3, 5)
+create_group_tox(perc50, 74, 50)
+create_group_tox(perc95, 2235, 95)
+
+create_relative_tox(perc05, 5)
+create_relative_tox(perc50, 50)
+create_relative_tox(perc95, 95)
+
+
+create_pov_tox = function(cur_data, perc) {
+  ggplot(data = cur_data) + 
+  geom_line(aes(x = year, y = whiteh, color = "white, high")) +
+  geom_line(aes(x = year, y = blackh, color = "black, high")) + 
+  geom_line(aes(x = year, y = nativeh, color = "native, high")) + 
+  geom_line(aes(x = year, y = asianh, color = "asian, high")) + 
+  geom_line(aes(x = year, y = otherh, color = "other, high")) + 
+  geom_line(aes(x = year, y = whitel, color = "white, low")) +
+  geom_line(aes(x = year, y = blackl, color = "black, low")) + 
+  geom_line(aes(x = year, y = nativel, color = "native, low")) + 
+  geom_line(aes(x = year, y = asianl, color = "asian, low")) + 
+  geom_line(aes(x = year, y = otherl, color = "other, low")) + 
+  labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th Percentile Group Toxicity"), color = "Legend")
+}
+
+create_pov_tox(perc_pov_05, 5)
+create_pov_tox(perc_pov_50, 50)
+create_pov_tox(perc_pov_95, 95)
+```

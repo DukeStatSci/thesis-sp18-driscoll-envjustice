@@ -66,7 +66,7 @@
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Abstract</a><ul>
 <li class="chapter" data-level="0.0.1" data-path="index.html"><a href="index.html#keywords"><i class="fa fa-check"></i><b>0.0.1</b> Keywords</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-env-justice.html"><a href="1-env-justice.html"><i class="fa fa-check"></i><b>1</b> Introduction to Environmental Justice</a></li>
+<li class="chapter" data-level="1" data-path="1-env-justice.html"><a href="1-env-justice.html"><i class="fa fa-check"></i><b>1</b> Environmental Justice Literature</a></li>
 <li class="chapter" data-level="2" data-path="2-math.html"><a href="2-math.html"><i class="fa fa-check"></i><b>2</b> Data</a><ul>
 <li class="chapter" data-level="2.1" data-path="2-math.html"><a href="2-math.html#raw-data"><i class="fa fa-check"></i><b>2.1</b> Raw Data</a></li>
 <li class="chapter" data-level="2.2" data-path="2-math.html"><a href="2-math.html#important-caveats"><i class="fa fa-check"></i><b>2.2</b> Important Caveats</a></li>
@@ -79,13 +79,14 @@
 </ul></li>
 <li class="chapter" data-level="3" data-path="3-ref-labels.html"><a href="3-ref-labels.html"><i class="fa fa-check"></i><b>3</b> Approaches and Methods</a><ul>
 <li class="chapter" data-level="3.1" data-path="3-ref-labels.html"><a href="3-ref-labels.html#geographic-level-of-analysis"><i class="fa fa-check"></i><b>3.1</b> Geographic Level of Analysis</a></li>
-<li class="chapter" data-level="3.2" data-path="3-ref-labels.html"><a href="3-ref-labels.html#non-parametric-analysis"><i class="fa fa-check"></i><b>3.2</b> Non-Parametric Analysis</a></li>
-<li class="chapter" data-level="3.3" data-path="3-ref-labels.html"><a href="3-ref-labels.html#temporal-level-of-analysis"><i class="fa fa-check"></i><b>3.3</b> Temporal Level of Analysis</a></li>
-<li class="chapter" data-level="3.4" data-path="3-ref-labels.html"><a href="3-ref-labels.html#trends-over-time"><i class="fa fa-check"></i><b>3.4</b> Trends Over Time</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="3-ref-labels.html"><a href="3-ref-labels.html#notes-on-simulation"><i class="fa fa-check"></i><b>3.4.1</b> Notes on Simulation</a></li>
+<li class="chapter" data-level="3.2" data-path="3-ref-labels.html"><a href="3-ref-labels.html#temporal-level-of-analysis"><i class="fa fa-check"></i><b>3.2</b> Temporal Level of Analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="3-ref-labels.html"><a href="3-ref-labels.html#simulation"><i class="fa fa-check"></i><b>3.3</b> Simulation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3-ref-labels.html"><a href="3-ref-labels.html#simulation-accuracy"><i class="fa fa-check"></i><b>3.3.1</b> Simulation Accuracy</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-organization.html"><a href="4-organization.html"><i class="fa fa-check"></i><b>4</b> Results</a></li>
+<li class="chapter" data-level="4" data-path="4-organization.html"><a href="4-organization.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-organization.html"><a href="4-organization.html#trends-over-time"><i class="fa fa-check"></i><b>4.1</b> Trends Over Time</a></li>
+</ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A-the-first-appendix.html"><a href="A-the-first-appendix.html"><i class="fa fa-check"></i><b>A</b> The First Appendix</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -185,9 +186,14 @@
 <p><img src="thesis_files/figure-html/ecologicalFallacy-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly the tract data seems to build a distribution very similar to the block group level assignment. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it lost the street block by street block variation that we had deemed so crucial, so aggregating several block groups gives us a conceptual equivalent ‘neighborhood’ level of aggregation.</p>
 </div>
-<div id="non-parametric-analysis" class="section level2">
-<h2><span class="header-section-number">3.2</span> Non-Parametric Analysis</h2>
-<p>To examine the change of environmental burden over time for groups we first use a non-parametric simulation technique to tease apart the forces in play as each group’s distribution changes over time. For any given value, the percentile it holds in a minority distribution is likely to be different from the percentile it holds in the overall distribution. For example, in 2010 the 75th percentile of the black distribution is 2528.45, while that same value is the 81.44th percentile in the overall distribution.</p>
+<div id="temporal-level-of-analysis" class="section level2">
+<h2><span class="header-section-number">3.2</span> Temporal Level of Analysis</h2>
+<p>Given the layout of this non-parametric method, we can find the changes in positional distribution for any two given years. Though we are most interested in the complete change from the starting year of 1988 to 2014, as that is the data we have, the gradual changes and the speed of change from year to year is also of interest. While we have the full range of data from 1988 to 2014 for the toxicity data, we only have available Census data from the decennial census and the ACS. That means that we have snapshots of data from 1990, 2000, and continuous data for 2010 on.</p>
+<p>In order to do a continuous analysis from 1990 until the most recent toxicity data (2014), we chose to use linear interpolation between the decenial census. For current data, we use the 5 year ACS sample.</p>
+</div>
+<div id="simulation" class="section level2">
+<h2><span class="header-section-number">3.3</span> Simulation</h2>
+<p>To examine the change of environmental burden over time for groups we first use simulation to tease apart the forces in play as each group’s distribution changes over time. For any given value, the percentile it holds in a minority distribution is likely to be different from the percentile it holds in the overall distribution. For example, in 2010 the 75th percentile of the black distribution is 2528.45, while that same value is the 81.44th percentile in the overall distribution.</p>
 <p>We expect the mean of minority distributions to reduce over time for two reasons: first we assume the entire distribution will slowly be shifting right as we see improvements in environmentally friendly production technology and more comprehensive envirnmental regulation. Secondly, we hope that with Title VI protetections, and the work of civil rights advocates, minority communities will better protected against the economic power frequently held by polluters.</p>
 <p>In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority groups held in the overall distribution at the start of the period of study to simulate how each group’s distribution would have progressed through time assuming a static position in society at large. This simulation proceeds as follows:</p>
 <ul>
@@ -199,16 +205,9 @@
 </ul>
 <p>Using this method we can hold constant the place each individual (and more broadly each group) holds in the overall distribution, but follow the changes in the distribution as a whole. The collection of values simulated now represents where each individual or group would have been had there been no positional improvement for the group as a whole.</p>
 <p>If there had been improvement for a group, we would expect the simulated distributions to paint a bleaker picture of the environmental burden borne than the true distribution of the ending year.</p>
-</div>
-<div id="temporal-level-of-analysis" class="section level2">
-<h2><span class="header-section-number">3.3</span> Temporal Level of Analysis</h2>
-<p>Given the layout of this non-parametric method, we can find the changes in positional distribution for any two given years. Though we are most interested in the complete change from the starting year of 1988 to 2014, as that is the data we have, the gradual changes and the speed of change from year to year is also of interest. While we have the full range of data from 1988 to 2014 for the toxicity data, we only have available Census data from the decennial census and the ACS. That means that we have snapshots of data from 1990, 2000, and continuous data for 2010 on.</p>
-</div>
-<div id="trends-over-time" class="section level2">
-<h2><span class="header-section-number">3.4</span> Trends Over Time</h2>
-<p><img src="thesis_files/figure-html/plottingQuantiles-1.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/plottingQuantiles-2.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/plottingQuantiles-3.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/plottingQuantiles-4.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/plottingQuantiles-5.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/plottingQuantiles-6.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/plottingQuantiles-7.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/plottingQuantiles-8.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/plottingQuantiles-9.png" width="768" style="display: block; margin: auto;" /></p>
-<div id="notes-on-simulation" class="section level3">
-<h3><span class="header-section-number">3.4.1</span> Notes on Simulation</h3>
+<div id="simulation-accuracy" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Simulation Accuracy</h3>
+<p>We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5th, 50th and 95th quantiles with different values for n. This sampling helps us to choose a size of the sample to get an accurate measure, and frames the final values we report.</p>
 <p><img src="thesis_files/figure-html/simulationSE-1.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/simulationSE-2.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/simulationSE-3.png" width="768" style="display: block; margin: auto;" /></p>
 
 </div>

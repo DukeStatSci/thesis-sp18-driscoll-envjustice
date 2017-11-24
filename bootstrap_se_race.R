@@ -122,9 +122,7 @@ r2010$year = 2010
 race_data = rbind.fill(r1990, r1991, r1992, r1993, r1994, r1996, r1997, r1998, r1999, r2000, r2001, r2002, r2003, r2005, r2006, r2007, r2008, r2009, r2010)
 
 #create function to bootstrap an estimate of SE for all races, for a given quantile, in a given year
-bootstrap_se = function(year, quant) {
-  n = 50000
-  num = 40
+bootstrap_se = function(year, quant, n = 50000, num = 40) {
   data = race_data[race_data$year == year, ]
   tox = "concentration"
   
