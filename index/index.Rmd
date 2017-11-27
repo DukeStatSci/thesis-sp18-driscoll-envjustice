@@ -15,7 +15,7 @@ title: 'Examining Injustice in Environmental Toxicity'
 knit: "bookdown::render_book"
 site: bookdown::bookdown_site
 output: 
-#  thesisdowndss::thesis_pdf: default
+  thesisdowndss::thesis_pdf: default
   thesisdowndss::thesis_gitbook: default
 #  thesisdowndss::thesis_word: default
 #  thesisdowndss::thesis_epub: default
@@ -68,6 +68,7 @@ library(thesisdowndss)
 library(knitr)
 knitr::opts_chunk$set(fig.width=8, fig.height=5) 
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
+knitr::opts_chunk$set(echo = FALSE) 
 library(magrittr)
 library(readr)
 library(ggplot2)
@@ -234,6 +235,39 @@ pov_data = rbind.fill(p1990, p1991, p1992, p1993, p1994, p1996, p1997, p1998, p1
 
 # what is natural sorting, How are env dumps created?, Breaking the self fulfilling cycle
 
+read_in = function(year, tox) {
+  data = as.data.frame(fread(paste0("data/census/hisp/hisp_tract_", year, ".csv"), data.table = FALSE))
+  data = data[complete.cases(data), ]
+  data$id = str_pad(data$id, 11, pad = "0", side = "left")
+  data = merge(data, tox, by.x = "id", by.y = "block")
+  data$year = year
+  return(data)
+}
+
+p1990 = read_in(1990, t1990)
+p1991 = read_in(1991, t1991)
+p1992 = read_in(1992, t1992)
+p1993 = read_in(1993, t1993)
+p1994 = read_in(1994, t1994)
+p1996 = read_in(1996, t1996)
+p1997 = read_in(1997, t1997)
+p1998 = read_in(1998, t1998)
+p1999 = read_in(1999, t1999)
+p2000 = read_in(2000, t2000)
+p2001 = read_in(2001, t2001)
+p2002 = read_in(2002, t2002)
+p2003 = read_in(2003, t2003)
+p2005 = read_in(2005, t2005)
+p2006 = read_in(2006, t2006)
+p2007 = read_in(2007, t2007)
+p2008 = read_in(2008, t2008)
+p2009 = read_in(2009, t2009)
+p2010 = read_in(2010, t2010)
+
+hisp_data = rbind.fill(p1990, p1991, p1992, p1993, p1994, p1996, p1997, p1998, p1999, p2000, p2001, p2002, p2003, p2005, p2006, p2007, p2008, p2009, p2010)
+hisp_data$other_full = rowSums(hisp_data[, c(5:7, 12:13)], na.rm = TRUE)
+hisp_data = select(hisp_data, id, pop, white, black, hispanic, other_full, concentration, area, year)
+names(hisp_data) = c("id", "pop", "white", "black", "hispanic", "other", "concentration", "area", "year")
 ```
 
 

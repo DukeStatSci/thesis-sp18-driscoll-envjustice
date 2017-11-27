@@ -1,0 +1,147 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11530677
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           ACS 2012 (5-Year Estimates)
+Dataset:          Social Explorer Tables:  ACS 2012 (5-Year Estimates)
+Tables:
+
+      1. Hispanic or Latino By Race
+         Universe:  Total Population
+         Name:      T14
+         Variables:
+            T014_001:   Total Population
+            T014_002:      Not Hispanic or Latino:
+            T014_003:         White Alone
+            T014_004:         Black or African American Alone
+            T014_005:         American Indian and Alaska Native Alone
+            T014_006:         Asian Alone
+            T014_007:         Native Hawaiian and Other Pacific Islander Alone
+            T014_008:         Some Other Race Alone
+            T014_009:         Two or More races
+            T014_010:      Hispanic or Latino:
+            T014_011:         White Alone
+            T014_012:         Black or African American Alone
+            T014_013:         American Indian and Alaska Native Alone
+            T014_014:         Asian Alone
+            T014_015:         Native Hawaiian and Other Pacific Islander Alone
+            T014_016:         Some Other Race Alone
+            T014_017:         Two or More races
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      FIPS:           FIPS
+      GEOID:          Geographic Identifier
+      NAME:           Name of Area
+      QName:          Qualifying Name
+      STUSAB:         State/U.S.-Abbreviation (USPS)
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      FILEID:         File Identification
+      LOGRECNO:       Logical Record Number
+      US:             US
+      REGION:         Region
+      DIVISION:       Division
+      STATECE:        State (Census Code)
+      STATE:          State (FIPS)
+      COUNTY:         County
+      COUSUB:         County Subdivision (FIPS)
+      PLACE:          Place (FIPS Code)
+      PLACESE:        Place (State FIPS + Place FIPS)
+      TRACT:          Census Tract
+      BLKGRP:         Block Group
+      CONCIT:         Consolidated City
+      AIANHH:         American Indian Area/Alaska Native Area/Hawaiian Home Land (Census)
+      AIANHHFP:       American Indian Area/Alaska Native Area/Hawaiian Home Land (FIPS)
+      AIHHTLI:        American Indian Trust Land/Hawaiian Home Land Indicator
+      AITSCE:         American Indian Tribal Subdivision (Census)
+      AITS:           American Indian Tribal Subdivision (FIPS)
+      ANRC:           Alaska Native Regional Corporation (FIPS)
+      CBSA:           Metropolitan and Micropolitan Statistical Area
+      CSA:            Combined Statistical Area
+      METDIV:         Metropolitan Division
+      MACC:           Metropolitan Area Central City
+      MEMI:           Metropolitan/Micropolitan Indicator Flag
+      NECTA:          New England City and Town Combined Statistical Area
+      CNECTA:         New England City and Town Area
+      NECTADIV:       New England City and Town Area Division
+      UA:             Urban Area
+      UACP:           Urban Area Central Place
+      CDCURR:         Current Congressional District ***
+      SLDU:           State Legislative District Upper
+      SLDL:           State Legislative District Lower
+      VTD:            Voting District
+      ZCTA3:          ZIP Code Tabulation Area (3-digit)
+      ZCTA5:          ZIP Code Tabulation Area (5-digit)
+      SUBMCD:         Subbarrio (FIPS)
+      SDELM:          School District (Elementary)
+      SDSEC:          School District (Secondary)
+      SDUNI:          School District (Unified)
+      UR:             Urban/Rural
+      PCI:            Principal City Indicator
+      TAZ:            Traffic Analysis Zone
+      UGA:            Urban Growth Area
+      BTTR:           Tribal Tract
+      BTBG:           Tribal Block Group
+      PUMA5:          Public Use Microdata Area - 5% File
+      PUMA1:          Public Use Microdata Area - 1% File
+      T014_001:       Total Population
+      T014_002:       Total Population: Not Hispanic or Latino
+      T014_003:       Total Population: Not Hispanic or Latino: White Alone
+      T014_004:       Total Population: Not Hispanic or Latino: Black or African American Alone
+      T014_005:       Total Population: Not Hispanic or Latino: American Indian and Alaska Native Alone
+      T014_006:       Total Population: Not Hispanic or Latino: Asian Alone
+      T014_007:       Total Population: Not Hispanic or Latino: Native Hawaiian and Other Pacific Islander Alone
+      T014_008:       Total Population: Not Hispanic or Latino: Some Other Race Alone
+      T014_009:       Total Population: Not Hispanic or Latino: Two or More races
+      T014_010:       Total Population: Hispanic or Latino
+      T014_011:       Total Population: Hispanic or Latino: White Alone
+      T014_012:       Total Population: Hispanic or Latino: Black or African American Alone
+      T014_013:       Total Population: Hispanic or Latino: American Indian and Alaska Native Alone
+      T014_014:       Total Population: Hispanic or Latino: Asian Alone
+      T014_015:       Total Population: Hispanic or Latino: Native Hawaiian and Other Pacific Islander Alone
+      T014_016:       Total Population: Hispanic or Latino: Some Other Race Alone
+      T014_017:       Total Population: Hispanic or Latino: Two or More races
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11530677
+
+If you have any questions contact info@socialexplorer.com

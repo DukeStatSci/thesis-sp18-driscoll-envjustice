@@ -1,0 +1,94 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11530635
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Census 1990
+Dataset:          Social Explorer - Custom tables made from STF1 and STF3
+Tables:
+
+      1. Hispanic Origin By Race
+         Universe:  Total Population
+         Name:      T13
+         Variables:
+            T013_001:   Total Population:
+            T013_002:      Non-Hispanic:
+            T013_003:         White
+            T013_004:         Black
+            T013_005:         American Indian, Eskimo, or Aleut
+            T013_006:         Asian or Pacific Islander
+            T013_007:         Other race
+            T013_008:      Hispanic:
+            T013_009:         White
+            T013_010:         Black
+            T013_011:         American Indian, Eskimo, or Aleut
+            T013_012:         Asian or Pacific Islander
+            T013_013:         Other race
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      NAME:           Area Name-Legal/Statistical Area Description (LSAD) Term-Part Indicator
+      QName:          Qualifying Name
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      REGION:         Region
+      DIVISION:       Division
+      FIPS:           FIPS
+      STATE:          State-FIPS
+      COUNTY:         County
+      TRACT:          Census Tract/Block Numbering Area
+      T013_001:       Total Population
+      T013_002:       Total Population: Non-Hispanic
+      T013_003:       Total Population: Non-Hispanic: White
+      T013_004:       Total Population: Non-Hispanic: Black
+      T013_005:       Total Population: Non-Hispanic: American Indian, Eskimo, or Aleut
+      T013_006:       Total Population: Non-Hispanic: Asian or Pacific Islander
+      T013_007:       Total Population: Non-Hispanic: Other race
+      T013_008:       Total Population: Hispanic
+      T013_009:       Total Population: Hispanic: White
+      T013_010:       Total Population: Hispanic: Black
+      T013_011:       Total Population: Hispanic: American Indian, Eskimo, or Aleut
+      T013_012:       Total Population: Hispanic: Asian or Pacific Islander
+      T013_013:       Total Population: Hispanic: Other race
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11530635
+
+If you have any questions contact info@socialexplorer.com

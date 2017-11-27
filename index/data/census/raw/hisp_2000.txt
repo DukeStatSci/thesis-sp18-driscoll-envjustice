@@ -1,0 +1,103 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11530634
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Census 2000
+Dataset:          Social Explorer Tables (made from SF1 and SF3)
+Tables:
+
+      1. Hispanic Or Latino By Race
+         Universe:  Total Population
+         Name:      T15
+         Variables:
+            T015_001:   Total Population
+            T015_002:      Not Hispanic or Latino:
+            T015_003:         White Alone
+            T015_004:         Black or African American Alone
+            T015_005:         American Indian and Alaska Native Alone
+            T015_006:         Asian Alone
+            T015_007:         Native Hawaiian and Other Pacific Islander Alone
+            T015_008:         Some other race Alone
+            T015_009:         Two or more races
+            T015_010:      Hispanic or Latino:
+            T015_011:         White Alone
+            T015_012:         Black or African American Alone
+            T015_013:         American Indian and Alaska Native Alone
+            T015_014:         Asian Alone
+            T015_015:         Native Hawaiian and Other Pacific Islander Alone
+            T015_016:         Some other race Alone
+            T015_017:         Two or more races
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      NAME:           Area Name-Legal/Statistical Area Description
+      QName:          Qualifying Name
+      FIPS:           FIPS
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      STATECE:        State (Census)
+      STATE:          State (FIPS)
+      COUNTY:         County
+      COUNTYSC:       County Size Code
+      COUSUB:         County Subdivision (FIPS)
+      TRACT:          Census Tract
+      T015_001:       Total Population
+      T015_002:       Not Hispanic or Latino
+      T015_003:       Not Hispanic or Latino: White Alone
+      T015_004:       Not Hispanic or Latino: Black or African American Alone
+      T015_005:       Not Hispanic or Latino: American Indian and Alaska Native Alone
+      T015_006:       Not Hispanic or Latino: Asian Alone
+      T015_007:       Not Hispanic or Latino: Native Hawaiian and Other Pacific Islander Alone
+      T015_008:       Not Hispanic or Latino: Some other race Alone
+      T015_009:       Not Hispanic or Latino: Two or more races
+      T015_010:       Hispanic or Latino
+      T015_011:       Hispanic or Latino: White Alone
+      T015_012:       Hispanic or Latino: Black or African American Alone
+      T015_013:       Hispanic or Latino: American Indian and Alaska Native Alone
+      T015_014:       Hispanic or Latino: Asian Alone
+      T015_015:       Hispanic or Latino: Native Hawaiian and Other Pacific Islander Alone
+      T015_016:       Hispanic or Latino: Some other race Alone
+      T015_017:       Hispanic or Latino: Two or more races
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11530634
+
+If you have any questions contact info@socialexplorer.com

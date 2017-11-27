@@ -27,3 +27,14 @@ Undergraduate thesis of Anne Driscoll, to be submitted in Spring 2018. Using pub
 
 #### /index/data/raw
 * Contains all census raw files needed to create the usable files
+
+
+TODO:
+- [ ] Get hispanic data
+- [ ] Focus the trendlines, consolidate other
+- [ ] Visualization of simulation more intuiively, dotted line?
+- [ ] If we limit by other factors (income?) do we see equal protection?
+- [ ] Can we create a measure for dispproportionate burden for a given area? 
+- [ ] Can we include other vulnerable populations? (single mother status, age, health, etc.)
+- [ ] Try IPF, given that PUMA distribution assumption is reasonable.
+- [ ] Build a longitudinal model with the race_data.
