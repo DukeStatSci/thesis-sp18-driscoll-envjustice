@@ -211,10 +211,9 @@
 <p>If there had been improvement for a group, we would expect the simulated distributions to paint a bleaker picture of the environmental burden borne than the true distribution of the ending year.</p>
 <div id="simulation-accuracy" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Simulation Accuracy</h3>
-<p>We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5th, 50th and 95th quantiles with different values for n. This sampling helps us to choose a size of the sample to get an accurate measure, and frames the final values we report.</p>
+<p>We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5th, 50th and 95th quantiles with different values for n. This is done by simulating the new distribution at time t repeatedly with varying n, and describing the distribution of quantiles produced. This sampling helps us to choose a size of the sample to get an accurate measure, and frames the final values we report.</p>
 <p><img src="thesis_files/figure-html/simulationSE-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p><img src="thesis_files/figure-html/unnamed-chunk-1-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p><img src="thesis_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>For the 5th quantile, a relatively low n produces a fairly stable result, sampling with n = 15,000 appears sufficient. Due to the extreme right skew of the data, the 95th percentile requires a larger sample. Still n = 50,000 is sufficient.</p>
 
 </div>
 </div>

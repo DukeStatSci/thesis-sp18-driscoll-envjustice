@@ -105,33 +105,33 @@ If there had been improvement for a group, we would expect the simulated distrib
 
 ###Simulation Accuracy
 
-We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5th, 50th and 95th quantiles with different values for n. This sampling helps us to choose a size of the sample to get an accurate measure, and frames the final values we report. 
+We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5th, 50th and 95th quantiles with different values for n. This is done by simulating the new distribution at time t repeatedly with varying n, and describing the distribution of quantiles produced. This sampling helps us to choose a size of the sample to get an accurate measure, and frames the final values we report. 
 
-```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=4}
+```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=3}
 sim_se_05 = read_csv("data/bootstrap_simulation_se_05.csv")
 sim_se_50 = read_csv("data/bootstrap_simulation_se_50.csv")
 sim_se_95 = read_csv("data/bootstrap_simulation_se_95.csv")
 
-ggplot() + 
+s5 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_05) +
   geom_line(aes(x = n, y = mean), data = sim_se_05) +
-  labs(x = "Size of simulated group", y = "Simulated 5th Percentile", title = "Variance of Simulation 5th Percentile")
-```
+  labs(x = "Size of simulated group", y = "Simulated 5th Percentile") + coord_cartesian(ylim=c(40, 100))
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=4}
-ggplot() + 
+s50 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_50) +
   geom_line(aes(x = n, y = mean), data = sim_se_50) +
-  labs(x = "Size of simulated group", y = "Simulated 50th Percentile", title = "Variance of Simulation 50th Percentile")
-```
+  labs(x = "Size of simulated group", y = "Simulated 50th Percentile") + coord_cartesian(ylim=c(7000, 9000))
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=4}
-ggplot() + 
+s95 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_95) +
   geom_line(aes(x = n, y = mean), data = sim_se_95) +
-  labs(x = "Size of simulated group", y = "Simulated 95th Percentile", title = "Variance of Simulation 95th Percentile")
+  labs(x = "Size of simulated group", y = "Simulated 95th Percentile") + coord_cartesian(ylim=c(80000, 140000))
+
+grid.arrange(s5, s50, s95, ncol=3)
+
 ```
 
+For the 5th quantile, a relatively low n produces a fairly stable result, sampling with n = 15,000 appears sufficient. Due to the extreme right skew of the data, the 95th percentile requires a larger sample. Still n = 50,000 is sufficient. 
 
 ```{r exploringChange2000, echo = FALSE}
 #ggplot(race_data) + geom_line(aes(x = year, y = lconcentration, color = (black/pop), group = id), alpha = 0.3) + labs(x = "Year", colour = "% Black", title = "Toxicity Trend for all Census Tracts")

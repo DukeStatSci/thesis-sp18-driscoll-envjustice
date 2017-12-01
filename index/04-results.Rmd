@@ -88,6 +88,7 @@ five = create_hisp_tox(perc_hisp_05, 5)
 fifty = create_hisp_tox(perc_hisp_50, 50)
 ninetyfive = create_hisp_tox(perc_hisp_95, 95, legend = TRUE)
 grid.arrange(five, fifty, ninetyfive, ncol=3)
+
 create_relative_tox(perc_hisp_05, 50)
 ```
 
