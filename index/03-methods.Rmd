@@ -28,7 +28,7 @@ In choosing the level of aggregation at which to assign toxicity, in order to ba
 
 ```{r ecologicalFallacy, echo = FALSE, fig.width=6, fig.height=3, message = FALSE}
 #import toxicity data
-bg2010 = read_csv("data/toxic/bg/toxic_2010_2010_blockgroup.csv")
+bg2010 = as.data.frame(fread("data/toxic/bg/toxic_2010_2010_blockgroup.csv"))
 
 #import census data
 census_bg = fread("data/ecologicalFallacy/census_bg_race.csv", skip = 1)
@@ -108,23 +108,27 @@ If there had been improvement for a group, we would expect the simulated distrib
 We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5th, 50th and 95th quantiles with different values for n. This sampling helps us to choose a size of the sample to get an accurate measure, and frames the final values we report. 
 
 ```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=4}
-sim_05 = read_csv("data/bootstrap_simulation_se_05.csv")
-sim_50 = read_csv("data/bootstrap_simulation_se_50.csv")
-sim_95 = read_csv("data/bootstrap_simulation_se_95.csv")
+sim_se_05 = read_csv("data/bootstrap_simulation_se_05.csv")
+sim_se_50 = read_csv("data/bootstrap_simulation_se_50.csv")
+sim_se_95 = read_csv("data/bootstrap_simulation_se_95.csv")
 
 ggplot() + 
-  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_05) +
-  geom_line(aes(x = n, y = mean), data = sim_05) +
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_05) +
+  geom_line(aes(x = n, y = mean), data = sim_se_05) +
   labs(x = "Size of simulated group", y = "Simulated 5th Percentile", title = "Variance of Simulation 5th Percentile")
+```
 
+```{r, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=4}
 ggplot() + 
-  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_50) +
-  geom_line(aes(x = n, y = mean), data = sim_50) +
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_50) +
+  geom_line(aes(x = n, y = mean), data = sim_se_50) +
   labs(x = "Size of simulated group", y = "Simulated 50th Percentile", title = "Variance of Simulation 50th Percentile")
+```
 
+```{r, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=4}
 ggplot() + 
-  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_95) +
-  geom_line(aes(x = n, y = mean), data = sim_95) +
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_95) +
+  geom_line(aes(x = n, y = mean), data = sim_se_95) +
   labs(x = "Size of simulated group", y = "Simulated 95th Percentile", title = "Variance of Simulation 95th Percentile")
 ```
 

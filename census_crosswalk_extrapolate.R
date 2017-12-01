@@ -37,7 +37,8 @@ extrapolate = function(data, year, n = 8, starting = "2000", type = "race") {
   #get data from the start year
   data1 = data[, 2:(n+1)]
   #get data from the end year
-  data2 = data[, (n+2):((2*n)+1)]
+  if (type == "hisp" & starting == "1990") {data2 = data[, c(9:13, 15, 17)]}
+  else {data2 = data[, (n+2):((2*n)+1)]}
   #calculate year/10ths the change 
   data_change = year * ((data2 - data1) / 10)
   #add the difference
@@ -46,12 +47,13 @@ extrapolate = function(data, year, n = 8, starting = "2000", type = "race") {
   data1 = as.data.frame(cbind(data[,1], data1))
   names = c("id", "pop", "white", "black", "native", "asian", "hawaii", "other", "two")
   if (starting == "1990") {names = c("id", "pop", "white", "black", "native", "asian", "other")}
+  if (type == "hisp") {names = c(names, "hispanic")}
   names(data1) = names
   write.csv(data1, file = paste0("data/census/", type, "_tract_", substr(starting, 1, 3), year, ".csv"), row.names = FALSE)
   return(data1)
 }
 
-temp1990 = fread("data/census/raw/race_tract_1990.csv", data.table = FALSE)
+temp1990 = fread("data/census/race/race_tract_1990.csv", data.table = FALSE)
 temp1990 = temp1990[, c(7, 11:ncol(temp1990))]
 names(temp1990) = c("id", "pop", "white", "black", "native", "asian", "other")
 c1990 = crosswalk(cross1990, temp1990, mergex = "id90")
@@ -102,25 +104,27 @@ c2010 = c2010[, c(1, 56, 58:65)]
 names(c2010) = c("id", "pop", "white", "black", "native", "asian", "hawaii", "other", "two", "hispanic")
 
 census_00_10 = merge(c2000, c2010, by = "id", all = TRUE)
-c2001 = extrapolate(census_00_10, 1, type ="hisp")
-c2002 = extrapolate(census_00_10, 2, type ="hisp")
-c2003 = extrapolate(census_00_10, 3, type ="hisp")
-c2004 = extrapolate(census_00_10, 4, type ="hisp")
-c2005 = extrapolate(census_00_10, 5, type ="hisp")
-c2006 = extrapolate(census_00_10, 6, type ="hisp")
-c2007 = extrapolate(census_00_10, 7, type ="hisp")
-c2008 = extrapolate(census_00_10, 8, type ="hisp")
-c2009 = extrapolate(census_00_10, 9, type ="hisp")
+c2001 = extrapolate(census_00_10, 1, type ="hisp", n = 9)
+c2002 = extrapolate(census_00_10, 2, type ="hisp", n = 9)
+c2003 = extrapolate(census_00_10, 3, type ="hisp", n = 9)
+c2004 = extrapolate(census_00_10, 4, type ="hisp", n = 9)
+c2005 = extrapolate(census_00_10, 5, type ="hisp", n = 9)
+c2006 = extrapolate(census_00_10, 6, type ="hisp", n = 9)
+c2007 = extrapolate(census_00_10, 7, type ="hisp", n = 9)
+c2008 = extrapolate(census_00_10, 8, type ="hisp", n = 9)
+c2009 = extrapolate(census_00_10, 9, type ="hisp", n = 9)
 
 census_90_10 = merge(c1990, c2000, by = "id", all = TRUE)
-c1991 = extrapolate(census_90_10, 1, 6, starting = "1990", type ="hisp")
-c1992 = extrapolate(census_90_10, 2, 6, starting = "1990", type ="hisp")
-c1993 = extrapolate(census_90_10, 3, 6, starting = "1990", type ="hisp")
-c1994 = extrapolate(census_90_10, 4, 6, starting = "1990", type ="hisp")
-c1995 = extrapolate(census_90_10, 5, 6, starting = "1990", type ="hisp")
-c1996 = extrapolate(census_90_10, 6, 6, starting = "1990", type ="hisp")
-c1997 = extrapolate(census_90_10, 7, 6, starting = "1990", type ="hisp")
-c1998 = extrapolate(census_90_10, 8, 6, starting = "1990", type ="hisp")
-c1999 = extrapolate(census_90_10, 9, 6, starting = "1990", type ="hisp")
+c1991 = extrapolate(census_90_10, 1, starting = "1990", type ="hisp", n = 7)
+c1992 = extrapolate(census_90_10, 2, starting = "1990", type ="hisp", n = 7)
+c1993 = extrapolate(census_90_10, 3, starting = "1990", type ="hisp", n = 7)
+c1994 = extrapolate(census_90_10, 4, starting = "1990", type ="hisp", n = 7)
+c1995 = extrapolate(census_90_10, 5, starting = "1990", type ="hisp", n = 7)
+c1996 = extrapolate(census_90_10, 6, starting = "1990", type ="hisp", n = 7)
+c1997 = extrapolate(census_90_10, 7, starting = "1990", type ="hisp", n = 7)
+c1998 = extrapolate(census_90_10, 8, starting = "1990", type ="hisp", n = 7)
+c1999 = extrapolate(census_90_10, 9, starting = "1990", type ="hisp", n = 7)
 
 write.csv(c2000, file = paste0("data/census/hisp_tract_2000.csv"), row.names = FALSE)
+write.csv(c2010, file = paste0("data/census/hisp_tract_2010.csv"), row.names = FALSE)
+write.csv(c1990, file = paste0("data/census/hisp_tract_1990.csv"), row.names = FALSE)
