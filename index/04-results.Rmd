@@ -2,7 +2,7 @@
 
 
 
-## Trends Over Time
+## Toxicity trends over time
 
 ```{r quantileCalcs, echo = FALSE, message = FALSE, warning = FALSE}
 library(plyr)
