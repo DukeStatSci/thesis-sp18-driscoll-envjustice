@@ -30,9 +30,9 @@ get_perc = function(data, quant, variables = c("white", "black", "hispanic", "ot
   return(new)
 }
 
-perc05 = get_perc(data, 0.05, variables = names(data)[c(3:7, 10:18)])
-perc50 = get_perc(data, 0.50, variables = names(data)[c(3:7, 10:18)])
-perc95 = get_perc(data, 0.95, variables = names(data)[c(3:7, 10:18)])
+perc05 = get_perc(data, 0.05, variables = names(data)[c(3:7, 10:18)], sim = sim05)
+perc50 = get_perc(data, 0.50, variables = names(data)[c(3:7, 10:18)], sim = sim50)
+perc95 = get_perc(data, 0.95, variables = names(data)[c(3:7, 10:18)], sim = sim95)
 ```
 
 ```{r plottingQuantiles, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
@@ -65,10 +65,10 @@ relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
       geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.3) +
       geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.3) +
       labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
-      theme(legend.position="bottom") +
-      geom_line(aes(x = year, y = rollmean(black/white, 3, na.pad=TRUE), color = "black"), se = FALSE, size = 0.7, linetype = "twodash")  +
-      geom_line(aes(x = year, y = rollmean(hispanic/white, 3, na.pad = TRUE), color = "hispanic"), se = FALSE, size = 0.7, linetype = "twodash") +
-      geom_line(aes(x = year, y = rollmean(other/white, 3, na.pad = TRUE), color = "other"), se = FALSE, size = 0.7, linetype = "twodash")
+      geom_line(aes(x = year, y = rollmean(black/white, 3, na.pad=TRUE), color = "black"), linetype = "twodash", size = 0.7)  +
+      geom_line(aes(x = year, y = rollmean(hispanic/white, 3, na.pad = TRUE), color = "hispanic"), linetype = "twodash", size = 0.7) +
+      geom_line(aes(x = year, y = rollmean(other/white, 3, na.pad = TRUE), color = "other"), linetype = "twodash", size = 0.7) +
+      theme(legend.position="bottom")
   }
   else {
     g = g + 
@@ -140,6 +140,37 @@ grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
 ```
 
 ## Simulating Changes
+
+```{r}
+sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
+  g = ggplot(data = cur_data) + 
+        labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
+  if (legend == FALSE) {
+    g = g + guides(color = FALSE)
+  }
+  if (smooth == TRUE) {
+    g = g +
+      geom_line(aes(x = year, y = white, color = "white"), alpha = 0.3) +
+      geom_line(aes(x = year, y = black, color = "black"), alpha = 0.3) + 
+      geom_line(aes(x = year, y = hispanic, color = "hispanic"), alpha = 0.3) + 
+      geom_line(aes(x = year, y = other, color = "other"), alpha = 0.3) + 
+      geom_line(aes(x = year, y = rollmean(black, 3, na.pad=TRUE), color = "black"), se = FALSE, size = 0.5)  +
+      geom_line(aes(x = year, y = rollmean(hispanic, 3, na.pad = TRUE), color = "hispanic"), se = FALSE, size = 0.5) +
+      geom_line(aes(x = year, y = rollmean(other, 3, na.pad = TRUE), color = "other"), se = FALSE, size = 0.5) +
+      geom_line(aes(x = year, y = rollmean(white, 3, na.pad = TRUE), color = "white"), se = FALSE, size = 0.5)
+  } 
+  else {
+     g = g +
+      geom_line(aes(x = year, y = white, color = "white")) +
+      geom_line(aes(x = year, y = black, color = "black")) + 
+      geom_line(aes(x = year, y = hispanic, color = "hispanic")) + 
+      geom_line(aes(x = year, y = other, color = "other"))
+  }
+  g = g + geom_line(aes(x = year, y = sim_b, color = "black")) + 
+  g
+}
+```
+
 
 ## Interacting Risk Cases
 
