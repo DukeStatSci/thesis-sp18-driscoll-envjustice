@@ -123,31 +123,28 @@ five_rel = relative_tox(perc05, 5, smooth = TRUE)
 fifty_rel = relative_tox(perc50, 50, smooth = TRUE)
 ninetyfive_rel = relative_tox(perc95, 95, smooth = TRUE)
 
-legend = g_legend(legend_grab)
+color_legend = g_legend(legend_grab)
 
 grid.arrange(arrangeGrob(five, five_rel, nrow=1),
-             legend, nrow=2,heights=c(10, 1))
+             color_legend, nrow=2,heights=c(10, 1))
 ```
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
 grid.arrange(arrangeGrob(fifty, fifty_rel, nrow=1),
-             legend, nrow=2,heights=c(10, 1))
+             color_legend, nrow=2,heights=c(10, 1))
 ```
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
 grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
-             legend, nrow=2,heights=c(10, 1))
+             color_legend, nrow=2,heights=c(10, 1))
 ```
 
 ## Simulating Changes
 
-```{r}
+```{r, echo = FALSE, fig.width=10, fig.height=4}
 sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
   g = ggplot(data = cur_data) + 
         labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
-  if (legend == FALSE) {
-    g = g + guides(color = FALSE)
-  }
   if (smooth == TRUE) {
     g = g +
       geom_line(aes(x = year, y = white, color = "white"), alpha = 0.3) +
@@ -161,19 +158,70 @@ sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
   } 
   else {
      g = g +
-      geom_line(aes(x = year, y = log(white), color = "white")) +
-      geom_line(aes(x = year, y = log(black), color = "black")) + 
-      geom_line(aes(x = year, y = log(hispanic), color = "hispanic")) + 
-      geom_line(aes(x = year, y = log(other), color = "other"))
+      geom_line(aes(x = year, y = white, color = "white")) +
+      geom_line(aes(x = year, y = black, color = "black")) + 
+      geom_line(aes(x = year, y = hispanic, color = "hispanic")) + 
+      geom_line(aes(x = year, y = other, color = "other"))
   }
-  g = g + geom_line(aes(x = year, y = log(sim_b), color = "black"), linetype = "dashed", size = 0.7) + 
-    geom_line(aes(x = year, y = log(sim_o), color = "other"), linetype = "dashed", size = 0.7) 
+  g = g + geom_line(aes(x = year, y = sim_b, color = "black"), linetype = "dashed", size = 0.7) + 
+    geom_line(aes(x = year, y = sim_o, color = "other"), linetype = "dashed", size = 0.7) +
+    geom_line(aes(x = year, y = sim_h, color = "hispanic"), linetype = "dashed", size = 0.7) 
+  if (legend == FALSE) {
+    g = g + guides(color = FALSE)
+  }
   g
 }
 
-grid.arrange(sim_tox(perc05, 5), legend, nrow = 2,heights = c(10, 1))
-grid.arrange(sim_tox(perc50, 50), legend, nrow = 2,heights = c(10, 1))
-grid.arrange(sim_tox(perc95, 95), legend, nrow = 2,heights = c(10, 1))
+relative_sim = function(data, perc, legend = FALSE, smooth = FALSE) {
+  g = ggplot(data) 
+  if (smooth == TRUE) {
+    g = g + 
+      geom_line(aes(x = year, y = (white/white), color = "white")) +
+      geom_line(aes(x = year, y = (black/white), color = "black"), alpha = 0.3)  +
+      geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.3) +
+      geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.3) +
+      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
+      geom_line(aes(x = year, y = rollmean(black/white, 3, na.pad=TRUE), color = "black"), linetype = "twodash", size = 0.7)  +
+      geom_line(aes(x = year, y = rollmean(hispanic/white, 3, na.pad = TRUE), color = "hispanic"), linetype = "twodash", size = 0.7) +
+      geom_line(aes(x = year, y = rollmean(other/white, 3, na.pad = TRUE), color = "other"), linetype = "twodash", size = 0.7) 
+      geom_line(aes(x = year, y = rollmean(sim_b/white, 3, na.pad = TRUE), color = "black"), linetype = "dashed", size = 0.7) + 
+      geom_line(aes(x = year, y = rollmean(sim_o/white, 3, na.pad = TRUE), color = "other"), linetype = "dashed", size = 0.7) +
+      geom_line(aes(x = year, y = rollmean(sim_h/white, 3, na.pad = TRUE), color = "hispanic"), linetype = "dashed", size = 0.7) +
+      theme(legend.position="bottom")
+  } else {
+    g = g + 
+      geom_line(aes(x = year, y = (white/white), color = "white")) +
+      geom_line(aes(x = year, y = (black/white), color = "black"), alpha = 0.45)  +
+      geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.45) +
+      geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.45) +
+      geom_line(aes(x = year, y = sim_b/white, color = "black"), linetype = "dashed", size = 0.7) + 
+      geom_line(aes(x = year, y = sim_o/white, color = "other"), linetype = "dashed", size = 0.7) +
+      geom_line(aes(x = year, y = sim_h/white, color = "hispanic"), linetype = "dashed", size = 0.7) +
+      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
+      theme(legend.position="bottom")
+  }
+  if (legend == FALSE) {
+    g = g + guides(color = FALSE)
+  }
+  g
+}
+
+grid.arrange(arrangeGrob(sim_tox(perc05, 5), relative_sim(perc05, 5), nrow=1),
+             color_legend, nrow=2,heights=c(10, 1))
+grid.arrange(arrangeGrob(sim_tox(perc50, 50), relative_sim(perc50, 50), nrow=1),
+             color_legend, nrow=2,heights=c(10, 1))
+grid.arrange(arrangeGrob(sim_tox(perc95, 95), relative_sim(perc95, 95), nrow=1),
+             color_legend, nrow=2,heights=c(10, 1))
+```
+
+```{r, warning = FALSE,echo = FALSE, fig.width=10, fig.height=4}
+ggplot() + 
+  geom_density(aes(log(concentration), weight = black/sum(black), fill = "1990", color = "1990"), alpha = 0.4, data[data$year == 1990, ]) +
+  geom_density(aes(log(concentration), weight = black/sum(black), fill = "2000", color = "2000"), alpha = 0.4, data[data$year == 2000, ]) +
+  geom_density(aes(log(concentration), weight = black/sum(black), fill = "2010", color = "2010"), alpha = 0.4, data[data$year == 2010, ]) +
+  labs(x = "Log of Concentration", y = "Density", fill = "Legend") +
+  guides(color = FALSE) + xlim(-6, 20)
+  
 ```
 
 
