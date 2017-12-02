@@ -36,7 +36,7 @@ perc95 = get_perc(data, 0.95, variables = names(data)[c(3:7, 10:18)])
 ```
 
 ```{r plottingQuantiles, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
-create_hisp_tox = function(cur_data, perc, legend = FALSE) {
+hisp_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
   g = ggplot(data = cur_data) + 
   geom_line(aes(x = year, y = white, color = "white")) +
   geom_line(aes(x = year, y = black, color = "black")) + 
@@ -46,23 +46,47 @@ create_hisp_tox = function(cur_data, perc, legend = FALSE) {
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
   }
+  if (smooth == TRUE) {
+    g = g +
+      geom_line(aes(x = year, y = rollmean(black, 3, na.pad=TRUE), color = "black"), se = FALSE, size = 0.5, linetype = "twodash")  +
+      geom_line(aes(x = year, y = rollmean(hispanic, 3, na.pad = TRUE), color = "hispanic"), se = FALSE, size = 0.5, linetype = "twodash") +
+      geom_line(aes(x = year, y = rollmean(other, 3, na.pad = TRUE), color = "other"), se = FALSE, size = 0.5, linetype = "twodash") +
+      geom_line(aes(x = year, y = rollmean(white, 3, na.pad = TRUE), color = "white"), se = FALSE, size = 0.5, linetype = "twodash")
+  }
   g
 }
 
-create_relative_tox = function(data, perc, legend = FALSE) {
-  g = ggplot(data) + 
-    geom_line(aes(x = year, y = (white/white), color = "white")) +
-    geom_line(aes(x = year, y = (black/white), color = "black"))  +
-    geom_line(aes(x = year, y = (hispanic/white), color = "hispanic")) +
-    geom_line(aes(x = year, y = (other/white), color = "other")) +
-    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0("Group ", perc, "th Percentile Toxicity Relative to White Distribution"), colour = "Legend")
+relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
+  g = ggplot(data) 
+  if (smooth == TRUE) {
+    g = g + 
+      geom_line(aes(x = year, y = (white/white), color = "white")) +
+      geom_line(aes(x = year, y = (black/white), color = "black"), alpha = 0.3)  +
+      geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.3) +
+      geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.3) +
+      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
+      theme(legend.position="bottom") +
+      geom_line(aes(x = year, y = rollmean(black/white, 3, na.pad=TRUE), color = "black"), se = FALSE, size = 0.7, linetype = "twodash")  +
+      geom_line(aes(x = year, y = rollmean(hispanic/white, 3, na.pad = TRUE), color = "hispanic"), se = FALSE, size = 0.7, linetype = "twodash") +
+      geom_line(aes(x = year, y = rollmean(other/white, 3, na.pad = TRUE), color = "other"), se = FALSE, size = 0.7, linetype = "twodash")
+  }
+  else {
+    g = g + 
+      geom_line(aes(x = year, y = (white/white), color = "white")) +
+      geom_line(aes(x = year, y = (black/white), color = "black"))  +
+      geom_line(aes(x = year, y = (hispanic/white), color = "hispanic")) +
+      geom_line(aes(x = year, y = (other/white), color = "other")) +
+      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
+      theme(legend.position="bottom")
+  }
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
   }
   g
 }
 
-create_pov_tox = function(cur_data, perc, legend = FALSE) {
+
+pov_tox = function(cur_data, perc, legend = FALSE) {
   g = ggplot(data = cur_data) + 
   geom_line(aes(x = year, y = whiteh, color = "white")) +
   geom_line(aes(x = year, y = blackh, color = "black")) + 
@@ -80,25 +104,43 @@ create_pov_tox = function(cur_data, perc, legend = FALSE) {
   }
   g
 }
+
+g_legend = function(a.gplot) {
+  tmp = ggplot_gtable(ggplot_build(a.gplot))
+  leg = which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend = tmp$grobs[[leg]]
+  return(legend)
+}
 ```
 
-```{r plotGroup05, echo = FALSE, fig.width=10, fig.height=4}
-five = create_hisp_tox(perc05, 5)
-fifty = create_hisp_tox(perc50, 50)
-ninetyfive = create_hisp_tox(perc95, 95)
-grid.arrange(five, fifty, ninetyfive, ncol=3)
+```{r plotGroup05, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+legend_grab = relative_tox(perc05, 5, legend = TRUE)
+five = hisp_tox(perc05, 5)
+fifty = hisp_tox(perc50, 50)
+ninetyfive = hisp_tox(perc95, 95)
 
-five = create_relative_tox(perc05, 5)
-fifty = create_relative_tox(perc50, 50)
-ninetyfive = create_relative_tox(perc95, 95)
-grid.arrange(five, fifty, ninetyfive, ncol=3)
+five_rel = relative_tox(perc05, 5, smooth = TRUE)
+fifty_rel = relative_tox(perc50, 50, smooth = TRUE)
+ninetyfive_rel = relative_tox(perc95, 95, smooth = TRUE)
+
+legend = g_legend(legend_grab)
+
+grid.arrange(arrangeGrob(five, five_rel, nrow=1),
+             legend, nrow=2,heights=c(10, 1))
 ```
 
+```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+grid.arrange(arrangeGrob(fifty, fifty_rel, nrow=1),
+             legend, nrow=2,heights=c(10, 1))
+```
 
-create_relative_tox(perc05, 5)
-create_relative_tox(perc50, 50)
-create_relative_tox(perc95, 95)
+```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
+             legend, nrow=2,heights=c(10, 1))
+```
 
-create_pov_tox(perc_pov_05, 5)
-create_pov_tox(perc_pov_50, 50)
-create_pov_tox(perc_pov_95, 95)
+## Simulating Changes
+
+## Interacting Risk Cases
+
+## Geographic Changes in Exposure

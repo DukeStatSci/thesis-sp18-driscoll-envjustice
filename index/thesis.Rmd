@@ -1,0 +1,716 @@
+---
+author: 'Anne Driscoll'
+date: 'May 2018'
+institution: 'Duke University'
+division: 'Trinity College of Arts and Sciences'
+advisor: 'David Banks'
+#altadvisor: 'Your Other Advisor'
+# Delete line 7 if you only have one advisor
+committeememberone: 'Committeemember O. Name'
+committeemembertwo: 'Committeemember T. Name'
+dus: 'Mine Cetinkaya Rundel'
+department: 'Department of Statistical Science'
+degree: 'Bachelor of Science in Statistical Science'
+title: 'Examining Injustice in Environmental Toxicity'
+knit: "bookdown::render_book"
+site: bookdown::bookdown_site
+output: 
+#  thesisdowndss::thesis_pdf: default
+  thesisdowndss::thesis_gitbook: default
+#  thesisdowndss::thesis_word: default
+#  thesisdowndss::thesis_epub: default
+# If you are creating a PDF you'll need to write your preliminary content here or
+# use code similar to line 20 for the files.  If you are producing in a different
+# format than PDF, you can delete or ignore lines 20-31 in this YAML header.
+abstract: |
+  `r if(knitr:::is_latex_output()) paste(readLines("00-abstract.Rmd"), collapse = '\n  ')`
+# If you'd rather include the preliminary content in files instead of inline
+# like below, use a command like that for the abstract above.  Note that a tab is 
+# needed on the line after the |.
+acknowledgements: |
+  I want to thank a few people.
+dedication: |
+  You can have a dedication here if you wish. 
+preface: |
+  This is an example of a thesis setup to use the reed thesis document class
+  (for LaTeX) and the R bookdown package, in general.
+bibliography: bib/thesis.bib
+# Refer to your specific bibliography file in the line above.
+csl: csl/apa.csl
+# Download your specific csl file and refer to it in the line above.
+lot: true
+lof: true
+space_between_paragraphs: true
+# Delete the # at the beginning of the previous line if you'd like
+# to have a blank new line between each paragraph
+#header-includes:
+#- \usepackage{tikz}
+---
+
+<!--
+Above is the YAML (YAML Ain't Markup Language) header that includes a lot of metadata used to produce the document.  Be careful with spacing in this header!
+
+If you'd prefer to not include a Dedication, for example, simply delete lines 17 and 18 above or add a # before them to comment them out.  If you have other LaTeX packages you would like to include, delete the # before header-includes and list the packages after hyphens on new lines.
+
+If you'd like to include a comment that won't be produced in your resulting file enclose it in a block like this.
+-->
+
+<!--
+If you receive a duplicate label error after knitting, make sure to delete the index.Rmd file and then knit again.
+-->
+
+```{r libraries, include_packages, include = FALSE}
+if(!require(devtools))
+  install.packages("devtools", repos = "http://cran.rstudio.com")
+if(!require(thesisdowndss))
+  devtools::install_github("mine-cetinkaya-rundel/thesisdowndss")
+library(thesisdowndss)
+library(knitr)
+knitr::opts_chunk$set(fig.width=8, fig.height=5) 
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
+knitr::opts_chunk$set(echo = FALSE) 
+library(magrittr)
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(plyr)
+library(zoo)
+library(stringr)
+library(spatstat)
+library(readr)
+library(tidyr)
+library(devtools)
+devtools::install_github("amd112/rseiAnalysis")
+library("rseiAnalysis")
+#needed for RSEI
+set.seed(4012)
+library(data.table)
+library(grid)
+library(gridExtra)
+```
+
+```{r readInData, include = FALSE}
+t1990 = as.data.frame(fread("data/toxic/tract/toxic_1990_2010_tract.csv", data.table = FALSE))
+t1991 = as.data.frame(fread("data/toxic/tract/toxic_1991_2010_tract.csv", data.table = FALSE))
+t1992 = as.data.frame(fread("data/toxic/tract/toxic_1992_2010_tract.csv", data.table = FALSE))
+t1993 = as.data.frame(fread("data/toxic/tract/toxic_1993_2010_tract.csv", data.table = FALSE))
+t1994 = as.data.frame(fread("data/toxic/tract/toxic_1994_2010_tract.csv", data.table = FALSE))
+#t1995 = as.data.frame(fread("data/toxic/tract/toxic_1995_2010_tract.csv", data.table = FALSE))
+t1996 = as.data.frame(fread("data/toxic/tract/toxic_1996_2010_tract.csv", data.table = FALSE))
+t1997 = as.data.frame(fread("data/toxic/tract/toxic_1997_2010_tract.csv", data.table = FALSE))
+t1998 = as.data.frame(fread("data/toxic/tract/toxic_1998_2010_tract.csv", data.table = FALSE))
+t1999 = as.data.frame(fread("data/toxic/tract/toxic_1999_2010_tract.csv", data.table = FALSE))
+t2000 = as.data.frame(fread("data/toxic/tract/toxic_2000_2010_tract.csv", data.table = FALSE))
+t2001 = as.data.frame(fread("data/toxic/tract/toxic_2001_2010_tract.csv", data.table = FALSE))
+t2002 = as.data.frame(fread("data/toxic/tract/toxic_2002_2010_tract.csv", data.table = FALSE))
+t2003 = as.data.frame(fread("data/toxic/tract/toxic_2003_2010_tract.csv", data.table = FALSE))
+#t2004 = as.data.frame(fread("data/toxic/tract/toxic_2004_2010_tract.csv", data.table = FALSE))
+t2005 = as.data.frame(fread("data/toxic/tract/toxic_2005_2010_tract.csv", data.table = FALSE))
+t2006 = as.data.frame(fread("data/toxic/tract/toxic_2006_2010_tract.csv", data.table = FALSE))
+t2007 = as.data.frame(fread("data/toxic/tract/toxic_2007_2010_tract.csv", data.table = FALSE))
+t2008 = as.data.frame(fread("data/toxic/tract/toxic_2008_2010_tract.csv", data.table = FALSE))
+t2009 = as.data.frame(fread("data/toxic/tract/toxic_2009_2010_tract.csv", data.table = FALSE))
+t2010 = as.data.frame(fread("data/toxic/tract/toxic_2010_2010_tract.csv", data.table = FALSE))
+t2011 = as.data.frame(fread("data/toxic/tract/toxic_2011_2010_tract.csv", data.table = FALSE))
+t2012 = as.data.frame(fread("data/toxic/tract/toxic_2012_2010_tract.csv", data.table = FALSE))
+t2013 = as.data.frame(fread("data/toxic/tract/toxic_2013_2010_tract.csv", data.table = FALSE))
+t2014 = as.data.frame(fread("data/toxic/tract/toxic_2014_2010_tract.csv", data.table = FALSE))
+
+read_in_pov = function(year, tox) {
+  data = as.data.frame(fread(paste0("data/census/hisp_pov/hisp_pov_tract_", year, ".csv"), data.table = FALSE))
+  data = data[complete.cases(data), ]
+  data$id = str_pad(data$id, 11, pad = "0", side = "left")
+  data = merge(data, tox, by.x = "id", by.y = "block")
+  data$year = year
+  return(data)
+}
+
+p1990 = read_in_pov(1990, t1990)
+p1991 = read_in_pov(1991, t1991)
+p1992 = read_in_pov(1992, t1992)
+p1993 = read_in_pov(1993, t1993)
+p1994 = read_in_pov(1994, t1994)
+p1996 = read_in_pov(1996, t1996)
+#p1995 = read_in_pov(1995, t1995)
+p1997 = read_in_pov(1997, t1997)
+p1998 = read_in_pov(1998, t1998)
+p1999 = read_in_pov(1999, t1999)
+p2000 = read_in_pov(2000, t2000)
+p2001 = read_in_pov(2001, t2001)
+p2002 = read_in_pov(2002, t2002)
+p2003 = read_in_pov(2003, t2003)
+#p2004 = read_in_pov(2004, t2004)
+p2005 = read_in_pov(2005, t2005)
+p2006 = read_in_pov(2006, t2006)
+p2007 = read_in_pov(2007, t2007)
+p2008 = read_in_pov(2008, t2008)
+p2009 = read_in_pov(2009, t2009)
+p2010 = read_in_pov(2010, t2010)
+p2011 = read_in_pov(2011, t2011)
+p2012 = read_in_pov(2012, t2012)
+p2013 = read_in_pov(2013, t2013)
+
+pov_data = rbind.fill(p1990, p1991, p1992, p1993, p1994, p1996, p1997, p1998, p1999, p2000, p2001, p2002, p2003, p2005, p2006, p2007, p2008, p2009, p2010, p2011, p2012, p2013)
+
+#Environmental justice literature has focused largely on the motivations behind facility siting that lead to inequality and policy approaches to help fix the disproportionate burden of environmental hazards on minority communities. The questions being asked are critical to creating policy that helps correct the problem of hazard allocation. A gap in the literature is the need for an investigation of the dynamic world of hazard allocation over time. 
+
+# what is natural sorting, How are env dumps created?, Breaking the self fulfilling cycle
+
+read_in = function(year, tox) {
+  data = as.data.frame(fread(paste0("data/census/hisp/hisp_tract_", year, ".csv"), data.table = FALSE))
+  data = data[complete.cases(data), ]
+  data$other_sum = rowSums(data[, 5:7])
+  data = select(data, id, pop, white, black, hispanic, other_sum)
+  names(data) = c("id", "pop", "white", "black", "hispanic", "other")
+  data$id = str_pad(data$id, 11, pad = "0", side = "left")
+  data = merge(data, tox, by.x = "id", by.y = "block")
+  data$year = year
+  return(data)
+}
+
+h1990 = read_in(1990, t1990)
+h1991 = read_in(1991, t1991)
+h1992 = read_in(1992, t1992)
+h1993 = read_in(1993, t1993)
+h1994 = read_in(1994, t1994)
+#h1995 = read_in(1995, t1995)
+h1996 = read_in(1996, t1996)
+h1997 = read_in(1997, t1997)
+h1998 = read_in(1998, t1998)
+h1999 = read_in(1999, t1999)
+h2000 = read_in(2000, t2000)
+h2001 = read_in(2001, t2001)
+h2002 = read_in(2002, t2002)
+h2003 = read_in(2003, t2003)
+#h2004 = read_in(2004, t2004)
+h2005 = read_in(2005, t2005)
+h2006 = read_in(2006, t2006)
+h2007 = read_in(2007, t2007)
+h2008 = read_in(2008, t2008)
+h2009 = read_in(2009, t2009)
+h2010 = read_in(2010, t2010)
+h2011 = read_in(2011, t2011)
+h2012 = read_in(2012, t2012)
+h2013 = read_in(2013, t2013)
+
+hisp_data = rbind.fill(h1990, h1991, h1992, h1993, h1994, h1996, h1997, h1998, h1999, h2000, h2001, h2002, h2003, h2005, h2006, h2007, h2008, h2009, h2010, h2011, h2012, h2013)
+
+data = merge(hisp_data, pov_data, by = c("id", "year"))
+data = data[, 1:18]
+names(data) = c("id", "year", "pop", "white", "black", "hispanic", "other", "concentration", "area", "whiteh", "whitel", "blackh", "blackl",
+                "otherh", "otherl", "hisph", "hispl", "pop_pov")
+
+```
+
+
+<!-- You'll need to include the order that you'd like Rmd files to appear in the _bookdown.yml file for
+PDF files and also delete the # before rmd_files: there.  You'll want to not include 00(two-hyphens)prelim.Rmd
+and 00-abstract.Rmd since they are handled in the YAML above differently for the PDF version.
+-->
+
+<!-- The {.unnumbered} option here means that the introduction will be "Chapter 0." You can also use {-} for no numbers
+on chapters.
+-->
+
+# Abstract {.unnumbered}
+
+This thesis seeks to address the question of how the toxicity experienced by minority communities has changed. Specifically, we look for substantial reductions in relative environmental toxicity, when shifts are occur, and what traits that are predictive of high environmental toxicity.
+
+### Keywords {.unnumbered}
+Environmental Inequality, Racial Inequality, Non-parametric analysis
+
+<!--chapter:end:index.Rmd-->
+
+<!--
+This is for including Chapter 1.  Notice that it's also good practice to name your chunk.  This will help you debug potential issues as you knit.  The chunk above is called intro and the one below is called chapter1.  Feel free to change the name of the Rmd file as you wish, but don't forget to change it here from chap1.Rmd.
+-->
+
+<!--
+The {#rmd-basics} text after the chapter declaration will allow us to link throughout the document back to the beginning of Chapter 1.  These labels will automatically be generated (if not specified) by changing the spaces to hyphens and capital letters to lowercase.  Look for the reference to this label at the beginning of Chapter 2.
+-->
+
+# Environmental Justice Literature {#env_justice}
+
+## Economic Explanations
+
+## Sociopolitical Explanations
+
+## Racial Discrimination Explanations
+
+* Fisher J. B., Kelly M. & Romm J. (2006). Scales of environmental justice: Combining GIS and spatial analysis for air toxics in West Oakland, California. *Health & Place, 12*, pp. 701-714.
+    * Uses data from the ISCST3 air dispersion model, and local knowledge of non-point soureces of diesel emissions in West Oakland.
+    * Does a disparate impact analysis based on the EPA's 
+    * Proves that the point sources are not randomly dispersed accros the Bay area, let alone the Oakland area, and shows statistically significant clusters of facilities. 
+
+* Kravitz-Wirtz N., Crowder K., Hajat A. & Sass V. (2016). The Long-term Dynamics of Racial/Ethnic Inequality in Neighborhood Air Pollution Exposure, 1990-2009. *Du Bois Review, 13*(2), pp. 237-259.
+    * Uses data from the Panel Study of Income Dynamics (PSID), and data on nitrogen dioxide (NO2), and particulate matter (PM2.5 and PM10) from the Toxic Resource Inventory (TRI) and the Air Quality System (AQS).
+    * Find that "Blacks and Latinos are, on average, more likely to be exposed to higher levels of NO2, PM2.5, and PM10 than Whites."
+    * More specifically, examines the "correspondence between neighborhood racial composition and pollution levels" using the household level data in PSID.
+    * Additionally uses measures of population density and residential segregation (measured using multigroup entropy index) of the areas each of the households are located in. 
+    * Uses a multilevel repeated measures model. Level 1 is individual intercepts and slopes, Level 2 is the average of all intercepts and slopes, with coefficients for race and time, Level 3 accounts for metropolitan areas. 
+    * Conclusions: There are substantial racial differneces in exposure to several kinds pollution. This persists even for households in similar circumstances. Declines in pollution over time have gone predominantly to minority groups. 
+    * Future work: Disentangle if differences come from "racially distinct patterns of individual mobility", "neighborhood change", or industrial siting. 
+
+* Gilbert A. & Chakraborty, J. (2011). Using geographically weighted regression for environmental justice analysis: Cumulative cancer risks from air toxics in Florida. *Social Science Research, 40*, pp. 273-286.
+
+* Ard K. (2015). Trends in exposure to industrial air toxins for different racial and socioeconomic groups: A spatial and temporal examination of environmental inequality in the U.S. from 1995 to 2004. *Social Science Research, 53*, pp. 375-390.
+
+* Burwell-Naney K. et al. (2013). Spatial disparity in the distribution of superfund sites in South Carolina: an ecological study. *Environmental Health, 12*(1).
+
+* Moghadam A. K. & Kayahan B. (2017). What influences the pattern of pollutant releases? An investigation of firms' siting and households' sorting decisions in Ontario, Canada. *Journal of Environmental Planning and Management, 60*(4). pp. 743-754.
+
+* Pais J., Crowder K. & Downey L. (2013). Unequal Trajectories: Racial and Class Differences in Residential Exposure to Industrial Hazard. *Social Forces, 92*(3). pp. 1189-1215
+
+<!--chapter:end:01-env_justice.Rmd-->
+
+# Data {#math}
+
+## Raw Data
+
+The Risk Screening Environmental Indicators (RSEI) Model is a geographically detailed data set produced by the Environmental Protection Agency (EPA). RSEI data is based upon the Toxic Release Inventory (TRI), which (for about 30 years) has been collecting data on all toxic releases in the US. The TRI program manages the regulations, policies and facilities that ultimately are mandated to be reported. 
+
+TRI data is self reported by facilities, with each observation being a release of a reporting chemical at a reporting facility. For each observation, data is collected on which chemical was released, how much of it was released, and the facility from which it was released. 
+
+The detailed location and chemical data that is collected through TRI (as well as detailed weather data from NOAA) is reformatted through a fate and transport model to create RSEI. The RSEI data shows where each release has traveled on an 800m grid across the USA. The ultimate data we have access to through the RSEI data is an observation for each release, for each square in the grid that the release hits. This gives us an idea of how the chemicals spread from the release locations, and enables us to create a map across the entire nation for where TRI chemicals accumulate in any year between 1988 and 2014. 
+
+The initial data from RSEI is in the form of one observation per release per block on the 800m grid that it reached. Given that the 800m grid across the United States has on the order of 10 billion squares, each release hits many squares, we have many releases, and the data covers 27 years, this is an enormous data set. Overall, the disaggregated microdata is approximately 4 terabytes of data. 
+
+The RSEI reformat of the TRI provides some additional information computed from the release information, and additional geographic information. X and Y are the geographic identifiers for the square on the grid across the US, with (0, 0) in the center of the US. Release number tells us which release that row is associated with. Chemical number through media are all release specific data, but all data beyond that is release and grid number specific. Conc (concentration) is the raw concentration of the amount of the chemical that reached that grid cell. ToxConc is the toxicity weighted concentration of that release in that grid cell. The various 'Score' variables are meant to be used as hazard created by that release in that grid cell, as they are weighted by the population in that grid cell. 
+
+Below see an example of the disaggregated microdata:
+
+|X   |Y   |Release|Chem|Facility|Media|Conc   |ToxConc|Score|SCancer|SNoCan|Pop |
+|----|----|-------|----|--------|-----|-------|-------|-----|-------|------|----|
+|-185|51  |2050156|317 |3       |1    |4.55e-4|2.28e-3|0    |0      |0     |0   |
+|-184|41  |2050156|317 |3       |1    |3.29e-4|1.65e-3|0    |0      |0     |0   |
+|-184|42  |2050156|317 |3       |1    |3.33e-4|1.67e-3|0    |0      |0     |0   |
+|-184|43  |2050156|317 |3       |1    |3.33e-4|1.66e-3|0    |0      |0     |0   |
+|-184|44  |2050156|317 |3       |1    |3.35e-4|1.68e-3|0    |0      |0     |0   |
+|... |... |...    |... |...     |...  |...    |...    |...  |...    |...   |... |
+
+
+
+## Important Caveats
+
+Due to the nature of the data, there are a few interesting caveats to consider. 
+
+* The RSEI data is self reported, and has been thought to contain some severe underreporting. 
+
+* The data is entirely based off a black box fate and transport model. The model has uncertainty that we are not addressing. 
+
+* The data only captures releases for certain facility types within certain industries, for certain chemical types within those facilities. Not all chemicals are mandated reporting, and any analysis that is done based off the data can't be extrapolated to discuss toxicity more generally. 
+
+* Not only does the data not capture all chemicals, it also doesn't adress many common nuicances. Because of this, it is difficult to relate the RSEI scores to health or quality of life outcomes in an area. In discussion of environmental toxicity more generally, it is worth noting that certain toxicity types may  be more or less likely to cause adcerse effects based on how they reach people in the area (eg. they may or may not reach local water systems). There are also more obvious environmental hazards, that are likely to have strong influence on public health and living conditions that TRI doesn't address, eg: brownfields, solid waste disposal, animal farming, hazardous waste, etc.
+
+* RSEI gives the weight of the release and the chemical of the release, but chemicals have very different levels of toxicity. A small amount of mercury released is much more problematic than a small amount of CO2. To that end, the EPA assigned each chemical a 'toxicity' weight, by which the amount of the chemical released is multiplied. This means that we can aggregate all the chemicals in an area, and compare the overall toxicity over space and time. The toxicity weights allow us to compare to other chemicals' toxicity weight, and overall toxicity of a given chemical release, but also means that the values only have meaning in comparison.
+
+Despite the limitations that the data presents, it provides an incredibly detailed and complex view of toxicity in America that is worth delving in to. 
+
+## Consistency in Reporting (detailed data description)
+
+### Census Comparability
+
+For the time period that RSEI data is available for (1988 - 2014), Census geographies have experienced considerable overhaul. Many of our questions of interest involve demographic characteristics, and the changes we see in environmental toxicity over time for those demographics. As such, we need to be able to aggregate the toxicity to block group or tract level to be able to merge with Census data. To do so, we caluclate the toxicity values for each geographic unit for the closest temporal census geography (1990, 2000 or 2010). If we want to use Census areas as the unit of analysis, we also need to consider consistency of the units definition over time. To do so we would need to create crosswalks that help us transform past Census geographies to the current form, allocating the population appropriately to the new geographies. 
+
+### Details of Chemical Consistency
+
+Comparability across time, space, and chemicals is a consistent topic through this section. The EPA is incredibly detailed in their data collection, and creation of metrics to make the data meaningful on a broad scale. Unfortunately the EPA is subject to the changing scientific consensus of the times, and therefore hasn't been able to provide entirely consistent data. 
+
+Over time, as chemicals have been found to be toxic, they have been added to the list of TRI mandated reporting chemicals. There are also chemicals that through renewed understanding have been removed from the mandated reporting list. Because the list of chemicals reported changes over time, aggregating all the data would cause us to see artificial jumps in toxicity. These jumps wouldn't be reflective of an actual increase in toxicity, but rather that the toxicity was beginning to be measured. These jumps may change what areas appear as toxic i the data, as industries that don't have to report at some point in the time frame will be entirely removed from the dataset. Several of those industries are very highly polluting, areas who focus strongly on those industries will show inaccurate low scores. 
+
+### Details of Industry Reporting Consistency
+
+TRI regulates who needs to self report using the North American Industry Classification System (NAICS), and before NAICS was available used its predecessor, the Standard Industrial Classification (SIC) system. Just as we see changes in the regulations for chemicals, we see changes in the regulations of various industries. NAICS codes that need to report are regulated independently of chemical codes, and NAICS codes that are not consistently reported across the time period of interest must be removed to maintain continuity. For a toy example, a textiles facility releasing mercury might have to report it, but the neighboring mining facility might not have to report their mercury emissions. If that changes over the time period, and suddenly mining needs to report, we will see an artificial huge jump in the mercury present in that area if we don't remove by industry.
+
+## Ultimate Data Form
+
+The disaggregated microdata from RSEI is one observation per release per block on the 800m grid that it reached. The munging for these 4 terabytes of data filters each of the billions of observations to check that it is 
+1) from a chemical that is consistent across the relevant years
+2) from an released that is linked to an industry that is consistent across years, and 
+3) allocates the observation to the appropriate geography. 
+
+This data cleaning is done through R, using the DBI and SQLite packages. Since there is so much data, it's not feasible to process it using typical R function, so after loading the data in to a database, it becomes queryable using SQL. This significantly speeds up the processes detailed below. 
+
+To accomplish the chemical consistency, we use a data table (provided by Rich Puchalsky) that contains a row for each chemical with the data of regulation, and the date of deregulation. Using this information, we can select the chemicals that are relevant to any set of years of interest. Chemicals are found by selecting the subset of chemicals where the year of initial regulation is before the interest period, and the year of deregulation is after the interest period, while also excluding delisted chemicals, and all observations are checked to be in this range.
+
+Filtering out observations whose releases are not under a regulated NAICS category for the entire time is more complex. Using a similar table that contains the regulation and deregulation dates of NAICS codes we can find the consistent industry categories. However, the only reference to NAICS or SIC codes are in the facility table that the releases reference. This table provides 6 NAICS codes that are the most common NAICS codes associated with the facility. However, NAICS codes are release specific, not facility specific, meaning that for each emission reported a NAICS code is reported. Removing by facility is not accurate, since facilities might have different types of NAICS emissions. The textiles facility we used as an example earlier might make both shoes and jackets, with different industry codes and different releases that have different reporting requirements. To get data on the NAICS codes by submission, data must be taken from the original TRI data, and linked to the disaggregated microdata by the document control number.
+
+In the data cleansing process, we filter the data to remove industries and chemicals that were not consistent over the period of inquiry, and aggregate the data to the relevant Census geographies. The data, then forms a data set for each year, with an observation for each block group, and just one measure, an aggregated toxicity level. 
+
+|block        |concentration|area    |
+|-------------|-------------|--------|
+|010010201001	|627.3050138	|6.520168|
+|010010201002	|499.6297799	|8.48669 |
+|010010202001	|578.8311689	|3.137173|
+|010010202002	|756.3733114	|1.962949|
+|010010203001	|637.7356488	|5.907125|
+|...          |...          |...     |
+
+
+The 'concentration' estimate must be interpreted in the context of the consistency adjustments. For example, towns with extremely high mining emissions may not show as exceptionally high pollution, as mining is one of the industries that had different regulations over the 1990-2010 time period, and therefore the reported mining emissions have been removed entirely. Essentially, the pollution estimates are comparable across time and location, but only in the context of continuous EPA regulation, and can not be interpreted independently of one another. 
+
+<!--chapter:end:02-data.Rmd-->
+
+# Approaches and Methods {#ref-labels}
+
+## Geographic Level of Analysis
+
+The questions we would like to pose - how the distributions of toxicity that individuals experience over time are predicted by their complex, multidimensional identities - is inherently intended to be a person level analysis. That intent may not be achievable given the available data. 
+
+This analysis depends on two data sources, the disaggregated RSEI toxic release data (as compiled to contain only releases that are consistently reported between 1990 and 2010) as well as relevant demographic information from the Census. 
+
+RSEI toxicity data can be obtained at extremely fine level (the 800 meter grid across the United States,) but the finest grain Census data is available at is the block level, which contains between 0 and a few hundred people. At such low geographic levels, few variables are available for demographics due to identifiability concerns. At low levels cross tabulations are not available due to concerns of identifiability. Using a low level of geography (like census blocks or block groups) is important for the environmental aspect of this analysis, since environmental hazards can be very localized, especially along neighborhood lines in urban areas. 
+
+Unfortunately, the availability of cross tabulations is equally important to the goal of this work in examining inequality of environmental burden held by minority groups in America. The intersection of social identies, especially those steeped in systems of oppression, is extremely important for identifying unequal burdens. For example, low income populations across the board may be more likely to experience environmental hazards, but low income minority populations could be much more likely than low income white populations to experience extreme hazard. The intersections of demographic charictersitics, such as race and income or race and education are likely to be important in teasing out differences true inequality burden. 
+
+We combine the computed aggregated toxicity for each block group and the demographic data. Now for each census geography, we have toxicity information as well as demographic data. 
+
+|block       |concentration|area    |total_pop|white|black|
+|------------|-------------|--------|---------|-----|-----|
+|010010201001|627.3050     |6.520168|530      |447  |83   |
+|010010201002|499.6298     |8.486690|1282     |1099 |126  |
+|010010202001|578.8312     |3.137173|1274     |363  |824  |
+|010010202002|756.3733     |1.962949|944      |458  |477  |
+|010010203001|637.7356     |5.907125|2538     |2152 |384  |
+|...         |...          |...     |...      |...  |...  |
+To move to a person level analysis, we can assign each of the people the toxicity for the geography they originated in. By assigning each person the toxicity of their block group, we can aggregate nationally to find the distribution of toxicity that each group experiences. This approach is restricted in ability to approach the problem in an intersectional manner, since we can only build a distribution for each of the crosstabs we have available. For higher levels of geography (where we might, for example, have race by income) we would be able to build national distributions for each income by race group.
+
+In the case of the table above, to build a distribution for the white population, we would assing 447 people a toxicity of ~627, 1099 people a toxicity of ~499 and so on until we have the full distribution of toxicities experienced by the white population.
+
+In choosing the level of aggregation at which to assign toxicity, in order to balance the needs of accuracy of toxicity and availability of cross tabulations, we create the overall toxicity distribution for Americans at each of the levels of geography. The process described above can be excecuted with the data shown above, or at a cruder level of geography, such as state. Using block group as the smallest form of geography, and state as the largest (including tract and county in between) we see how the distribution changes at each level of aggregation. 
+
+```{r ecologicalFallacy, echo = FALSE, fig.width=6, fig.height=3, message = FALSE}
+#import toxicity data
+bg2010 = as.data.frame(fread("data/toxic/bg/toxic_2010_2010_blockgroup.csv"))
+
+#import census data
+census_bg = fread("data/ecologicalFallacy/census_bg_race.csv", skip = 1)
+census_tract = fread("data/ecologicalFallacy/census_tract_race.csv")
+census_county = fread("data/ecologicalFallacy/census_county_race.csv", skip = 1)
+census_state = fread("data/ecologicalFallacy/census_state_race.csv", skip = 1)
+
+#munge census data
+census_bg = select(census_bg, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
+names(census_bg)  = c("fips", "total", "white", "black")
+census_bg$fips = str_pad(census_bg$fips, 12, pad = "0", "left")
+census_tract = select(census_tract, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
+names(census_tract)  = c("fips", "total", "white", "black")
+census_county = select(census_county, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
+names(census_county)  = c("fips", "total", "white", "black")
+census_county$fips = str_pad(census_county$fips, 5, pad = "0", side = "left")
+census_state = select(census_state, Geo_FIPS, SE_T013_001, SE_T013_002, SE_T013_003)
+names(census_state)  = c("fips", "total", "white", "black")
+
+#merge census and toxicity data
+tract2010 = fread("data/ecologicalFallacy/toxic_2010_2010_tract.csv")
+tract2010 = merge(tract2010, census_tract, by.x = "block", by.y = "fips")
+county2010 = fread("data/ecologicalFallacy/toxic_2010_2010_county.csv")
+county2010 = merge(county2010, census_county, by.x = "block", by.y = "fips")
+state2010 = fread("data/ecologicalFallacy/toxic_2010_2010_state.csv")
+state2010 = merge(state2010, census_state, by.x = "block", by.y = "fips")
+bg2010 = merge(bg2010, census_bg, by.x = "block", by.y = "fips")
+
+#plot national distributions
+g = ggplot() + geom_density(aes(log(county2010$concentration), weight = county2010$total/sum(county2010$total), color = "County"), bw = 0.2)
+g = g + geom_density(aes(log(state2010$concentration), weight = state2010$total/sum(state2010$total), color = "State"), bw = 0.35)
+g = g + geom_density(aes(log(bg2010$concentration), weight = bg2010$total/sum(bg2010$total), color = "Block Group"), bw = 0.05)
+g = g + geom_density(aes(log(tract2010$concentration), weight = tract2010$total/sum(tract2010$total), color = "Tract"), bw = 0.05)
+g = g + labs(x = "Log Toxicity", colour = "Geographic Level", caption = "(as assigned by different levels of geography)", title = "Distribution of Toxicity for US Population")
+g = g + theme(axis.text=element_text(size = 6), legend.text = element_text(size = 7), legend.title = element_text(size = 8))
+g
+```
+
+As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly the tract data seems to build a distribution very similar to the block group level assignment. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it lost the street block by street block variation that we had deemed so crucial, so aggregating several block groups gives us a conceptual equivalent 'neighborhood' level of aggregation. 
+
+## Temporal Level of Analysis 
+
+Given the layout of this non-parametric method, we can find the changes in positional distribution for any two given years. Though we are most interested in the complete change from the starting year of 1988 to 2014, as that is the data we have, the gradual changes and the speed of change from year to year is also of interest. While we have the full range of data from 1988 to 2014 for the toxicity data, we only have available Census data from the decennial census and the ACS. That means that we have snapshots of data from 1990, 2000, and continuous data for 2010 on. 
+
+In order to do a continuous analysis from 1990 until the most recent toxicity data (2014), we chose to use linear interpolation between the decenial census. For current data, we use the 5 year ACS sample. 
+
+## Simulation
+```{r densityCalcs, include = FALSE}
+density_black = ewcdf(bg2010$concentration, weights = bg2010$black/sum(bg2010$black))
+black2010 = round(quantile(density_black, 0.75), 2)
+density_overall = ewcdf(bg2010$concentration, weights = bg2010$total/sum(bg2010$total))
+overallperc = round(density_overall(black2010), 4)*100
+```
+
+To examine the change of environmental burden over time for groups we first use simulation to tease apart the forces in play as each group's distribution changes over time. For any given value, the percentile it holds in a minority distribution is likely to be different from the percentile it holds in the overall distribution. For example, in 2010 the 75th percentile of the black distribution is `r black2010`, while that same value is the `r overallperc`th percentile in the overall distribution. 
+
+We expect the mean of minority distributions to reduce over time for two reasons: first we assume the entire distribution will slowly be shifting right as we see improvements in environmentally friendly production technology and more comprehensive envirnmental regulation. Secondly, we hope that with Title VI protetections, and the work of civil rights advocates, minority communities will better protected against the economic power frequently held by polluters. 
+
+In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority groups held in the overall distribution at the start of the period of study to simulate how each group's distribution would have progressed through time assuming a static position in society at large. This simulation proceeds as follows:
+
+* Build an emipirical distribution of toxicity experienced for the entire population and for groups of interest in the starting year. 
+
+* Sample individuals from the empirical distributions for the entire population and the groups of interest. 
+
+* For each sampled value, find the percentile in the empirical distribution for the entire population in the starting year. 
+
+* Create an empirical distribution for the entire population in the ending year. 
+
+* For each sampled percentile, find the corresponding value in the full empirical distribution of the ending year and assign to the appropriate group of interest. 
+
+Using this method we can hold constant the place each individual (and more broadly each group) holds in the overall distribution, but follow the changes in the distribution as a whole. The collection of values simulated now represents where each individual or group would have been had there been no positional improvement for the group as a whole.
+
+If there had been improvement for a group, we would expect the simulated distributions to paint a bleaker picture of the environmental burden borne than the true distribution of the ending year. 
+
+###Simulation Accuracy
+
+We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5th, 50th and 95th quantiles with different values for n. This is done by simulating the new distribution at time t repeatedly with varying n, and describing the distribution of quantiles produced. This sampling helps us to choose a size of the sample to get an accurate measure, and frames the final values we report. 
+
+```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=3}
+sim_se_05 = read_csv("data/bootstrap_simulation_se_05.csv")
+sim_se_50 = read_csv("data/bootstrap_simulation_se_50.csv")
+sim_se_95 = read_csv("data/bootstrap_simulation_se_95.csv")
+
+s5 = ggplot() + 
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_05) +
+  geom_line(aes(x = n, y = mean), data = sim_se_05) +
+  labs(x = "Size of simulated group", y = "Simulated 5th Percentile") + coord_cartesian(ylim=c(40, 100))
+
+s50 = ggplot() + 
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_50) +
+  geom_line(aes(x = n, y = mean), data = sim_se_50) +
+  labs(x = "Size of simulated group", y = "Simulated 50th Percentile") + coord_cartesian(ylim=c(7000, 9000))
+
+s95 = ggplot() + 
+  geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_95) +
+  geom_line(aes(x = n, y = mean), data = sim_se_95) +
+  labs(x = "Size of simulated group", y = "Simulated 95th Percentile") + coord_cartesian(ylim=c(80000, 140000))
+
+grid.arrange(s5, s50, s95, ncol=3)
+
+```
+
+For the 5th quantile, a relatively low n produces a fairly stable result, sampling with n = 15,000 appears sufficient. Due to the extreme right skew of the data, the 95th percentile requires a larger sample. Still n = 50,000 is sufficient. 
+
+```{r exploringChange2000, echo = FALSE}
+#ggplot(race_data) + geom_line(aes(x = year, y = lconcentration, color = (black/pop), group = id), alpha = 0.3) + labs(x = "Year", colour = "% Black", title = "Toxicity Trend for all Census Tracts")
+
+#x = race_data[race_data$year == 1993 & race_data$concentration < 400, 1:8]
+#y = race_data[race_data$year == 1994 & race_data$concentration < 400, 1:8]
+
+#names(x) = c("id", "pop93", "white93", "black93", "native93", "asian93", "other93", "concentration93")
+#names(y) = c("id", "pop94", "white94", "black94", "native94", "asian94", "other94", "concentration94")
+
+#x = merge(x, y, by = "id")
+
+#z = (x$concentration94 * (x$black94/sum(x$black94))) - (x$concentration93 * (x$black93/sum(x$black93)))
+
+#ggplot(x) + geom_point(aes(x = concentration93, y = concentration94))
+```
+
+<!--chapter:end:03-methods.Rmd-->
+
+# Results {#organization}
+
+
+
+## Toxicity trends over time
+
+```{r quantileCalcs, echo = FALSE, message = FALSE, warning = FALSE}
+library(plyr)
+
+sim05 = fread("data/simulation05.csv", data.table = FALSE)
+sim50 = fread("data/simulation50.csv", data.table = FALSE)
+sim95 = fread("data/simulation95.csv", data.table = FALSE)
+se_race_05 = fread("data/bootstrap_race_se_05.csv", data.table = FALSE)
+se_race_50 = fread("data/bootstrap_race_se_50.csv", data.table = FALSE)
+se_race_95 = fread("data/bootstrap_race_se_95.csv", data.table = FALSE)
+
+get_perc = function(data, quant, variables = c("white", "black", "hispanic", "other"), sim = NA, se = NA) {
+  new = sort(unique(data$year), decreasing = FALSE)
+  for (var in variables) {
+    new = cbind(new, ddply(data, .(year), function(x) weighted.quantile(x$concentration, x[, var]/sum(x[, var]), quant, na.rm = TRUE))[, 2])
+  }
+  new = as.data.frame(new)
+  names(new) = c("year", variables)
+  if (!is.na(sim)) {
+    new = merge(new, sim, by = "year")
+  }
+  if (!is.na(se)) {
+    new = merge(new, se, by = "year")
+  }
+  return(new)
+}
+
+perc05 = get_perc(data, 0.05, variables = names(data)[c(3:7, 10:18)])
+perc50 = get_perc(data, 0.50, variables = names(data)[c(3:7, 10:18)])
+perc95 = get_perc(data, 0.95, variables = names(data)[c(3:7, 10:18)])
+```
+
+```{r plottingQuantiles, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
+hisp_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
+  g = ggplot(data = cur_data) + 
+  geom_line(aes(x = year, y = white, color = "white")) +
+  geom_line(aes(x = year, y = black, color = "black")) + 
+  geom_line(aes(x = year, y = hispanic, color = "hispanic")) + 
+  geom_line(aes(x = year, y = other, color = "other")) + 
+  labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
+  if (legend == FALSE) {
+    g = g + guides(color = FALSE)
+  }
+  if (smooth == TRUE) {
+    g = g +
+      geom_line(aes(x = year, y = rollmean(black, 3, na.pad=TRUE), color = "black"), se = FALSE, size = 0.5, linetype = "twodash")  +
+      geom_line(aes(x = year, y = rollmean(hispanic, 3, na.pad = TRUE), color = "hispanic"), se = FALSE, size = 0.5, linetype = "twodash") +
+      geom_line(aes(x = year, y = rollmean(other, 3, na.pad = TRUE), color = "other"), se = FALSE, size = 0.5, linetype = "twodash") +
+      geom_line(aes(x = year, y = rollmean(white, 3, na.pad = TRUE), color = "white"), se = FALSE, size = 0.5, linetype = "twodash")
+  }
+  g
+}
+
+relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
+  g = ggplot(data) 
+  if (smooth == TRUE) {
+    g = g + 
+      geom_line(aes(x = year, y = (white/white), color = "white")) +
+      geom_line(aes(x = year, y = (black/white), color = "black"), alpha = 0.3)  +
+      geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.3) +
+      geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.3) +
+      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
+      theme(legend.position="bottom") +
+      geom_line(aes(x = year, y = rollmean(black/white, 3, na.pad=TRUE), color = "black"), se = FALSE, size = 0.7, linetype = "twodash")  +
+      geom_line(aes(x = year, y = rollmean(hispanic/white, 3, na.pad = TRUE), color = "hispanic"), se = FALSE, size = 0.7, linetype = "twodash") +
+      geom_line(aes(x = year, y = rollmean(other/white, 3, na.pad = TRUE), color = "other"), se = FALSE, size = 0.7, linetype = "twodash")
+  }
+  else {
+    g = g + 
+      geom_line(aes(x = year, y = (white/white), color = "white")) +
+      geom_line(aes(x = year, y = (black/white), color = "black"))  +
+      geom_line(aes(x = year, y = (hispanic/white), color = "hispanic")) +
+      geom_line(aes(x = year, y = (other/white), color = "other")) +
+      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
+      theme(legend.position="bottom")
+  }
+  if (legend == FALSE) {
+    g = g + guides(color = FALSE)
+  }
+  g
+}
+
+
+pov_tox = function(cur_data, perc, legend = FALSE) {
+  g = ggplot(data = cur_data) + 
+  geom_line(aes(x = year, y = whiteh, color = "white")) +
+  geom_line(aes(x = year, y = blackh, color = "black")) + 
+  geom_line(aes(x = year, y = nativeh, color = "native")) + 
+  geom_line(aes(x = year, y = asianh, color = "asian")) + 
+  geom_line(aes(x = year, y = otherh, color = "other")) + 
+  geom_line(aes(x = year, y = whitel, color = "white")) +
+  geom_line(aes(x = year, y = blackl, color = "black")) + 
+  geom_line(aes(x = year, y = nativel, color = "native")) + 
+  geom_line(aes(x = year, y = asianl, color = "asian")) + 
+  geom_line(aes(x = year, y = otherl, color = "other")) + 
+  labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th PCTL Toxicity"), color = "Legend")
+  if (legend == FALSE) {
+    g = g + guides(color = FALSE)
+  }
+  g
+}
+
+g_legend = function(a.gplot) {
+  tmp = ggplot_gtable(ggplot_build(a.gplot))
+  leg = which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend = tmp$grobs[[leg]]
+  return(legend)
+}
+```
+
+```{r plotGroup05, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+legend_grab = relative_tox(perc05, 5, legend = TRUE)
+five = hisp_tox(perc05, 5)
+fifty = hisp_tox(perc50, 50)
+ninetyfive = hisp_tox(perc95, 95)
+
+five_rel = relative_tox(perc05, 5, smooth = TRUE)
+fifty_rel = relative_tox(perc50, 50, smooth = TRUE)
+ninetyfive_rel = relative_tox(perc95, 95, smooth = TRUE)
+
+legend = g_legend(legend_grab)
+
+grid.arrange(arrangeGrob(five, five_rel, nrow=1),
+             legend, nrow=2,heights=c(10, 1))
+```
+
+```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+grid.arrange(arrangeGrob(fifty, fifty_rel, nrow=1),
+             legend, nrow=2,heights=c(10, 1))
+```
+
+```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
+             legend, nrow=2,heights=c(10, 1))
+```
+
+## Simulating Changes
+
+## Interacting Risk Cases
+
+## Geographic Changes in Exposure
+
+<!--chapter:end:04-results.Rmd-->
+
+`r if(knitr:::is_latex_output()) '\\appendix'`
+
+`r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'` 
+
+# The First Appendix
+
+This first appendix includes all of the R chunks of code that were hidden throughout the document (using the `include = FALSE` chunk tag) to help with readibility and/or setup.
+
+**In the main Rmd file**
+
+```{r ref.label='include_packages', results='hide', echo = TRUE}
+```
+
+**In Chapter \@ref(ref-labels):**
+
+```{r ref.label='include_packages_2', results='hide', echo = TRUE}
+```
+
+<!--chapter:end:06-appendix.Rmd-->
+
+<!--
+The bib chunk below must go last in this document according to how R Markdown renders.  More info is at http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html
+-->
+
+\backmatter
+
+<!-- 
+If you'd like to change the name of the bibliography to something else,
+delete "References" and replace it.
+-->
+
+# References {-}
+<!--
+This manually sets the header for this unnumbered chapter.
+-->
+\markboth{References}{References}
+<!--
+To remove the indentation of the first entry.
+-->
+\noindent
+
+<!--
+To create a hanging indent and spacing between entries.  These three lines may need to be removed for styles that don't require the hanging indent.
+-->
+
+\setlength{\parindent}{-0.20in}
+\setlength{\leftskip}{0.20in}
+\setlength{\parskip}{8pt}
+
+
+<!--
+This is just for testing with more citations for the bibliography at the end.  Add other entries into the list here if you'd like them to appear in the bibliography even if they weren't explicitly cited in the document.
+-->
+
+---
+nocite: | 
+  @angel2000, @angel2001, @angel2002a
+...
+
+<!--chapter:end:99-references.Rmd-->
+
