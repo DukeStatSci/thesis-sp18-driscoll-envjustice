@@ -154,21 +154,26 @@ sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
       geom_line(aes(x = year, y = black, color = "black"), alpha = 0.3) + 
       geom_line(aes(x = year, y = hispanic, color = "hispanic"), alpha = 0.3) + 
       geom_line(aes(x = year, y = other, color = "other"), alpha = 0.3) + 
-      geom_line(aes(x = year, y = rollmean(black, 3, na.pad=TRUE), color = "black"), se = FALSE, size = 0.5)  +
-      geom_line(aes(x = year, y = rollmean(hispanic, 3, na.pad = TRUE), color = "hispanic"), se = FALSE, size = 0.5) +
-      geom_line(aes(x = year, y = rollmean(other, 3, na.pad = TRUE), color = "other"), se = FALSE, size = 0.5) +
-      geom_line(aes(x = year, y = rollmean(white, 3, na.pad = TRUE), color = "white"), se = FALSE, size = 0.5)
+      geom_line(aes(x = year, y = rollmean(black, 3, na.pad=TRUE), color = "black"), size = 0.5)  +
+      geom_line(aes(x = year, y = rollmean(hispanic, 3, na.pad = TRUE), color = "hispanic"), size = 0.5) +
+      geom_line(aes(x = year, y = rollmean(other, 3, na.pad = TRUE), color = "other"), size = 0.5) +
+      geom_line(aes(x = year, y = rollmean(white, 3, na.pad = TRUE), color = "white"), size = 0.5)
   } 
   else {
      g = g +
-      geom_line(aes(x = year, y = white, color = "white")) +
-      geom_line(aes(x = year, y = black, color = "black")) + 
-      geom_line(aes(x = year, y = hispanic, color = "hispanic")) + 
-      geom_line(aes(x = year, y = other, color = "other"))
+      geom_line(aes(x = year, y = log(white), color = "white")) +
+      geom_line(aes(x = year, y = log(black), color = "black")) + 
+      geom_line(aes(x = year, y = log(hispanic), color = "hispanic")) + 
+      geom_line(aes(x = year, y = log(other), color = "other"))
   }
-  g = g + geom_line(aes(x = year, y = sim_b, color = "black")) + 
+  g = g + geom_line(aes(x = year, y = log(sim_b), color = "black"), linetype = "dashed", size = 0.7) + 
+    geom_line(aes(x = year, y = log(sim_o), color = "other"), linetype = "dashed", size = 0.7) 
   g
 }
+
+grid.arrange(sim_tox(perc05, 5), legend, nrow = 2,heights = c(10, 1))
+grid.arrange(sim_tox(perc50, 50), legend, nrow = 2,heights = c(10, 1))
+grid.arrange(sim_tox(perc95, 95), legend, nrow = 2,heights = c(10, 1))
 ```
 
 

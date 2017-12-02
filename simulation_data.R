@@ -78,9 +78,9 @@ years = c(1990, 1991, 1992, 1993, 1994, 1996, 1997, 1998, 1999, 2000, 2001, 2002
           2008, 2009, 2010, 2011, 2012, 2013)
 l = length(years)
 
-simulation05 = data.frame(year = rep(NA, l), sim_b = rep(NA, l), sim_a = rep(NA, l), sim_n = rep(NA, l), sim_o = rep(NA, l))
-simulation50 = data.frame(year = rep(NA, l), sim_b = rep(NA, l), sim_a = rep(NA, l), sim_n = rep(NA, l), sim_o = rep(NA, l))
-simulation95 = data.frame(year = rep(NA, l), sim_b = rep(NA, l), sim_a = rep(NA, l), sim_n = rep(NA, l), sim_o = rep(NA, l))
+simulation05 = data.frame(year = years, sim_b = rep(NA, l), sim_o = rep(NA, l))
+simulation50 = data.frame(year = years, sim_b = rep(NA, l), sim_o = rep(NA, l))
+simulation95 = data.frame(year = years, sim_b = rep(NA, l), sim_o = rep(NA, l))
 
 for (i in 1:length(years)){
   year = years[i]
