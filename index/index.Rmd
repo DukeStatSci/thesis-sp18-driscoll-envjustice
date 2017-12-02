@@ -115,41 +115,8 @@ t2012 = as.data.frame(fread("data/toxic/tract/toxic_2012_2010_tract.csv", data.t
 t2013 = as.data.frame(fread("data/toxic/tract/toxic_2013_2010_tract.csv", data.table = FALSE))
 t2014 = as.data.frame(fread("data/toxic/tract/toxic_2014_2010_tract.csv", data.table = FALSE))
 
-read_in = function(year, tox) {
-  data = as.data.frame(fread(paste0("data/census/race/race_tract_", year, ".csv"), data.table = FALSE))
-  data = data[complete.cases(data), ]
-  data$id = str_pad(data$id, 11, pad = "0", side = "left")
-  data = merge(data, tox, by.x = "id", by.y = "block")
-  data$lconcentration = log(data$concentration)
-  data$year = year
-  return(data)
-}
-
-#r1990 = read_in(1990, t1990)
-#r1991 = read_in(1991, t1991)
-#r1992 = read_in(1992, t1992)
-#r1993 = read_in(1993, t1993)
-#r1994 = read_in(1994, t1994)
-#r1996 = read_in(1996, t1996)
-#r1997 = read_in(1997, t1997)
-#r1998 = read_in(1998, t1998)
-#r1999 = read_in(1999, t1999)
-#r2000 = read_in(2000, t2000)
-#r2001 = read_in(2001, t2001)
-#r2002 = read_in(2002, t2002)
-#r2003 = read_in(2003, t2003)
-#r2005 = read_in(2005, t2005)
-#r2006 = read_in(2006, t2006)
-#r2007 = read_in(2007, t2007)
-#r2008 = read_in(2008, t2008)
-#r2009 = read_in(2009, t2009)
-#r2010 = read_in(2010, t2010)
-
-#race_data = rbind.fill(r1990, r1991, r1992, r1993, r1994, r1996, r1997, r1998, r1999, r2000, r2001, r2002, r2003, r2005, r2006, r2007, r2008, r2009, r2010)
-
-read_in = function(year, tox) {
-  data = as.data.frame(fread(paste0("data/census/hisp_pov/race_pov_tract_", year, ".csv"), data.table = FALSE))
-  data$hisp = 
+read_in_pov = function(year, tox) {
+  data = as.data.frame(fread(paste0("data/census/hisp_pov/hisp_pov_tract_", year, ".csv"), data.table = FALSE))
   data = data[complete.cases(data), ]
   data$id = str_pad(data$id, 11, pad = "0", side = "left")
   data = merge(data, tox, by.x = "id", by.y = "block")
@@ -157,27 +124,29 @@ read_in = function(year, tox) {
   return(data)
 }
 
-#p1990 = read_in(1990, t1990)
-#p1991 = read_in(1991, t1991)
-#p1992 = read_in(1992, t1992)
-#p1993 = read_in(1993, t1993)
-#p1994 = read_in(1994, t1994)
-#p1996 = read_in(1996, t1996)
-#p1997 = read_in(1997, t1997)
-#p1998 = read_in(1998, t1998)
-#p1999 = read_in(1999, t1999)
-#p2000 = read_in(2000, t2000)
-#p2001 = read_in(2001, t2001)
-#p2002 = read_in(2002, t2002)
-#p2003 = read_in(2003, t2003)
-#p2005 = read_in(2005, t2005)
-#p2006 = read_in(2006, t2006)
-#p2007 = read_in(2007, t2007)
-#p2008 = read_in(2008, t2008)
-#p2009 = read_in(2009, t2009)
-#p2010 = read_in(2010, t2010)
+p1990 = read_in_pov(1990, t1990)
+p1991 = read_in_pov(1991, t1991)
+p1992 = read_in_pov(1992, t1992)
+p1993 = read_in_pov(1993, t1993)
+p1994 = read_in_pov(1994, t1994)
+p1996 = read_in_pov(1996, t1996)
+#p1995 = read_in_pov(1995, t1995)
+p1997 = read_in_pov(1997, t1997)
+p1998 = read_in_pov(1998, t1998)
+p1999 = read_in_pov(1999, t1999)
+p2000 = read_in_pov(2000, t2000)
+p2001 = read_in_pov(2001, t2001)
+p2002 = read_in_pov(2002, t2002)
+p2003 = read_in_pov(2003, t2003)
+#p2004 = read_in_pov(2004, t2004)
+p2005 = read_in_pov(2005, t2005)
+p2006 = read_in_pov(2006, t2006)
+p2007 = read_in_pov(2007, t2007)
+p2008 = read_in_pov(2008, t2008)
+p2009 = read_in_pov(2009, t2009)
+p2010 = read_in_pov(2010, t2010)
 
-#pov_data = rbind.fill(p1990, p1991, p1992, p1993, p1994, p1996, p1997, p1998, p1999, p2000, p2001, p2002, p2003, p2005, p2006, p2007, p2008, p2009, p2010)
+pov_data = rbind.fill(p1990, p1991, p1992, p1993, p1994, p1996, p1997, p1998, p1999, p2000, p2001, p2002, p2003, p2005, p2006, p2007, p2008, p2009, p2010)
 
 #Environmental justice literature has focused largely on the motivations behind facility siting that lead to inequality and policy approaches to help fix the disproportionate burden of environmental hazards on minority communities. The questions being asked are critical to creating policy that helps correct the problem of hazard allocation. A gap in the literature is the need for an investigation of the dynamic world of hazard allocation over time. 
 
@@ -200,6 +169,7 @@ h1991 = read_in(1991, t1991)
 h1992 = read_in(1992, t1992)
 h1993 = read_in(1993, t1993)
 h1994 = read_in(1994, t1994)
+#h1995 = read_in(1995, t1995)
 h1996 = read_in(1996, t1996)
 h1997 = read_in(1997, t1997)
 h1998 = read_in(1998, t1998)
@@ -208,6 +178,7 @@ h2000 = read_in(2000, t2000)
 h2001 = read_in(2001, t2001)
 h2002 = read_in(2002, t2002)
 h2003 = read_in(2003, t2003)
+#h2004 = read_in(2004, t2004)
 h2005 = read_in(2005, t2005)
 h2006 = read_in(2006, t2006)
 h2007 = read_in(2007, t2007)
@@ -216,6 +187,12 @@ h2009 = read_in(2009, t2009)
 h2010 = read_in(2010, t2010)
 
 hisp_data = rbind.fill(h1990, h1991, h1992, h1993, h1994, h1996, h1997, h1998, h1999, h2000, h2001, h2002, h2003, h2005, h2006, h2007, h2008, h2009, h2010)
+
+data = merge(hisp_data, pov_data, by = c("id", "year"))
+data = data[, 1:18]
+names(data) = c("id", "year", "pop", "white", "black", "hispanic", "other", "concentration", "area", "whiteh", "whitel", "blackh", "blackl",
+                "otherh", "otherl", "hisph", "hispl", "pop_pov")
+
 ```
 
 
