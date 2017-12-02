@@ -7,17 +7,16 @@
 ```{r quantileCalcs, echo = FALSE, message = FALSE, warning = FALSE}
 library(plyr)
 
-sim05 = read_csv("data/simulation05.csv")
-sim50 = read_csv("data/simulation50.csv")
-sim95 = read_csv("data/simulation95.csv")
-se_race_05 = read_csv("data/bootstrap_race_se_05.csv")
-se_race_50 = read_csv("data/bootstrap_race_se_50.csv")
-se_race_95 = read_csv("data/bootstrap_race_se_95.csv")
+sim05 = fread("data/simulation05.csv", data.table = FALSE)
+sim50 = fread("data/simulation50.csv", data.table = FALSE)
+sim95 = fread("data/simulation95.csv", data.table = FALSE)
+se_race_05 = fread("data/bootstrap_race_se_05.csv", data.table = FALSE)
+se_race_50 = fread("data/bootstrap_race_se_50.csv", data.table = FALSE)
+se_race_95 = fread("data/bootstrap_race_se_95.csv", data.table = FALSE)
 
 get_perc = function(data, quant, variables = c("white", "black", "hispanic", "other"), sim = NA, se = NA) {
   new = sort(unique(data$year), decreasing = FALSE)
   for (var in variables) {
-    #temp = !is.na(data[, var])
     new = cbind(new, ddply(data, .(year), function(x) weighted.quantile(x$concentration, x[, var]/sum(x[, var]), quant, na.rm = TRUE))[, 2])
   }
   new = as.data.frame(new)
@@ -31,17 +30,9 @@ get_perc = function(data, quant, variables = c("white", "black", "hispanic", "ot
   return(new)
 }
 
-#perc05 = get_perc(race_data, 0.05, variables = names(race_data)[3:7], sim = sim05, se = se_race_05)
-#perc50 = get_perc(race_data, 0.50, variables = names(race_data)[3:7], sim = sim50, se = se_race_50)
-#perc95 = get_perc(race_data, 0.95, variables = names(race_data)[3:7], sim = sim95, se = se_race_95)
-
-#perc_pov_05 = get_perc(pov_data, 0.05, variables = names(pov_data)[3:12])
-#perc_pov_50 = get_perc(pov_data, 0.50, variables = names(pov_data)[3:12])
-#perc_pov_95 = get_perc(pov_data, 0.95, variables = names(pov_data)[3:12])
-
-perc_hisp_05 = get_perc(hisp_data, 0.05)
-perc_hisp_50 = get_perc(hisp_data, 0.50)
-perc_hisp_95 = get_perc(hisp_data, 0.95)
+perc05 = get_perc(data, 0.05, variables = names(data)[c(3:7, 10:18)])
+perc50 = get_perc(data, 0.50, variables = names(data)[c(3:7, 10:18)])
+perc95 = get_perc(data, 0.95, variables = names(data)[c(3:7, 10:18)])
 ```
 
 ```{r plottingQuantiles, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
@@ -69,27 +60,27 @@ create_relative_tox = function(data, perc) {
 
 create_pov_tox = function(cur_data, perc) {
   ggplot(data = cur_data) + 
-  geom_line(aes(x = year, y = whiteh, color = "white, high")) +
-  geom_line(aes(x = year, y = blackh, color = "black, high")) + 
-  geom_line(aes(x = year, y = nativeh, color = "native, high")) + 
-  geom_line(aes(x = year, y = asianh, color = "asian, high")) + 
-  geom_line(aes(x = year, y = otherh, color = "other, high")) + 
-  geom_line(aes(x = year, y = whitel, color = "white, low")) +
-  geom_line(aes(x = year, y = blackl, color = "black, low")) + 
-  geom_line(aes(x = year, y = nativel, color = "native, low")) + 
-  geom_line(aes(x = year, y = asianl, color = "asian, low")) + 
-  geom_line(aes(x = year, y = otherl, color = "other, low")) + 
+  geom_line(aes(x = year, y = whiteh, color = "white")) +
+  geom_line(aes(x = year, y = blackh, color = "black")) + 
+  geom_line(aes(x = year, y = nativeh, color = "native")) + 
+  geom_line(aes(x = year, y = asianh, color = "asian")) + 
+  geom_line(aes(x = year, y = otherh, color = "other")) + 
+  geom_line(aes(x = year, y = whitel, color = "white")) +
+  geom_line(aes(x = year, y = blackl, color = "black")) + 
+  geom_line(aes(x = year, y = nativel, color = "native")) + 
+  geom_line(aes(x = year, y = asianl, color = "asian")) + 
+  geom_line(aes(x = year, y = otherl, color = "other")) + 
   labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th Percentile Group Toxicity"), color = "Legend")
 }
 ```
 
 ```{r plotGroup05, echo = FALSE}
-five = create_hisp_tox(perc_hisp_05, 5)
-fifty = create_hisp_tox(perc_hisp_50, 50)
-ninetyfive = create_hisp_tox(perc_hisp_95, 95, legend = TRUE)
+five = create_hisp_tox(perc05, 5)
+fifty = create_hisp_tox(perc50, 50)
+ninetyfive = create_hisp_tox(perc95, 95)
 grid.arrange(five, fifty, ninetyfive, ncol=3)
 
-create_relative_tox(perc_hisp_05, 50)
+create_relative_tox(perc05, 50)
 ```
 
 
