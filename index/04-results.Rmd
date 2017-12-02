@@ -42,24 +42,28 @@ create_hisp_tox = function(cur_data, perc, legend = FALSE) {
   geom_line(aes(x = year, y = black, color = "black")) + 
   geom_line(aes(x = year, y = hispanic, color = "hispanic")) + 
   geom_line(aes(x = year, y = other, color = "other")) + 
-  labs(x = "Year", y = "Toxicity", title = paste0(perc, "th Percentile Group Toxicity"))
+  labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
   }
   g
 }
 
-create_relative_tox = function(data, perc) {
-  ggplot(data) + 
+create_relative_tox = function(data, perc, legend = FALSE) {
+  g = ggplot(data) + 
     geom_line(aes(x = year, y = (white/white), color = "white")) +
     geom_line(aes(x = year, y = (black/white), color = "black"))  +
     geom_line(aes(x = year, y = (hispanic/white), color = "hispanic")) +
     geom_line(aes(x = year, y = (other/white), color = "other")) +
-    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0("Group ", perc, "th Percentile Toxicity Relative to White Distribution"), colour = "Legend") 
+    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0("Group ", perc, "th Percentile Toxicity Relative to White Distribution"), colour = "Legend")
+  if (legend == FALSE) {
+    g = g + guides(color = FALSE)
+  }
+  g
 }
 
-create_pov_tox = function(cur_data, perc) {
-  ggplot(data = cur_data) + 
+create_pov_tox = function(cur_data, perc, legend = FALSE) {
+  g = ggplot(data = cur_data) + 
   geom_line(aes(x = year, y = whiteh, color = "white")) +
   geom_line(aes(x = year, y = blackh, color = "black")) + 
   geom_line(aes(x = year, y = nativeh, color = "native")) + 
@@ -70,17 +74,24 @@ create_pov_tox = function(cur_data, perc) {
   geom_line(aes(x = year, y = nativel, color = "native")) + 
   geom_line(aes(x = year, y = asianl, color = "asian")) + 
   geom_line(aes(x = year, y = otherl, color = "other")) + 
-  labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th Percentile Group Toxicity"), color = "Legend")
+  labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th PCTL Toxicity"), color = "Legend")
+  if (legend == FALSE) {
+    g = g + guides(color = FALSE)
+  }
+  g
 }
 ```
 
-```{r plotGroup05, echo = FALSE}
+```{r plotGroup05, echo = FALSE, fig.width=10, fig.height=4}
 five = create_hisp_tox(perc05, 5)
 fifty = create_hisp_tox(perc50, 50)
 ninetyfive = create_hisp_tox(perc95, 95)
 grid.arrange(five, fifty, ninetyfive, ncol=3)
 
-create_relative_tox(perc05, 50)
+five = create_relative_tox(perc05, 5)
+fifty = create_relative_tox(perc50, 50)
+ninetyfive = create_relative_tox(perc95, 95)
+grid.arrange(five, fifty, ninetyfive, ncol=3)
 ```
 
 
