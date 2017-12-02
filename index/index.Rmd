@@ -148,7 +148,7 @@ read_in = function(year, tox) {
 #race_data = rbind.fill(r1990, r1991, r1992, r1993, r1994, r1996, r1997, r1998, r1999, r2000, r2001, r2002, r2003, r2005, r2006, r2007, r2008, r2009, r2010)
 
 read_in = function(year, tox) {
-  data = as.data.frame(fread(paste0("data/census/race_pov/race_pov_tract_", year, ".csv"), data.table = FALSE))
+  data = as.data.frame(fread(paste0("data/census/hisp_pov/race_pov_tract_", year, ".csv"), data.table = FALSE))
   data$hisp = 
   data = data[complete.cases(data), ]
   data$id = str_pad(data$id, 11, pad = "0", side = "left")

@@ -1,0 +1,159 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11536313
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Census 2000
+Dataset:          Social Explorer Tables (made from SF1 and SF3)
+Tables:
+
+      1. Poverty Status In 1999 (White Alone)
+         Universe:  White Alone Population for whom poverty status is determined
+         Name:      T186
+         Variables:
+            T186_001:   White Alone Population for whom poverty status is determined:
+            T186_002:      Income in 1999 below poverty level
+            T186_003:      Income in 1999 at or above poverty level
+
+
+      2. Poverty Status In 1999 (Black Or African American Alone)
+         Universe:  Black or African American Alone Population for whom poverty status is determined
+         Name:      T187
+         Variables:
+            T187_001:   Black or African American Alone Population for whom poverty status is determined:
+            T187_002:      Income in 1999 below poverty level
+            T187_003:      Income in 1999 at or above poverty level
+
+
+      3. Poverty Status In 1999 (American Indian And Alaska Native Alone)
+         Universe:  American Indian and Alaska Native Alone Population for whom poverty status is determined
+         Name:      T188
+         Variables:
+            T188_001:   American Indian and Alaska Native Alone Population for whom poverty status is determined:
+            T188_002:      Income in 1999 below poverty level
+            T188_003:      Income in 1999 at or above poverty level
+
+
+      4. Poverty Status In 1999 (Asian Alone)
+         Universe:  Asian Alone Population for whom poverty status is determined
+         Name:      T189
+         Variables:
+            T189_001:   Asian Alone Population for whom poverty status is determined:
+            T189_002:      Income in 1999 below poverty level
+            T189_003:      Income in 1999 at or above poverty level
+
+
+      5. Poverty Status In 1999 (Native Hawaiian And Other Pacific Islander Alone)
+         Universe:  Native Hawaiian and Other Pacific Islander Alone Population for whom poverty status is determined
+         Name:      T190
+         Variables:
+            T190_001:   Native Hawaiian and Other Pacific Islander Alone Population for whom poverty status is determined:
+            T190_002:      Income in 1999 below poverty level
+            T190_003:      Income in 1999 at or above poverty level
+
+
+      6. Poverty Status In 1999 (Some Other Race Alone)
+         Universe:  Some other race Alone Population for whom poverty status is determined
+         Name:      T191
+         Variables:
+            T191_001:   Some other race Alone Population for whom poverty status is determined:
+            T191_002:      Income in 1999 below poverty level
+            T191_003:      Income in 1999 at or above poverty level
+
+
+      7. Poverty Status In 1999 (Two Or More Races)
+         Universe:  Two or more races Population for whom poverty status is determined
+         Name:      T192
+         Variables:
+            T192_001:   Two or more races Population for whom poverty status is determined:
+            T192_002:      Income in 1999 below poverty level
+            T192_003:      Income in 1999 at or above poverty level
+
+
+      8. Poverty Status In 1999 (Hispanic Or Latino)
+         Universe:  Hispanic or Latino Population for whom poverty status is determined
+         Name:      T193
+         Variables:
+            T193_001:   Hispanic or Latino Population for whom poverty status is determined:
+            T193_002:      Income in 1999 below poverty level
+            T193_003:      Income in 1999 at or above poverty level
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      NAME:           Area Name-Legal/Statistical Area Description
+      QName:          Qualifying Name
+      FIPS:           FIPS
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      STATECE:        State (Census)
+      STATE:          State (FIPS)
+      COUNTY:         County
+      COUNTYSC:       County Size Code
+      COUSUB:         County Subdivision (FIPS)
+      TRACT:          Census Tract
+      T186_001:       White Alone Population for whom poverty status is determined
+      T186_002:       White Population for whom poverty status is determined: Income in 1999 below poverty level
+      T186_003:       White Population for whom poverty status is determined: Income in 1999 at or above poverty level
+      T187_001:       Black or African American Alone Population for whom poverty status is determined
+      T187_002:       Black or African American Population for whom poverty status is determined: Income in 1999 below poverty level
+      T187_003:       Black or African American Population for whom poverty status is determined: Income in 1999 at or above poverty level
+      T188_001:       American Indian and Alaska Native Alone Population for whom poverty status is determined
+      T188_002:       American Indian and Alaska Native Population for whom poverty status is determined: Income in 1999 below poverty level
+      T188_003:       American Indian and Alaska Native Population for whom poverty status is determined: Income in 1999 at or above poverty level
+      T189_001:       Asian Alone Population for whom poverty status is determined
+      T189_002:       Asian Population for whom poverty status is determined: Income in 1999 below poverty level
+      T189_003:       Asian Population for whom poverty status is determined: Income in 1999 at or above poverty level
+      T190_001:       Native Hawaiian and Other Pacific Islander Alone Population for whom poverty status is determined
+      T190_002:       Native Hawaiian and Other Pacific Islander Alone Population for whom poverty status is determined: Income in 1999 below poverty level
+      T190_003:       Native Hawaiian and Other Pacific Islander Alone Population for whom poverty status is determined: Income in 1999 at or above poverty level
+      T191_001:       Some other race Alone Population for whom poverty status is determined
+      T191_002:       Some other race Alone Population for whom poverty status is determined: Income in 1999 below poverty level
+      T191_003:       Some other race Alone Population for whom poverty status is determined: Income in 1999 at or above poverty level
+      T192_001:       Two or more races Population for whom poverty status is determined
+      T192_002:       Two or more races Population for whom poverty status is determined: Income in 1999 below poverty level
+      T192_003:       Two or more races Population for whom poverty status is determined: Income in 1999 at or above poverty level
+      T193_001:       Hispanic or Latino Population for whom poverty status is determined
+      T193_002:       Hispanic or Latino Population for whom poverty status is determined: Income in 1999 below poverty level
+      T193_003:       Hispanic or Latino Population for whom poverty status is determined: Income in 1999 at or above poverty level
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11536313
+
+If you have any questions contact info@socialexplorer.com
