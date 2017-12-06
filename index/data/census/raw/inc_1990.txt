@@ -1,0 +1,88 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11539745
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Census 1990
+Dataset:          Social Explorer - Custom tables made from STF1 and STF3
+Tables:
+
+      1. Household Income In <DollarYear> Dollars (short version)
+         Universe:  Households with householder of Hispanic origin
+         Name:      T42
+         Variables:
+            T042_001:   Households with householder of Hispanic origin:
+            T042_002:      Less than $5,000
+            T042_003:      $5,000 to $9,999
+            T042_004:      $10,000 to $14,999
+            T042_005:      $15,000 to $24,999
+            T042_006:      $25,000 to $34,999
+            T042_007:      $35,000 to $49,999
+            T042_008:      $50,000 to $74,999
+            T042_009:      $75,000 to $99,999
+            T042_010:      $100,000 or more
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      NAME:           Area Name-Legal/Statistical Area Description (LSAD) Term-Part Indicator
+      QName:          Qualifying Name
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      REGION:         Region
+      DIVISION:       Division
+      FIPS:           FIPS
+      STATE:          State-FIPS
+      COUNTY:         County
+      TRACT:          Census Tract/Block Numbering Area
+      T042_001:       Households with householder of Hispanic origin
+      T042_002:       Households with householder of Hispanic origin: Less than $5,000
+      T042_003:       Households with householder of Hispanic origin: $5,000 to $9,999
+      T042_004:       Households with householder of Hispanic origin: $10,000 to $14,999
+      T042_005:       Households with householder of Hispanic origin: $15,000 to $24,999
+      T042_006:       Households with householder of Hispanic origin: $25,000 to $34,999
+      T042_007:       Households with householder of Hispanic origin: $35,000 to $49,999
+      T042_008:       Households with householder of Hispanic origin: $50,000 to $74,999
+      T042_009:       Households with householder of Hispanic origin: $75,000 to $99,999
+      T042_010:       Households with householder of Hispanic origin: $100,000 or more
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11539745
+
+If you have any questions contact info@socialexplorer.com

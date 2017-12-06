@@ -33,10 +33,14 @@ get_perc = function(data, quant, variables = c("white", "black", "hispanic", "ot
 perc05 = get_perc(data, 0.05, variables = names(data)[c(3:7, 10:18)], sim = sim05)
 perc50 = get_perc(data, 0.50, variables = names(data)[c(3:7, 10:18)], sim = sim50)
 perc95 = get_perc(data, 0.95, variables = names(data)[c(3:7, 10:18)], sim = sim95)
+
+msa_perc05 = get_perc(dense_data, 0.05, variables = names(data)[c(3:7, 10:18)], sim = sim05)
+msa_perc50 = get_perc(dense_data, 0.50, variables = names(data)[c(3:7, 10:18)], sim = sim50)
+msa_perc95 = get_perc(dense_data, 0.95, variables = names(data)[c(3:7, 10:18)], sim = sim95)
 ```
 
 ```{r plottingQuantiles, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
-hisp_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
+tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
   g = ggplot(data = cur_data) + 
   geom_line(aes(x = year, y = white, color = "white")) +
   geom_line(aes(x = year, y = black, color = "black")) + 
@@ -53,18 +57,28 @@ hisp_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
       geom_line(aes(x = year, y = rollmean(other, 3, na.pad = TRUE), color = "other"), se = FALSE, size = 0.5, linetype = "twodash") +
       geom_line(aes(x = year, y = rollmean(white, 3, na.pad = TRUE), color = "white"), se = FALSE, size = 0.5, linetype = "twodash")
   }
+  if (log == TRUE) {
+    g = g + scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                          labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+      annotation_logticks(
+        short = unit(.5,"mm"),
+        mid = unit(2,"mm"), 
+        long = unit(3.5,"mm"),
+        sides = "l",
+        color = "gray65") 
+  }
   g
 }
 
 relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
-  g = ggplot(data) 
+  g = ggplot(data) +
+    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend")
   if (smooth == TRUE) {
     g = g + 
       geom_line(aes(x = year, y = (white/white), color = "white")) +
       geom_line(aes(x = year, y = (black/white), color = "black"), alpha = 0.3)  +
       geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.3) +
       geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.3) +
-      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
       geom_line(aes(x = year, y = rollmean(black/white, 3, na.pad=TRUE), color = "black"), linetype = "twodash", size = 0.7)  +
       geom_line(aes(x = year, y = rollmean(hispanic/white, 3, na.pad = TRUE), color = "hispanic"), linetype = "twodash", size = 0.7) +
       geom_line(aes(x = year, y = rollmean(other/white, 3, na.pad = TRUE), color = "other"), linetype = "twodash", size = 0.7) +
@@ -76,7 +90,6 @@ relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
       geom_line(aes(x = year, y = (black/white), color = "black"))  +
       geom_line(aes(x = year, y = (hispanic/white), color = "hispanic")) +
       geom_line(aes(x = year, y = (other/white), color = "other")) +
-      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
       theme(legend.position="bottom")
   }
   if (legend == FALSE) {
@@ -84,7 +97,6 @@ relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
   }
   g
 }
-
 
 pov_tox = function(cur_data, perc, legend = FALSE) {
   g = ggplot(data = cur_data) + 
@@ -114,15 +126,15 @@ g_legend = function(a.gplot) {
 ```
 
 ```{r plotGroup05, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
-legend_grab = relative_tox(perc05, 5, legend = TRUE)
-five = hisp_tox(perc05, 5)
-fifty = hisp_tox(perc50, 50)
-ninetyfive = hisp_tox(perc95, 95)
+five = tox(perc05, 5)
+fifty = tox(perc50, 50)
+ninetyfive = tox(perc95, 95)
 
 five_rel = relative_tox(perc05, 5, smooth = TRUE)
 fifty_rel = relative_tox(perc50, 50, smooth = TRUE)
 ninetyfive_rel = relative_tox(perc95, 95, smooth = TRUE)
 
+legend_grab = relative_tox(perc05, 5, legend = TRUE)
 color_legend = g_legend(legend_grab)
 
 grid.arrange(arrangeGrob(five, five_rel, nrow=1),
@@ -142,7 +154,7 @@ grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
 ## Simulating Changes
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4}
-sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
+sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
   g = ggplot(data = cur_data) + 
         labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
   if (smooth == TRUE) {
@@ -168,6 +180,16 @@ sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE) {
     geom_line(aes(x = year, y = sim_h, color = "hispanic"), linetype = "dashed", size = 0.7) 
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
+  }
+  if (log == TRUE) {
+    g = g + scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                          labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+      annotation_logticks(
+        short = unit(.5,"mm"),
+        mid = unit(2,"mm"), 
+        long = unit(3.5,"mm"),
+        sides = "l",
+        color = "gray65") 
   }
   g
 }
@@ -216,15 +238,53 @@ grid.arrange(arrangeGrob(sim_tox(perc95, 95), relative_sim(perc95, 95), nrow=1),
 
 ```{r, warning = FALSE,echo = FALSE, fig.width=10, fig.height=4}
 ggplot() + 
+  geom_density(aes(log(concentration), weight = white/sum(white), fill = "1990", color = "1990"), alpha = 0.4, data[data$year == 1990, ]) +
+  geom_density(aes(log(concentration), weight = white/sum(white), fill = "2000", color = "2000"), alpha = 0.4, data[data$year == 2000, ]) +
+  geom_density(aes(log(concentration), weight = white/sum(white), fill = "2010", color = "2010"), alpha = 0.4, data[data$year == 2010, ]) +
+  labs(x = "Log of Concentration", y = "Density", fill = "Legend") +
+  guides(color = FALSE) + xlim(-6, 20)
+
+ggplot() + 
+  geom_density(aes(log(concentration), weight = white/sum(white), fill = "1990", color = "1990"), alpha = 0.4, data[data$year == 1990, ]) +
+  geom_density(aes(log(concentration), weight = white/sum(white), fill = "2000", color = "2000"), alpha = 0.4, data[data$year == 2000, ]) +
+  geom_density(aes(log(concentration), weight = white/sum(white), fill = "2010", color = "2010"), alpha = 0.4, data[data$year == 2010, ]) +
+  labs(x = "Log of Concentration", y = "Density", fill = "Legend") +
+  guides(color = FALSE) + xlim(-6, 20) + ylim(0, 0.25)
+
+ggplot() + 
   geom_density(aes(log(concentration), weight = black/sum(black), fill = "1990", color = "1990"), alpha = 0.4, data[data$year == 1990, ]) +
   geom_density(aes(log(concentration), weight = black/sum(black), fill = "2000", color = "2000"), alpha = 0.4, data[data$year == 2000, ]) +
   geom_density(aes(log(concentration), weight = black/sum(black), fill = "2010", color = "2010"), alpha = 0.4, data[data$year == 2010, ]) +
   labs(x = "Log of Concentration", y = "Density", fill = "Legend") +
-  guides(color = FALSE) + xlim(-6, 20)
+  guides(color = FALSE) + xlim(-6, 20) + ylim(0, 0.25)
   
 ```
 
 
 ## Interacting Risk Cases
+```{r}
+ggplot(perc50) + 
+  geom_ribbon(aes(x = year, ymax = log(blackh), ymin = log(blackl), fill = "black"), alpha = 0.3) + 
+  geom_line(aes(x = year, y = log(blackh), fill = "black"), alpha = 0.3) + 
+  geom_line(aes(x = year, y = log(whiteh), fill = "white"), alpha = 0.3) + 
+  geom_line(aes(x = year, y = log(hisph), fill = "white"), alpha = 0.3) + 
+  geom_ribbon(aes(x = year, ymax = log(whiteh), ymin = log(whitel), fill = "white"), alpha = 0.3) + 
+  geom_ribbon(aes(x = year, ymax = log(hisph), ymin = log(hispl), fill = "hispanic"), alpha = 0.3)
+
+ggplot(perc50) + 
+  geom_ribbon(aes(x = year, ymax = blackh, ymin = blackl, fill = "black"), alpha = 0.3) + 
+  geom_line(aes(x = year, y = blackh, fill = "black"), alpha = 0.3) + 
+  geom_line(aes(x = year, y = whiteh, fill = "white"), alpha = 0.3) + 
+  geom_line(aes(x = year, y = hisph, fill = "white"), alpha = 0.3) + 
+  geom_ribbon(aes(x = year, ymax = whiteh, ymin = whitel, fill = "white"), alpha = 0.3) + 
+  geom_ribbon(aes(x = year, ymax = hisph, ymin = hispl, fill = "hispanic"), alpha = 0.3)
+```
+
 
 ## Geographic Changes in Exposure
+
+## Quantile Regression
+```{r}
+test = rq(log(concentration) ~ year + (black/pop) + (white/pop) + (hispanic/pop) + (other/pop), tau = 0.5, data = hisp_data)
+```
+

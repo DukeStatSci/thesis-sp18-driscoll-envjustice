@@ -77,8 +77,10 @@ library(plyr)
 library(zoo)
 library(stringr)
 library(spatstat)
+library(quantreg)
 library(readr)
 library(tidyr)
+library(lme4)
 library(devtools)
 devtools::install_github("amd112/rseiAnalysis")
 library("rseiAnalysis")
@@ -195,11 +197,17 @@ h2013 = read_in(2013, t2013)
 
 hisp_data = rbind.fill(h1990, h1991, h1992, h1993, h1994, h1996, h1997, h1998, h1999, h2000, h2001, h2002, h2003, h2005, h2006, h2007, h2008, h2009, h2010, h2011, h2012, h2013)
 
+msa_tracts = fread("data/census/msa_tracts.csv", data.table = FALSE)[, 1]
+
 data = merge(hisp_data, pov_data, by = c("id", "year"))
 data = data[, 1:18]
 names(data) = c("id", "year", "pop", "white", "black", "hispanic", "other", "concentration", "area", "whiteh", "whitel", "blackh", "blackl",
                 "otherh", "otherl", "hisph", "hispl", "pop_pov")
+data$density = data$pop/data$area
+sub = sample(1:nrow(data), 20000, replace = FALSE)
 
+msa_data = data[data$id %in% msa_tracts, ]
+dense_data = data[data$density > as.numeric(data$density)[5], ]
 ```
 
 

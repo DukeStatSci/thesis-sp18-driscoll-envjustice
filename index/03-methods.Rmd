@@ -26,7 +26,7 @@ In the case of the table above, to build a distribution for the white population
 
 In choosing the level of aggregation at which to assign toxicity, in order to balance the needs of accuracy of toxicity and availability of cross tabulations, we create the overall toxicity distribution for Americans at each of the levels of geography. The process described above can be excecuted with the data shown above, or at a cruder level of geography, such as state. Using block group as the smallest form of geography, and state as the largest (including tract and county in between) we see how the distribution changes at each level of aggregation. 
 
-```{r ecologicalFallacy, echo = FALSE, fig.width=6, fig.height=3, message = FALSE}
+```{r ecologicalFallacy, echo = FALSE, fig.width=10, fig.height=5, message = FALSE}
 #import toxicity data
 bg2010 = as.data.frame(fread("data/toxic/bg/toxic_2010_2010_blockgroup.csv"))
 
@@ -67,7 +67,7 @@ g = g + theme(axis.text=element_text(size = 6), legend.text = element_text(size 
 g
 ```
 
-As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly the tract data seems to build a distribution very similar to the block group level assignment. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it lost the street block by street block variation that we had deemed so crucial, so aggregating several block groups gives us a conceptual equivalent 'neighborhood' level of aggregation. 
+As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly tract and county data seems to build a distribution very similar to the block group level assignment. Initial results were replicated using both levels of assignment, and no different conclusions were reached. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it lost the street block by street block variation that we had deemed so crucial, meaning aggregating several block groups gives us a conceptual equivalent 'neighborhood' level of aggregation. 
 
 ## Temporal Level of Analysis 
 
@@ -132,19 +132,3 @@ grid.arrange(s5, s50, s95, ncol=3)
 ```
 
 For the 5th quantile, a relatively low n produces a fairly stable result, sampling with n = 15,000 appears sufficient. Due to the extreme right skew of the data, the 95th percentile requires a larger sample. Still n = 50,000 is sufficient. 
-
-```{r exploringChange2000, echo = FALSE}
-#ggplot(race_data) + geom_line(aes(x = year, y = lconcentration, color = (black/pop), group = id), alpha = 0.3) + labs(x = "Year", colour = "% Black", title = "Toxicity Trend for all Census Tracts")
-
-#x = race_data[race_data$year == 1993 & race_data$concentration < 400, 1:8]
-#y = race_data[race_data$year == 1994 & race_data$concentration < 400, 1:8]
-
-#names(x) = c("id", "pop93", "white93", "black93", "native93", "asian93", "other93", "concentration93")
-#names(y) = c("id", "pop94", "white94", "black94", "native94", "asian94", "other94", "concentration94")
-
-#x = merge(x, y, by = "id")
-
-#z = (x$concentration94 * (x$black94/sum(x$black94))) - (x$concentration93 * (x$black93/sum(x$black93)))
-
-#ggplot(x) + geom_point(aes(x = concentration93, y = concentration94))
-```

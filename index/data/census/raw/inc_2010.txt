@@ -1,0 +1,147 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11539749
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           ACS 2012 (5-Year Estimates)
+Dataset:          Social Explorer Tables:  ACS 2012 (5-Year Estimates)
+Tables:
+
+      1. Household Income (In <DollarYear> Inflation Adjusted Dollars)
+         Universe:  Households
+         Name:      T56
+         Variables:
+            T056_001:   Households:
+            T056_002:      Less than $10,000
+            T056_003:      $10,000 to $14,999
+            T056_004:      $15,000 to $19,999
+            T056_005:      $20,000 to $24,999
+            T056_006:      $25,000 to $29,999
+            T056_007:      $30,000 to $34,999
+            T056_008:      $35,000 to $39,999
+            T056_009:      $40,000 to $44,999
+            T056_010:      $45,000 to $49,999
+            T056_011:      $50,000 to $59,999
+            T056_012:      $60,000 to $74,999
+            T056_013:      $75,000 to $99,999
+            T056_014:      $100,000 to $124,999
+            T056_015:      $125,000 to $149,999
+            T056_016:      $150,000 to $199,999
+            T056_017:      $200,000 or More
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      FIPS:           FIPS
+      GEOID:          Geographic Identifier
+      NAME:           Name of Area
+      QName:          Qualifying Name
+      STUSAB:         State/U.S.-Abbreviation (USPS)
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      FILEID:         File Identification
+      LOGRECNO:       Logical Record Number
+      US:             US
+      REGION:         Region
+      DIVISION:       Division
+      STATECE:        State (Census Code)
+      STATE:          State (FIPS)
+      COUNTY:         County
+      COUSUB:         County Subdivision (FIPS)
+      PLACE:          Place (FIPS Code)
+      PLACESE:        Place (State FIPS + Place FIPS)
+      TRACT:          Census Tract
+      BLKGRP:         Block Group
+      CONCIT:         Consolidated City
+      AIANHH:         American Indian Area/Alaska Native Area/Hawaiian Home Land (Census)
+      AIANHHFP:       American Indian Area/Alaska Native Area/Hawaiian Home Land (FIPS)
+      AIHHTLI:        American Indian Trust Land/Hawaiian Home Land Indicator
+      AITSCE:         American Indian Tribal Subdivision (Census)
+      AITS:           American Indian Tribal Subdivision (FIPS)
+      ANRC:           Alaska Native Regional Corporation (FIPS)
+      CBSA:           Metropolitan and Micropolitan Statistical Area
+      CSA:            Combined Statistical Area
+      METDIV:         Metropolitan Division
+      MACC:           Metropolitan Area Central City
+      MEMI:           Metropolitan/Micropolitan Indicator Flag
+      NECTA:          New England City and Town Combined Statistical Area
+      CNECTA:         New England City and Town Area
+      NECTADIV:       New England City and Town Area Division
+      UA:             Urban Area
+      UACP:           Urban Area Central Place
+      CDCURR:         Current Congressional District ***
+      SLDU:           State Legislative District Upper
+      SLDL:           State Legislative District Lower
+      VTD:            Voting District
+      ZCTA3:          ZIP Code Tabulation Area (3-digit)
+      ZCTA5:          ZIP Code Tabulation Area (5-digit)
+      SUBMCD:         Subbarrio (FIPS)
+      SDELM:          School District (Elementary)
+      SDSEC:          School District (Secondary)
+      SDUNI:          School District (Unified)
+      UR:             Urban/Rural
+      PCI:            Principal City Indicator
+      TAZ:            Traffic Analysis Zone
+      UGA:            Urban Growth Area
+      BTTR:           Tribal Tract
+      BTBG:           Tribal Block Group
+      PUMA5:          Public Use Microdata Area - 5% File
+      PUMA1:          Public Use Microdata Area - 1% File
+      T056_001:       Households:
+      T056_002:       Households: Less than $10,000
+      T056_003:       Households: $10,000 to $14,999
+      T056_004:       Households: $15,000 to $19,999
+      T056_005:       Households: $20,000 to $24,999
+      T056_006:       Households: $25,000 to $29,999
+      T056_007:       Households: $30,000 to $34,999
+      T056_008:       Households: $35,000 to $39,999
+      T056_009:       Households: $40,000 to $44,999
+      T056_010:       Households: $45,000 to $49,999
+      T056_011:       Households: $50,000 to $59,999
+      T056_012:       Households: $60,000 to $74,999
+      T056_013:       Households: $75,000 to $99,999
+      T056_014:       Households: $100,000 to $124,999
+      T056_015:       Households: $125,000 to $149,999
+      T056_016:       Households: $150,000 to $199,999
+      T056_017:       Households: $200,000 or More
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11539749
+
+If you have any questions contact info@socialexplorer.com

@@ -1,0 +1,103 @@
+--------------------------------------------------------------------------------
+Codebook for Social Explorer report ID: R11539748
+--------------------------------------------------------------------------------
+
+Contents
+    - Table Summary
+    - Data Dictionary
+    - Citation and Use
+
+
+--------------------------------------------------------------------------------
+Table Summary
+--------------------------------------------------------------------------------
+ 
+Survey:           Census 2000
+Dataset:          Social Explorer Tables (made from SF1 and SF3)
+Tables:
+
+      1. Household Income In <DollarYear> Dollars
+         Universe:  Households
+         Name:      T92
+         Variables:
+            T092_001:   Households:
+            T092_002:      Less than $10,000
+            T092_003:      $10,000 to $14,999
+            T092_004:      $15,000 to $19,999
+            T092_005:      $20,000 to $24,999
+            T092_006:      $25,000 to $29,999
+            T092_007:      $30,000 to $34,999
+            T092_008:      $35,000 to $39,999
+            T092_009:      $40,000 to $44,999
+            T092_010:      $45,000 to $49,999
+            T092_011:      $50,000 to $59,999
+            T092_012:      $60,000 to $74,999
+            T092_013:      $75,000 to $99,999
+            T092_014:      $100,000 to $124,999
+            T092_015:      $125,000 to $149,999
+            T092_016:      $150,000 to $199,999
+            T092_017:      $200,000 or more
+
+
+
+
+
+ 
+ 
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Variables 
+      NAME:           Area Name-Legal/Statistical Area Description
+      QName:          Qualifying Name
+      FIPS:           FIPS
+      SUMLEV:         Summary Level
+      GEOCOMP:        Geographic Component
+      STATECE:        State (Census)
+      STATE:          State (FIPS)
+      COUNTY:         County
+      COUNTYSC:       County Size Code
+      COUSUB:         County Subdivision (FIPS)
+      TRACT:          Census Tract
+      T092_001:       Households
+      T092_002:       Household Income: Less than $10,000
+      T092_003:       Household Income: $10,000 to $14,999
+      T092_004:       Household Income: $15,000 to $19,999
+      T092_005:       Household Income: $20,000 to $24,999
+      T092_006:       Household Income: $25,000 to $29,999
+      T092_007:       Household Income: $30,000 to $34,999
+      T092_008:       Household Income: $35,000 to $39,999
+      T092_009:       Household Income: $40,000 to $44,999
+      T092_010:       Household Income: $45,000 to $49,999
+      T092_011:       Household Income: $50,000 to $59,999
+      T092_012:       Household Income: $60,000 to $74,999
+      T092_013:       Household Income: $75,000 to $99,999
+      T092_014:       Household Income: $100,000 to $124,999
+      T092_015:       Household Income: $125,000 to $149,999
+      T092_016:       Household Income: $150,000 to $199,999
+      T092_017:       Household Income: $200,000 or more
+
+
+
+
+--------------------------------------------------------------------------------
+Citation and Use of Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing the data
+  must cite it appropriately. The citation should include the following:
+
+	  www.socialexplorer.com
+	  New York City, NY: Social Explorer 2017
+
+
+* Citations should also include the URL for this report:
+
+    http://www.socialexplorer.com/pub/reportdata/HtmlResults.aspx?reportid=R11539748
+
+If you have any questions contact info@socialexplorer.com

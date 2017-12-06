@@ -6,13 +6,97 @@ This is for including Chapter 1.  Notice that it's also good practice to name yo
 The {#rmd-basics} text after the chapter declaration will allow us to link throughout the document back to the beginning of Chapter 1.  These labels will automatically be generated (if not specified) by changing the spaces to hyphens and capital letters to lowercase.  Look for the reference to this label at the beginning of Chapter 2.
 -->
 
-# Environmental Justice Literature {#env_justice}
+# Environmental Justice {#env_justice}
+
+
+## Environmental Justice Theories
+This growing body of literature has, with increasing certainty, shown that poullution experienced by minorities in America is greater than that of the white population. Studies have primarily focused on industrial facilities and air pollution, the two areas with the most consistent data. 
+- how hazards vary in differnet populations
+- specifically this area
+- what are the trends in how the questions are being approached
+- what are flaws of the approaches being used
+- is there something inherent that makes everyone do that
+
+- what is the overall trend in toxicity, do we expect to see that same trend for everyone?
+- the ideas we have about ej are evolving nonetheless
+- descriptive studies on EJ (focusing on different pollution types, or different measures of hazard) continue being produced
+- those studies are not unanimous, but many show a different in group toxicity
+- with that, we talk about the potential reasons that ej issues arise
+- these ideas can all lead to the same outcome so what is the point in talking about it
+- with understanding of the macro level reasons for disparity we can better address the causes
+
+### Economic Explanations
+- economically rational for companies to site where it is cheap
+- cheaper land value tends to be correlated with minority popualtions
+- economically rational for people with the means to leave, to leave after siting
+- meaning it's a spiral and the place becomes even more low income and minority
+- testable if minority and low income increase after siting, results are mixed
+- low income is not a protected class, so there is no legal recourse to this. 
+
+### Sociopolitical Explanations
+- politically rational for companies to site where they will have less resistance
+- due to poor political representation, and low income, minorities are easiest to bulldoze
+- in examination, seems to have a clear vote yes, as siting tends to already happen in low income/minority
+- the less politically engaged, the more temporary the community is, the more facilities.
+
+### Racial Discrimination
+- either overt of institutional
+- in this case tends to be called environmental racism
+- overt would mean that facilities are sited there in an intentional way to cause strife to minority communities.
+- or alternatively, done to protect white communities.
+- institutional discrimination /indirect discrimination relates to the housing market. 
+- meaning that minority populations are discriminated against by realtors, mortgage ppl etc and end up with less choice in where they can live
+- even governments can be a part of the institutional discrimination. minority areas are more likely to be rezoned for industry.
+
+
+- more broadly, all of these categories (despite using different language to describe the process) represent institutional discrimation.
+- economic explanations rely on the segregation of minority communities to create low income pools that are easy to take advantage of. Though companies are targeting low income popualtions, our history has made those two synonymous. 
+- redlining/jim crow led to the pooling of minority groups. this segregation created limited opportunity for minorities, and led to the economic and sociopolitical reasonings currently used in environmental justice literature. 
+- redlining created the geography, and segregation now inherent in our geographies maintains the issues above. 
+
+
+## Goals 
+- address the first question of ej literature by (with this new+improved data, over a longer period of time than analyzed in any of the literature) by looking at how the groups differ, and how that changes over time.
+
+-improve by using accurate measures of location (not people within range of TRI, not amount of pollution, but the toxicity of the pollution experienced by ppl)
+
+~~~~~~
+
+Pollock and Vittas argues that potential exposure should be modeled as logarithmic rather than linear function of distance. Looked at the census blocks near TRI facilities. 
+TRI siting is commonly related to industrialization/urbanization
+"environmental racism" v "enviromental justice" v "environmental inequality"
+"ways environmental risks are unequally distributed in society"
+Zimmerman 1993 differences are "largely attributable to the correlation of minority populations in a few large urban areas with NPL sites"
+'Race is the single most accurate prdictore of the location of hazardous waste sites' -VP al gore
+"after the industrial accident at the Union Carbinde plant in India ... also being produced in the US unbeknown to local residents, Congress added a new provison to the Superfund law, the community right to know act, mandating that industry report annual releases of over 300 toxic substances"
+"TRI data are a minuscule and severely skewed selection of all emisisons... less than 1 percent of all wastes generated" (1995:28)
+'Move beyond measures of presence/absence of emissions and beyond number of facilities.'
+'Even when serious inequities are found, such work is of little help in explaining how ithappened.'
+"Thre relationship between demographics and unequal exposure is most elusive in national-level studies, but shows up consistently in smaller-scale studies."
+"Plagued by lack of data on where all the hazards are, uncertainties about rate and direction of dispersion, as well as finally uncertainties about the actual health effects in those who are exposed."
+"They are social relations that interact in complex ways.. ej literature sets up race and class as airtight things that can be isolated, both conceptually and methodologically"
+"Neglected topic #1: Where is the Bourgeoisie?"
+
+
+MIGRATION RACE AND ENVIRONMENTAL HAZARDS
+"researchers have studied the distribution of social groups around a variety of environmental hazards"
+"leave open questions about the overall magnitude of environmental racial inequality, providing dramatically different estimates of racial/ethnic disparities in proximity and exposure to environmental hazards."
+"microlevel mechanisms through which aggregate patterns of environmental racial inequality develop and are maintained"
+"competeing theoretical arguments in the environmental justice literature"
+
+The reasons, and it's effects are effctively divided in to two parts: the reasons the facility choses to site in a location, and how that relates to the demographics of the area. These reasonings effectively all boil down to the same outcome, but the different reasonings can help to explain, and perhaps change, the trends that lead to environmental injustice. 
+
 
 ## Economic Explanations
+group differences in socioeconomic resources
+aka rent is low near toxicity, so low income ppl migrate there
 
 ## Sociopolitical Explanations
 
 ## Racial Discrimination Explanations
+housing market discrimination that limits where minorities can live by lenders realtors and local gov
+"Paired discrimination tests suggest that black, Asian and Latino auditors all tend to experience negative treatment at the hands of realtors"
+"data on racial attitudes show asians ranked as most desirable minority neighbors, black least, hispanic in between"
 
 * Fisher J. B., Kelly M. & Romm J. (2006). Scales of environmental justice: Combining GIS and spatial analysis for air toxics in West Oakland, California. *Health & Place, 12*, pp. 701-714.
     * Uses data from the ISCST3 air dispersion model, and local knowledge of non-point soureces of diesel emissions in West Oakland.
