@@ -53,21 +53,29 @@ tract2010 = fread("data/ecologicalFallacy/toxic_2010_2010_tract.csv")
 tract2010 = merge(tract2010, census_tract, by.x = "block", by.y = "fips")
 county2010 = fread("data/ecologicalFallacy/toxic_2010_2010_county.csv")
 county2010 = merge(county2010, census_county, by.x = "block", by.y = "fips")
-state2010 = fread("data/ecologicalFallacy/toxic_2010_2010_state.csv")
+state2010 = fread("data/ecologicalFallacy/toxic_2010_2010_state.csv", data.table = FALSE)
 state2010 = merge(state2010, census_state, by.x = "block", by.y = "fips")
 bg2010 = merge(bg2010, census_bg, by.x = "block", by.y = "fips")
 
 #plot national distributions
-g = ggplot() + geom_density(aes(log(county2010$concentration), weight = county2010$total/sum(county2010$total), color = "County"), bw = 0.2)
-g = g + geom_density(aes(log(state2010$concentration), weight = state2010$total/sum(state2010$total), color = "State"), bw = 0.35)
-g = g + geom_density(aes(log(bg2010$concentration), weight = bg2010$total/sum(bg2010$total), color = "Block Group"), bw = 0.05)
-g = g + geom_density(aes(log(tract2010$concentration), weight = tract2010$total/sum(tract2010$total), color = "Tract"), bw = 0.05)
+g = ggplot() + geom_density(aes(concentration, weight = white/sum(white), color = "County"), bw = 0.07, data = county2010)
+g = g + geom_density(aes(concentration, weight = white/sum(white), color = "State"), bw = .15, data = state2010)
+g = g + geom_density(aes(concentration, weight = white/sum(white), color = "Block Group"), bw = 0.1, size = 1, data = bg2010)
+g = g + geom_density(aes(concentration, weight = white/sum(white), color = "Tract"), bw = 0.05, size = 1, data = tract2010)
 g = g + labs(x = "Log Toxicity", colour = "Geographic Level", caption = "(as assigned by different levels of geography)", title = "Distribution of Toxicity for US Population")
 g = g + theme(axis.text=element_text(size = 6), legend.text = element_text(size = 7), legend.title = element_text(size = 8))
+g = g + scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                          labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+      annotation_logticks(
+        short = unit(.5,"mm"),
+        mid = unit(2,"mm"), 
+        long = unit(3.5,"mm"),
+        sides = "b",
+        color = "gray65") 
 g
 ```
 
-As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly tract and county data seems to build a distribution very similar to the block group level assignment. Initial results were replicated using both levels of assignment, and no different conclusions were reached. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it lost the street block by street block variation that we had deemed so crucial, meaning aggregating several block groups gives us a conceptual equivalent 'neighborhood' level of aggregation. 
+As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly tract and county data seems to build a distribution quite similar to the block group level assignment. Initial results were replicated using all 3 levels of assignment, and no different conclusions were reached. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it lost the street block by street block variation that we had deemed so crucial, meaning aggregating several block groups gives us a conceptual equivalent 'neighborhood' level of aggregation. 
 
 ## Temporal Level of Analysis 
 
