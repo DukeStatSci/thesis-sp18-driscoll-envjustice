@@ -92,11 +92,12 @@
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="4-organization.html"><a href="4-organization.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
-<li class="chapter" data-level="4.1" data-path="4-organization.html"><a href="4-organization.html#toxicity-trends-over-time"><i class="fa fa-check"></i><b>4.1</b> Toxicity trends over time</a></li>
-<li class="chapter" data-level="4.2" data-path="4-organization.html"><a href="4-organization.html#simulating-changes"><i class="fa fa-check"></i><b>4.2</b> Simulating Changes</a></li>
-<li class="chapter" data-level="4.3" data-path="4-organization.html"><a href="4-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>4.3</b> Interacting Risk Cases</a></li>
-<li class="chapter" data-level="4.4" data-path="4-organization.html"><a href="4-organization.html#geographic-changes-in-exposure"><i class="fa fa-check"></i><b>4.4</b> Geographic Changes in Exposure</a></li>
-<li class="chapter" data-level="4.5" data-path="4-organization.html"><a href="4-organization.html#quantile-regression"><i class="fa fa-check"></i><b>4.5</b> Quantile Regression</a></li>
+<li class="chapter" data-level="4.1" data-path="4-organization.html"><a href="4-organization.html#toxicity-trends"><i class="fa fa-check"></i><b>4.1</b> Toxicity Trends</a></li>
+<li class="chapter" data-level="4.2" data-path="4-organization.html"><a href="4-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>4.2</b> Trends in Minority Toxicity Burden</a></li>
+<li class="chapter" data-level="4.3" data-path="4-organization.html"><a href="4-organization.html#simulating-changes"><i class="fa fa-check"></i><b>4.3</b> Simulating Changes</a></li>
+<li class="chapter" data-level="4.4" data-path="4-organization.html"><a href="4-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>4.4</b> Interacting Risk Cases</a></li>
+<li class="chapter" data-level="4.5" data-path="4-organization.html"><a href="4-organization.html#geographic-changes-in-exposure"><i class="fa fa-check"></i><b>4.5</b> Geographic Changes in Exposure</a></li>
+<li class="chapter" data-level="4.6" data-path="4-organization.html"><a href="4-organization.html#quantile-regression"><i class="fa fa-check"></i><b>4.6</b> Quantile Regression</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A-the-first-appendix.html"><a href="A-the-first-appendix.html"><i class="fa fa-check"></i><b>A</b> The First Appendix</a></li>
@@ -122,6 +123,8 @@
             <section class="normal" id="section-">
 <div id="organization" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Results</h1>
+<div id="toxicity-trends" class="section level2">
+<h2><span class="header-section-number">4.1</span> Toxicity Trends</h2>
 <p>Spurred by fear created by an disaster release of toxic chemicals in India, the Community Right to Know Act was created in 1986 to require emergency planning and enforce reporting on hazardous chemicals being realeased in to the environment by individual facilities. TRI data, beginning in 1988, is the public release of the data created through the Community Right to Know Act.</p>
 <p>The time after TRI began collection included a lot of environmental regulation, including the Montreal Protol, the Clean Air Act Amendments of 1990, the Oil Pollution Act of 1990 and the 1994 Executive Order directing ‘federal agiencies to identify and address the disproportionately high … environmental effects … on minority populations.’ (SOURCE) As more and more environmental protections went in to place, and collective environmental attitudes became greener, we expect to see large drops in toxicity experienced by all groups. Especially in the early 1990’s with mandated phase outs of certain CFC’s and requirements for facilities to switch to Best Available Control Technology (BACT), there should be large drops in toxicity.</p>
 <p><img src="thesis_files/figure-html/alltoxicity-1.png" width="768" style="display: block; margin: auto;" /></p>
@@ -133,14 +136,15 @@
 <p>In this application, there are locations that are orders of magnitude more toxic than the bulk of the United States. These are sites to be aware of, where toxicity is more likely to have an effect on people’s lives or health. As discussed in the {#data} section, toxicity measures don’t always align with the locations that we know are truly hazardous.</p>
 <p>Many of the locations that arise as especially toxic in the data are assuredly so. High Point, NC is consistently one of the most toxic tracts in the early 2000’s, as confirmed by <a href="https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryID=45198">EPA reports</a> identifying it as a location prime for testing toxicity abatement measures. Tracts outside of Salt Lake City commonly known for acting as <a href="http://www.nytimes.com/2002/10/20/us/utah-county-s-toxic-tradition-is-under-threat.html">dumping grounds</a> are consistently ranked as toxic in the early 2000’s. Mobile, AL, whose <a href="https://19january2017snapshot.epa.gov/enforcement/case-summary-epa-funded-sites-and-communities-chemtura-bankruptcy-settlements_.html#stauffer">3 superfund sites</a> were proposed in the early 1990’s, routinely ranks as toxic over that time period.</p>
 <p>On the other side of the coin, there are many known toxic events and locations that fail to ever reach the top 5% of toxic tracts, like Flint, MI, or the Houston major superfund site.</p>
-<div id="toxicity-trends-over-time" class="section level2">
-<h2><span class="header-section-number">4.1</span> Toxicity trends over time</h2>
+</div>
+<div id="trends-in-minority-toxicity-burden" class="section level2">
+<h2><span class="header-section-number">4.2</span> Trends in Minority Toxicity Burden</h2>
 <p><img src="thesis_files/figure-html/plottox05-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><img src="thesis_files/figure-html/plottox50-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><img src="thesis_files/figure-html/plottox95-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="simulating-changes" class="section level2">
-<h2><span class="header-section-number">4.2</span> Simulating Changes</h2>
+<h2><span class="header-section-number">4.3</span> Simulating Changes</h2>
 <pre><code>Warning: Removed 2 rows containing missing values (geom_path).
 
 Warning: Removed 2 rows containing missing values (geom_path).
@@ -180,7 +184,7 @@ Warning: Removed 2 rows containing missing values (geom_path).</code></pre>
 <p><img src="thesis_files/figure-html/densityplots-1.png" width="960" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/densityplots-2.png" width="960" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/densityplots-3.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="interacting-risk-cases" class="section level2">
-<h2><span class="header-section-number">4.3</span> Interacting Risk Cases</h2>
+<h2><span class="header-section-number">4.4</span> Interacting Risk Cases</h2>
 <pre><code>Warning: Ignoring unknown aesthetics: fill
 
 Warning: Ignoring unknown aesthetics: fill
@@ -195,10 +199,10 @@ Warning: Ignoring unknown aesthetics: fill</code></pre>
 <p><img src="thesis_files/figure-html/incPlots-2.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geographic-changes-in-exposure" class="section level2">
-<h2><span class="header-section-number">4.4</span> Geographic Changes in Exposure</h2>
+<h2><span class="header-section-number">4.5</span> Geographic Changes in Exposure</h2>
 </div>
 <div id="quantile-regression" class="section level2">
-<h2><span class="header-section-number">4.5</span> Quantile Regression</h2>
+<h2><span class="header-section-number">4.6</span> Quantile Regression</h2>
 
 </div>
 </div>

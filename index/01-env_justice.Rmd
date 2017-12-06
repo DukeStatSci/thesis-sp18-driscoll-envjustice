@@ -51,6 +51,7 @@ Though the current theories of siting choices would all create the same behaviou
 - what is the relative toxicity experienced by minority groups over this time period
 - how protective are finances?
 
+
 * Fisher J. B., Kelly M. & Romm J. (2006). Scales of environmental justice: Combining GIS and spatial analysis for air toxics in West Oakland, California. *Health & Place, 12*, pp. 701-714.
     * Uses data from the ISCST3 air dispersion model, and local knowledge of non-point soureces of diesel emissions in West Oakland.
     * Does a disparate impact analysis based on the EPA's 
