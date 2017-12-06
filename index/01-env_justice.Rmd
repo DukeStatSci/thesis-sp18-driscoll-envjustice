@@ -8,57 +8,49 @@ The {#rmd-basics} text after the chapter declaration will allow us to link throu
 
 # Environmental Justice {#env_justice}
 
-
 ## Environmental Justice Theories
-This growing body of literature has, with increasing certainty, shown that poullution experienced by minorities in America is greater than that of the white population. Studies have primarily focused on industrial facilities and air pollution, the two areas with the most consistent data. 
-- how hazards vary in differnet populations
-- specifically this area
-- what are the trends in how the questions are being approached
-- what are flaws of the approaches being used
-- is there something inherent that makes everyone do that
+This growing body of environmental literature has shown with increasing certainty that on average minorities in America experience a higher poullution level than the white population. The literature has focused primarily on air pollution and industrial facilities, the two areas with the most consistently accessible data. Many authors have focused on point source pollution, measuring individual pollution as a binary: the presence or absence of a polluting facility in the geographic level of analysis (SOURCE). An alternate measure of pollution has been a 
+
+The expected trends in toxicity for the global population . Approaches to the idea of environmental justice are not ????, many approach the issue from the context of point source pollution (SOURCES), some use data on transportation emissions, and others use broader environmental data, like levels of NO2 and PM2.5. Results are not unanimous. Many studies conclude that minorities do experience a disproportionate toxicity or pollution burden (SOURCES), others find that economic class accounts for most of the difference in experienced toxicity (SOURCES), yet others find no racial differences (Anderson). 
+
+Environmental justice research is unique in that research and advocacy have gone hand in hand, leading to questions guided by the needs of communities. This trend has led to unusually focused work, evaluating specific communities for the presence of specfic toxins at specific times (SOURCE). Though some work has had a broader net, few authors have broached national data (SOURCES) and even fewer have used data spanning significant time (SOURCES). Due to the definitions of pollution being used, uncertainty in accessible pollution data, and differing geographic units of analysis, work spanning broader time periods as well as a wider geographic range is neccessary to try to understand processes that operate on a national scale that lead to environmental inequality.
+
+Despite differing conclusions from the collective body of research, how we define and think about environmental justice is evolving. Alongside descriptive studies that investigate specific pollution trends, theories of how environmental injustices are created have arisen. The main theorized explanations for environmental injustice are economic, sociopolitical and discriminatory explanations. 
 
 - what is the overall trend in toxicity, do we expect to see that same trend for everyone?
-- the ideas we have about ej are evolving nonetheless
-- descriptive studies on EJ (focusing on different pollution types, or different measures of hazard) continue being produced
 - those studies are not unanimous, but many show a different in group toxicity
-- with that, we talk about the potential reasons that ej issues arise
-- these ideas can all lead to the same outcome so what is the point in talking about it
-- with understanding of the macro level reasons for disparity we can better address the causes
 
 ### Economic Explanations
-- economically rational for companies to site where it is cheap
-- cheaper land value tends to be correlated with minority popualtions
-- economically rational for people with the means to leave, to leave after siting
-- meaning it's a spiral and the place becomes even more low income and minority
-- testable if minority and low income increase after siting, results are mixed
+
+Theories focusing on economic explanations for environmental inequality rely on individual rational choice as an explanation. Especially in the case of point source pollution, companies must make economically rational decisions when siting facilities. Those decisions can be multifaceted: if the location has easy access to transportation, or is close to raw materials, but a primary concern is cost of land. Given companies want cheap land for polluting facilities, and minority communities tend to be near cheap land (SOURCE), it's rational that there would be more facility siting in minority areas. 
+
+In the same vein, it would be economically rational for those with the means to escape newly sited pollution to do so. Under this theory, cheaper land is more likely to be near minority communities, those who can afford to escape do so, devaluing the land further, and making it all the more attractive for facility siting. This theory should be testable, given the direct cause and effect theorized, but results have been mixed. Several studies found that more facilities were sited in minority communities (SOURCES), while others didn't (SOURCES).
+
 - low income is not a protected class, so there is no legal recourse to this. 
 
 ### Sociopolitical Explanations
-- politically rational for companies to site where they will have less resistance
-- due to poor political representation, and low income, minorities are easiest to bulldoze
-- in examination, seems to have a clear vote yes, as siting tends to already happen in low income/minority
-- the less politically engaged, the more temporary the community is, the more facilities.
+
+An alternate explanation still relies upon siting decisions, but more explicitly exploitative. Sociopolitical explanations theorize that companies rationaly chose to site in minority communities, as they will provide less resistance. At risk communities would show a lower voter turnout, would have a large older population, may be disproportionately renters, and may be poorly politically represented. In theory, communities with lower organizing potential are more attractive for facility siting, as they pose a low risk of creating political or economic resistence to the proposed facility. 
 
 ### Racial Discrimination
-- either overt of institutional
-- in this case tends to be called environmental racism
-- overt would mean that facilities are sited there in an intentional way to cause strife to minority communities.
-- or alternatively, done to protect white communities.
-- institutional discrimination /indirect discrimination relates to the housing market. 
-- meaning that minority populations are discriminated against by realtors, mortgage ppl etc and end up with less choice in where they can live
-- even governments can be a part of the institutional discrimination. minority areas are more likely to be rezoned for industry.
 
+Racial discrimination theories are divided in to overt and insitutional racism theories. In discussion of these theories the language used tends to change, using the term 'environmental racism' rather than 'environmental justice'. 
 
-- more broadly, all of these categories (despite using different language to describe the process) represent institutional discrimation.
-- economic explanations rely on the segregation of minority communities to create low income pools that are easy to take advantage of. Though companies are targeting low income popualtions, our history has made those two synonymous. 
-- redlining/jim crow led to the pooling of minority groups. this segregation created limited opportunity for minorities, and led to the economic and sociopolitical reasonings currently used in environmental justice literature. 
-- redlining created the geography, and segregation now inherent in our geographies maintains the issues above. 
+The overt discrimination theory speculates on the intentions of the individuals making the final siting decisions. In this case, overt racism refers to the siting decisions as choices made intentionally to cause strife to minority communities. On the flip side of the coin, but the same outcoem, it can refer to the siting choices as deicisons made in order to protect wealthy white communities. 
+
+The intstitutional discrimination theory relies primarily on housing dynamics. Based on the knowledge that the number of minority individuals living near a sited facility has risen since first measured (SOURCE), the theory states that minorities move towards polluting facilities due to reduced choice in the housing market. Reduced choice can arise in several ways: the choices realtors make in showing homes or the availability of mortgages or loans. Local governments can compound the problems with housing availability for minorities, as minority areas are more likely to be rezoned for industrial purposes by local government (SOURCE). 
+
+These three theories all boil down to the same outcome. Despite using different language and justifications all represent different orders of instutional discrimination. Economic explanations rely on the segregation of minority communites created by redlining. Redlining destroyed investment in communities, prevented black families from investing in homes, and enforced segregated communities. Redlining created the geography and culture that enables economic and sociopolitical explanation, making it just a consequence of previous overt discrimination.
+
+Though the current theories of siting choices would all create the same behaviour, the different reasonings can help to explain (and perhaps change) the trends that lead to environmental injustice. 
 
 
 ## Goals 
 - address the first question of ej literature by (with this new+improved data, over a longer period of time than analyzed in any of the literature) by looking at how the groups differ, and how that changes over time.
-
 -improve by using accurate measures of location (not people within range of TRI, not amount of pollution, but the toxicity of the pollution experienced by ppl)
+- what is the relative toxicity experienced by minority groups over this time period
+- how protective are finances?
+- 
 
 ~~~~~~
 
@@ -83,20 +75,6 @@ MIGRATION RACE AND ENVIRONMENTAL HAZARDS
 "leave open questions about the overall magnitude of environmental racial inequality, providing dramatically different estimates of racial/ethnic disparities in proximity and exposure to environmental hazards."
 "microlevel mechanisms through which aggregate patterns of environmental racial inequality develop and are maintained"
 "competeing theoretical arguments in the environmental justice literature"
-
-The reasons, and it's effects are effctively divided in to two parts: the reasons the facility choses to site in a location, and how that relates to the demographics of the area. These reasonings effectively all boil down to the same outcome, but the different reasonings can help to explain, and perhaps change, the trends that lead to environmental injustice. 
-
-
-## Economic Explanations
-group differences in socioeconomic resources
-aka rent is low near toxicity, so low income ppl migrate there
-
-## Sociopolitical Explanations
-
-## Racial Discrimination Explanations
-housing market discrimination that limits where minorities can live by lenders realtors and local gov
-"Paired discrimination tests suggest that black, Asian and Latino auditors all tend to experience negative treatment at the hands of realtors"
-"data on racial attitudes show asians ranked as most desirable minority neighbors, black least, hispanic in between"
 
 * Fisher J. B., Kelly M. & Romm J. (2006). Scales of environmental justice: Combining GIS and spatial analysis for air toxics in West Oakland, California. *Health & Place, 12*, pp. 701-714.
     * Uses data from the ISCST3 air dispersion model, and local knowledge of non-point soureces of diesel emissions in West Oakland.
