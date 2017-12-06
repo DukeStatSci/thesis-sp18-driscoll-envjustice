@@ -1,6 +1,6 @@
 # Injustice in Toxicity Burdens
 
-Undergraduate thesis of Anne Driscoll, to be submitted in Spring 2018. Using publically available Census and EPA data, seeks to examine the toxicity distribution experienced by minority groups in the US. 
+Using publicly available Census and EPA data to examine the toxicity distribution experienced by minority groups in the US. 
 
 ## Contents
 

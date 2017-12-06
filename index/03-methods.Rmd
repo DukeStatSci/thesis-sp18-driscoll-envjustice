@@ -58,9 +58,9 @@ state2010 = merge(state2010, census_state, by.x = "block", by.y = "fips")
 bg2010 = merge(bg2010, census_bg, by.x = "block", by.y = "fips")
 
 #plot national distributions
-g = ggplot() + geom_density(aes(concentration, weight = white/sum(white), color = "County"), bw = 0.07, data = county2010)
-g = g + geom_density(aes(concentration, weight = white/sum(white), color = "State"), bw = .15, data = state2010)
-g = g + geom_density(aes(concentration, weight = white/sum(white), color = "Block Group"), bw = 0.1, size = 1, data = bg2010)
+g = ggplot() + geom_density(aes(concentration, weight = white/sum(white), color = "County"), bw = 0.08, data = county2010)
+g = g + geom_density(aes(concentration, weight = white/sum(white), color = "State"), bw = .1, data = state2010)
+g = g + geom_density(aes(concentration, weight = white/sum(white), color = "Block Group"), bw = 0.08, size = 1, data = bg2010)
 g = g + geom_density(aes(concentration, weight = white/sum(white), color = "Tract"), bw = 0.05, size = 1, data = tract2010)
 g = g + labs(x = "Log Toxicity", colour = "Geographic Level", caption = "(as assigned by different levels of geography)", title = "Distribution of Toxicity for US Population")
 g = g + theme(axis.text=element_text(size = 6), legend.text = element_text(size = 7), legend.title = element_text(size = 8))

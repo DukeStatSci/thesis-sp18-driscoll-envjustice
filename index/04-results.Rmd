@@ -1,8 +1,54 @@
 # Results {#organization}
 
 
+## Toxicity Trends
 
-## Toxicity trends over time
+Spurred by fear created by an disaster release of toxic chemicals in India, the Community Right to Know Act was created in 1986 to require emergency planning and enforce reporting on hazardous chemicals being realeased in to the environment by individual facilities. TRI data, beginning in 1988, is the public release of the data created through the Community Right to Know Act.
+
+The time after TRI began collection included a lot of environmental regulation, including the Montreal Protol, the Clean Air Act Amendments of 1990, the Oil Pollution Act of 1990 and the 1994 Executive Order directing 'federal agiencies to identify and address the disproportionately high ... environmental effects ... on minority populations.' (SOURCE) As more and more environmental protections went in to place, and collective environmental attitudes became greener, we expect to see large drops in toxicity experienced by all groups. Especially in the early 1990's with mandated phase outs of certain CFC's and requirements for facilities to switch to Best Available Control Technology (BACT), there should be large drops in toxicity.
+
+
+```{r alltoxicity, echo = FALSE, fig.width=8, fig.height=4}
+pounds = fread("data/release_trends.csv", data.table = FALSE)[1:26, ]
+
+ggplot(pounds) + geom_line(aes(x = as.double(year), y = as.double(tox))) + 
+#  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+#                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+#  annotation_logticks(short = unit(1,"mm"), mid = unit(2.2,"mm"), long = unit(3.5,"mm"), sides = "l", color = "gray65") +
+  labs(x = "Year", y = "Pounds of TRI Chemicals Released", title = "TRI releases by weight over time") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+Looking at the net volume of TRI releases, we do see a fairly linear drop in the amount of TRI chemicals being released nationally between 1988 and 2013. Despite the common use of volume of TRI releases as a study measure (SOURCES) the rest of this work proceeds to use TRI toxicity as the measure of interest. TRI toxicity refers to the weight of each release multiplied by the toxicity weight assigned to the chemical by the EPA. Given that TRI chemicals vary significantly in their potential human effects, toxicity experienced is a better measure of the potential human impact than the net weight of toxic chemicals experienced. Given that this seeks to find differences in toxicity experienced by minority groups, toxicicty is even more important, as there is potential that net releases are less likely to differ across communities than the toxicity of those releases.  
+
+Toxicity trends look very different than the net release trends shown above. This is partially attributable to the strongly skewed distribution of toxicity. Some releases are not especially large in regards to weight, but are of extremely toxic chemicals, meaning the distribution of toxicities experienced is extremely right skewed by the uncommon, extremely toxic dumps. 
+
+```{r, echo = FALSE, fig.width=8, fig.height=4}
+ggplot(data[data$year == 2000,]) + geom_density(aes(concentration, weight = pop/sum(pop)), fill = "pink", color = "pink", alpha = 0.7) +
+  labs(x = "Toxicity", y = "Density", title = "Toxicities experienced in 2000") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+Given the extremely right skewed nature of this distribution, for ease of analysis and interpretation, from here on toxicicity is reported as log toxicity. The distributions of log toxicity are much more interpretable, but care must be used when examining the results to contextualize the results. 
+
+```{r, echo = FALSE, fig.width=8, fig.height=4}
+ggplot(data[data$year == 2000,]) + geom_density(aes(concentration, weight = pop/sum(pop)), fill = "pink", color = "pink", alpha = 0.6) +
+  labs(x = "Log Toxicity", y = "Density", title = "Log Toxicities experienced in 2000") +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+  annotation_logticks(short = unit(1,"mm"), mid = unit(2.2,"mm"), long = unit(3.5,"mm"), sides = "b", color = "gray65")
+```
+
+In this application, there are locations that are orders of magnitude more toxic than the bulk of the United States. These are sites to be aware of, where toxicity is more likely to have an effect on people's lives or health. As discussed in the {#data} section, toxicity measures don't always align with the locations that we know are truly hazardous. 
+
+Many of the locations that arise as especially toxic in the data are assuredly so. High Point, NC is consistently one of the most toxic tracts in the early 2000's, as confirmed by [EPA reports](https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryID=45198) identifying it as a location prime for testing toxicity abatement measures. Tracts outside of Salt Lake City commonly known for acting as [dumping grounds](http://www.nytimes.com/2002/10/20/us/utah-county-s-toxic-tradition-is-under-threat.html) are consistently ranked as toxic in the early 2000's. Mobile, AL, whose [3 superfund sites](https://19january2017snapshot.epa.gov/enforcement/case-summary-epa-funded-sites-and-communities-chemtura-bankruptcy-settlements_.html#stauffer) were proposed in the early 1990's, routinely ranks as toxic over that time period. 
+
+On the other side of the coin, there are many known toxic events and locations that fail to ever reach the top 5% of toxic tracts, like Flint, MI, or the Houston major superfund site.
+
+## Trends in Minority Toxicity Burden
+
 
 ```{r quantileCalcs, echo = FALSE, message = FALSE, warning = FALSE}
 library(plyr)
@@ -39,14 +85,15 @@ msa_perc50 = get_perc(dense_data, 0.50, variables = names(data)[c(3:7, 10:18)], 
 msa_perc95 = get_perc(dense_data, 0.95, variables = names(data)[c(3:7, 10:18)], sim = sim95)
 ```
 
-```{r plottingQuantiles, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
+```{r createPlots, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
 tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
   g = ggplot(data = cur_data) + 
   geom_line(aes(x = year, y = white, color = "white")) +
   geom_line(aes(x = year, y = black, color = "black")) + 
   geom_line(aes(x = year, y = hispanic, color = "hispanic")) + 
   geom_line(aes(x = year, y = other, color = "other")) + 
-  labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
+  labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity")) +
+  theme(plot.title = element_text(hjust = 0.5))
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
   }
@@ -72,7 +119,8 @@ tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
 
 relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
   g = ggplot(data) +
-    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend")
+    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
+    theme(plot.title = element_text(hjust = 0.5))
   if (smooth == TRUE) {
     g = g + 
       geom_line(aes(x = year, y = (white/white), color = "white")) +
@@ -100,17 +148,18 @@ relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
 
 pov_tox = function(cur_data, perc, legend = FALSE) {
   g = ggplot(data = cur_data) + 
-  geom_line(aes(x = year, y = whiteh, color = "white")) +
-  geom_line(aes(x = year, y = blackh, color = "black")) + 
-  geom_line(aes(x = year, y = nativeh, color = "native")) + 
-  geom_line(aes(x = year, y = asianh, color = "asian")) + 
-  geom_line(aes(x = year, y = otherh, color = "other")) + 
-  geom_line(aes(x = year, y = whitel, color = "white")) +
-  geom_line(aes(x = year, y = blackl, color = "black")) + 
-  geom_line(aes(x = year, y = nativel, color = "native")) + 
-  geom_line(aes(x = year, y = asianl, color = "asian")) + 
-  geom_line(aes(x = year, y = otherl, color = "other")) + 
-  labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th PCTL Toxicity"), color = "Legend")
+    geom_line(aes(x = year, y = whiteh, color = "white")) +
+    geom_line(aes(x = year, y = blackh, color = "black")) + 
+    geom_line(aes(x = year, y = nativeh, color = "native")) + 
+    geom_line(aes(x = year, y = asianh, color = "asian")) + 
+    geom_line(aes(x = year, y = otherh, color = "other")) + 
+    geom_line(aes(x = year, y = whitel, color = "white")) +
+    geom_line(aes(x = year, y = blackl, color = "black")) + 
+    geom_line(aes(x = year, y = nativel, color = "native")) + 
+    geom_line(aes(x = year, y = asianl, color = "asian")) + 
+    geom_line(aes(x = year, y = otherl, color = "other")) + 
+    labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th PCTL Toxicity"), color = "Legend") +
+    theme(plot.title = element_text(hjust = 0.5))
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
   }
@@ -125,7 +174,7 @@ g_legend = function(a.gplot) {
 }
 ```
 
-```{r plotGroup05, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+```{r plottox05, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
 five = tox(perc05, 5)
 fifty = tox(perc50, 50)
 ninetyfive = tox(perc95, 95)
@@ -141,22 +190,23 @@ grid.arrange(arrangeGrob(five, five_rel, nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
 ```
 
-```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+```{r plottox50, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
 grid.arrange(arrangeGrob(fifty, fifty_rel, nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
 ```
 
-```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
+```{r plottox95, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
 grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
 ```
 
 ## Simulating Changes
 
-```{r, echo = FALSE, fig.width=10, fig.height=4}
+```{r changePlots, echo = FALSE, fig.width=10, fig.height=4}
 sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
   g = ggplot(data = cur_data) + 
-        labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
+        labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity")) +
+        theme(plot.title = element_text(hjust = 0.5))
   if (smooth == TRUE) {
     g = g +
       geom_line(aes(x = year, y = white, color = "white"), alpha = 0.3) +
@@ -195,32 +245,30 @@ sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
 }
 
 relative_sim = function(data, perc, legend = FALSE, smooth = FALSE) {
-  g = ggplot(data) 
+  g = ggplot(data) +
+    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
+    theme(plot.title = element_text(hjust = 0.5)) + 
+    theme(legend.position="bottom") +
+    geom_line(aes(x = year, y = (white/white), color = "white")) 
   if (smooth == TRUE) {
     g = g + 
-      geom_line(aes(x = year, y = (white/white), color = "white")) +
-      geom_line(aes(x = year, y = (black/white), color = "black"), alpha = 0.3)  +
-      geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.3) +
-      geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.3) +
-      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
-      geom_line(aes(x = year, y = rollmean(black/white, 3, na.pad=TRUE), color = "black"), linetype = "twodash", size = 0.7)  +
-      geom_line(aes(x = year, y = rollmean(hispanic/white, 3, na.pad = TRUE), color = "hispanic"), linetype = "twodash", size = 0.7) +
-      geom_line(aes(x = year, y = rollmean(other/white, 3, na.pad = TRUE), color = "other"), linetype = "twodash", size = 0.7) 
+      geom_line(aes(x = year, y = (black/white), color = "black"), alpha = 0.2)  +
+      geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.2) +
+      geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.2) +
+      geom_line(aes(x = year, y = rollmean(black/white, 3, na.pad=TRUE), color = "black"), size = 0.7, alpha = 0.45)  +
+      geom_line(aes(x = year, y = rollmean(hispanic/white, 3, na.pad = TRUE), color = "hispanic"), size = 0.7, alpha = 0.45) +
+      geom_line(aes(x = year, y = rollmean(other/white, 3, na.pad = TRUE), color = "other"), size = 0.7, alpha = 0.45) +
       geom_line(aes(x = year, y = rollmean(sim_b/white, 3, na.pad = TRUE), color = "black"), linetype = "dashed", size = 0.7) + 
       geom_line(aes(x = year, y = rollmean(sim_o/white, 3, na.pad = TRUE), color = "other"), linetype = "dashed", size = 0.7) +
-      geom_line(aes(x = year, y = rollmean(sim_h/white, 3, na.pad = TRUE), color = "hispanic"), linetype = "dashed", size = 0.7) +
-      theme(legend.position="bottom")
+      geom_line(aes(x = year, y = rollmean(sim_h/white, 3, na.pad = TRUE), color = "hispanic"), linetype = "dashed", size = 0.7) 
   } else {
     g = g + 
-      geom_line(aes(x = year, y = (white/white), color = "white")) +
       geom_line(aes(x = year, y = (black/white), color = "black"), alpha = 0.45)  +
       geom_line(aes(x = year, y = (hispanic/white), color = "hispanic"), alpha = 0.45) +
       geom_line(aes(x = year, y = (other/white), color = "other"), alpha = 0.45) +
       geom_line(aes(x = year, y = sim_b/white, color = "black"), linetype = "dashed", size = 0.7) + 
       geom_line(aes(x = year, y = sim_o/white, color = "other"), linetype = "dashed", size = 0.7) +
-      geom_line(aes(x = year, y = sim_h/white, color = "hispanic"), linetype = "dashed", size = 0.7) +
-      labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Legend") +
-      theme(legend.position="bottom")
+      geom_line(aes(x = year, y = sim_h/white, color = "hispanic"), linetype = "dashed", size = 0.7) 
   }
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
@@ -228,15 +276,15 @@ relative_sim = function(data, perc, legend = FALSE, smooth = FALSE) {
   g
 }
 
-grid.arrange(arrangeGrob(sim_tox(perc05, 5), relative_sim(perc05, 5), nrow=1),
+grid.arrange(arrangeGrob(sim_tox(perc05, 5), relative_sim(perc05, 5, smooth = TRUE), nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
-grid.arrange(arrangeGrob(sim_tox(perc50, 50), relative_sim(perc50, 50), nrow=1),
+grid.arrange(arrangeGrob(sim_tox(perc50, 50), relative_sim(perc50, 50, smooth = TRUE), nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
-grid.arrange(arrangeGrob(sim_tox(perc95, 95), relative_sim(perc95, 95), nrow=1),
+grid.arrange(arrangeGrob(sim_tox(perc95, 95), relative_sim(perc95, 95, smooth = TRUE), nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
 ```
 
-```{r, warning = FALSE,echo = FALSE, fig.width=10, fig.height=4}
+```{r densityplots, warning = FALSE,echo = FALSE, fig.width=10, fig.height=4}
 ggplot() + 
   geom_density(aes(log(concentration), weight = white/sum(white), fill = "1990", color = "1990"), alpha = 0.4, data[data$year == 1990, ]) +
   geom_density(aes(log(concentration), weight = white/sum(white), fill = "2000", color = "2000"), alpha = 0.4, data[data$year == 2000, ]) +
@@ -262,7 +310,7 @@ ggplot() +
 
 
 ## Interacting Risk Cases
-```{r}
+```{r incPlots, echo = FALSE}
 ggplot(perc50) + 
   geom_ribbon(aes(x = year, ymax = log(blackh), ymin = log(blackl), fill = "black"), alpha = 0.3) + 
   geom_line(aes(x = year, y = log(blackh), fill = "black"), alpha = 0.3) + 
@@ -284,7 +332,8 @@ ggplot(perc50) +
 ## Geographic Changes in Exposure
 
 ## Quantile Regression
-```{r}
-test = rq(log(concentration) ~ year + (black/pop) + (white/pop) + (hispanic/pop) + (other/pop), tau = 0.5, data = hisp_data)
+
+```{r quantreg, echo = FALSE}
+#test = rq(log(concentration) ~ year + (black/pop) + (white/pop) + (hispanic/pop) + (other/pop), tau = 0.5, data = hisp_data)
 ```
 
