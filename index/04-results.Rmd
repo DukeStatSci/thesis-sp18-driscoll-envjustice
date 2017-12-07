@@ -8,7 +8,7 @@ Spurred by fear created by an disaster release of toxic chemicals in India, the 
 The time after TRI began collection included a lot of environmental regulation, including the Montreal Protol, the Clean Air Act Amendments of 1990, the Oil Pollution Act of 1990 and the 1994 Executive Order directing 'federal agiencies to identify and address the disproportionately high ... environmental effects ... on minority populations.' (SOURCE) As more and more environmental protections went in to place, and collective environmental attitudes became greener, we expect to see large drops in toxicity experienced by all groups. Especially in the early 1990's with mandated phase outs of certain CFC's and requirements for facilities to switch to Best Available Control Technology (BACT), there should be large drops in toxicity.
 
 
-```{r alltoxicity, echo = FALSE, fig.width=8, fig.height=4}
+```{r alltoxicity, echo = FALSE, fig.width=7, fig.height=4}
 pounds = fread("data/release_trends.csv", data.table = FALSE)[1:26, ]
 
 ggplot(pounds) + geom_line(aes(x = as.double(year), y = as.double(tox))) + 
@@ -23,7 +23,7 @@ Looking at the net volume of TRI releases, we do see a fairly linear drop in the
 
 Toxicity trends look very different than the net release trends shown above. This is partially attributable to the strongly skewed distribution of toxicity. Some releases are not especially large in regards to weight, but are of extremely toxic chemicals, meaning the distribution of toxicities experienced is extremely right skewed by the uncommon, extremely toxic dumps. 
 
-```{r, echo = FALSE, fig.width=8, fig.height=4}
+```{r, echo = FALSE, fig.width=7, fig.height=4}
 ggplot(data[data$year == 2000,]) + geom_density(aes(concentration, weight = pop/sum(pop)), fill = "pink", color = "pink", alpha = 0.7) +
   labs(x = "Toxicity", y = "Density", title = "Toxicities experienced in 2000") +
   theme(plot.title = element_text(hjust = 0.5))
@@ -32,7 +32,7 @@ ggplot(data[data$year == 2000,]) + geom_density(aes(concentration, weight = pop/
 
 Given the extremely right skewed nature of this distribution, for ease of analysis and interpretation, from here on toxicicity is reported as log toxicity. The distributions of log toxicity are much more interpretable, but care must be used when examining the results to contextualize the results. 
 
-```{r, echo = FALSE, fig.width=8, fig.height=4}
+```{r, echo = FALSE, fig.width=7, fig.height=4}
 ggplot(data[data$year == 2000,]) + geom_density(aes(concentration, weight = pop/sum(pop)), fill = "pink", color = "pink", alpha = 0.6) +
   labs(x = "Log Toxicity", y = "Density", title = "Log Toxicities experienced in 2000") +
   theme(plot.title = element_text(hjust = 0.5)) + 
@@ -48,6 +48,12 @@ Many of the locations that arise as especially toxic in the data are assuredly s
 On the other side of the coin, there are many known toxic events and locations that fail to ever reach the top 5% of toxic tracts, like Flint, MI, or the Houston major superfund site.
 
 ## Trends in Minority Toxicity Burden
+
+Using data at the tract level, we assign the tract concentration to the counts of each group in the tract. By assigning toxicity for each tract, we build four distributions: toxicity for the white population, toxicity for the black population, toxicity for the hispanic population, and toxicity for all other groups. In this case, hispanic is not a mutually exclusive group, and the race groups may contain ethnically hispanic individuals. 
+
+For each of the distributions, the 5th, 50th, and 95th percentiles are calculated for each time period. In the case of toxicity, the 5th and 9th percentiles are especially of interest, as they represent the non-polluted neighborhoods that each group has access to and the level of pollution trap that each group falls in to. Clearly, for all variables, lower toxicity is better. 
+
+The values for each race group are shown for each quantile below. On the left is the log toxicity for the quantile over time. On the right is the toxicity minorities experience relative to the white distribution. These values are not computed from the log, but are the net toxoicity of the given quantile for a group divided by the net toxicity of the quantile for the white distribution.
 
 
 ```{r quantileCalcs, echo = FALSE, message = FALSE, warning = FALSE}
@@ -190,19 +196,35 @@ grid.arrange(arrangeGrob(five, five_rel, nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
 ```
 
+As we see in the 5th percentile plots, toxicity is steadily decreasing. Given the y axis has been logged, and we see a linear trend, we understand that toxicity has seen an exponential drop over the years. There appear to be two distinct groups, with the black and other groups significantly higher than the white and hispanic groups in 1988, and distinctly seperated by 2013. Though we see incredible improvements in toxicity for all groups, the relative improvement shows a different story. The difference for the group containing all other minorities is most impressive, with minorities originally having 5th percentile toxicity at approximately 1.5 times the rate of the white 5th percentile, but ending at over 6 times the white 5th percentile. 
+
+From this plot we see that though minorities have had the largest net gains in 5th percentile toxicity, those gains are an artifact of how much higher their toxicity began at. When framing improvements relative to the white population, there has been no improvement, in some cases relative toxicity has regressed.
+
 ```{r plottox50, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
 grid.arrange(arrangeGrob(fifty, fifty_rel, nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
 ```
+
+The toxicity changes for the 50th percentile tell a very different story. Again, we see linear improvement in the logged toxicity plot, indicating an exponential decrease in the toxicity experienced by the 50th percentile of the population. The difference at the 50th percentile is that minority groups have improved faster than their white counterparts, meaning that the relative toxicity of all groups is converging towards the 50th percentile of the white distribution. 
 
 ```{r plottox95, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE, message = FALSE}
 grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
 ```
 
+Ninety-fifth percentile toxicity is in some ways the most of interest. Though the difference between estimates for white and minorities is still approximately an order of magnitude, an order of magnitude at this level is much more likely to be harmful than an order of magnitude in the 5th percentile. An interesting difference is that at the high end of the distribution, we see the other group has a relative toxicity close to 1, where in previous plots the other group had significantly worse relative toxicity. Similarly, though the hispanic group previously performed closest to the white group, at the 95th percentile the hispanic group performs more similarly to the black distribution. 
+
+Examining the changes in each of these plots independently gives us a glimpse at how the distributions as a whole are shifting. The lack of change, or even worsening, of relative toxicity for the black and other distributions at the 5th percentile may be indicative of barriers minorities face at access to clean communities. As wealthier communities are getting ever cleaner, minorities are still unable to gain access to them, meaning less improvement in the low tail of the minority distributions. This hints towards the institutional racism explanation of environmental justice. 
+
+Comparatively, the changes at the 50th percentile show that minorities have all consistently improved faster than the white 50th percentile, meaning that the bulk of the distribution has been sucessfully shifting faster than the white distribution. 
+
+In the 95th percentile, we see the hispanic group performing similarly to the white distribution, while the black and hispanic distributions improving until the early 2000's, and then flattening out or rising relative to the white distribution. With the widening gap in the 5th percentile, the closing gap in the 50th percentile, and the stagnation of change in the 95th, we see that the distribution is shifting left and condensing as the left tail stagnates, and the right tail slowly moves in. 
+
+In essense we are seeing the "rich getting richer" phenomenon in the 5th percentile of the white distribution. The hispanic group appears to have remained constant
+
 ## Simulating Changes
 
-```{r changePlots, echo = FALSE, fig.width=10, fig.height=4}
+```{r changePlots, echo = FALSE, warning = FALSE, fig.width=10, fig.height=4}
 sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
   g = ggplot(data = cur_data) + 
         labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity")) +
@@ -275,12 +297,20 @@ relative_sim = function(data, perc, legend = FALSE, smooth = FALSE) {
   }
   g
 }
+```
 
-grid.arrange(arrangeGrob(sim_tox(perc05, 5), relative_sim(perc05, 5, smooth = TRUE), nrow=1),
+```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE}
+grid.arrange(arrangeGrob(sim_tox(perc05, 5), relative_sim(perc05, 5), nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
-grid.arrange(arrangeGrob(sim_tox(perc50, 50), relative_sim(perc50, 50, smooth = TRUE), nrow=1),
+```
+
+```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE}
+grid.arrange(arrangeGrob(sim_tox(perc50, 50), relative_sim(perc50, 50), nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
-grid.arrange(arrangeGrob(sim_tox(perc95, 95), relative_sim(perc95, 95, smooth = TRUE), nrow=1),
+```
+
+```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE}
+grid.arrange(arrangeGrob(sim_tox(perc95, 95), relative_sim(perc95, 95), nrow=1),
              color_legend, nrow=2,heights=c(10, 1))
 ```
 
@@ -310,7 +340,7 @@ ggplot() +
 
 
 ## Interacting Risk Cases
-```{r incPlots, echo = FALSE}
+```{r incPlots, echo = FALSE, warning = FALSE, fig.width=10, fig.height=4}
 ggplot(perc50) + 
   geom_ribbon(aes(x = year, ymax = log(blackh), ymin = log(blackl), fill = "black"), alpha = 0.3) + 
   geom_line(aes(x = year, y = log(blackh), fill = "black"), alpha = 0.3) + 
