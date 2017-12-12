@@ -385,6 +385,54 @@ ggplot(perc50) +
 ## Quantile Regression
 
 ```{r quantreg, echo = FALSE}
-#test = rq(log(concentration) ~ year + (black/pop) + (white/pop) + (hispanic/pop) + (other/pop), tau = 0.5, data = hisp_data)
+s = sample(1:nrow(data), nrow(data)/900)
+sample = data[s, ]
+sample$p_white = sample$white/sample$pop
+sample$p_black = sample$black/sample$pop
+sample$p_hispanic = sample$hispanic/sample$pop
+sample$p_other = sample$other/sample$pop
+quant = rq(log(concentration)~year+year*(p_white+p_black+p_hispanic+p_other+density)+I(year^2)*(p_white+p_black+p_hispanic+p_other+density), tau = c(0.05, 0.5, 0.95), data = sample)
+test = data.frame(year = c(1990, 1990, 1990, 1990), p_white = c(1, 0, 0, 0), p_black = c(0, 1, 0, 0), p_hispanic = c(0, 0, 1, 0), p_other = c(0, 0, 0, 1), density = c(10, 10, 10, 10))
+predict.rq(quant, test)
+
+(Intercept)           1.946034e+06 -4.350861e+05 -9.196821e+05
+year                 -1.936871e+03  4.337562e+02  9.176898e+02
+p_white              -1.868164e+06  4.480028e+05  9.411051e+05
+p_black              -2.051487e+06  4.231316e+05  8.631212e+05
+p_hispanic           -2.149199e+06  3.726740e+05  7.632963e+05
+p_other              -1.829394e+06  5.402888e+05  1.003191e+06
+density               5.624324e+00 -1.651842e+00  8.011961e+00
+I(year^2)             4.819380e-01 -1.081055e-01 -2.289204e-01
+year:p_white          1.859175e+03 -4.465462e+02 -9.390076e+02
+year:p_black          2.042475e+03 -4.215849e+02 -8.609744e+02
+year:p_hispanic       2.138845e+03 -3.712768e+02 -7.613043e+02
+year:p_other          1.820602e+03 -5.388172e+02 -1.001035e+03
+year:density         -5.605876e-03  1.657004e-03 -7.992230e-03
+p_white:I(year^2)    -4.625574e-01  1.112731e-01  2.342262e-01
+p_black:I(year^2)    -5.083748e-01  1.050108e-01  2.147062e-01
+p_hispanic:I(year^2) -5.321338e-01  9.247081e-02  1.898274e-01
+p_other:I(year^2)    -4.529613e-01  1.343373e-01  2.497172e-01
+density:I(year^2)     1.396894e-06 -4.154982e-07  1.993128e-06
+
+years = seq(1990, 2014)
+year = coef(quant)[2, 1]
+year_2 = coef(quant)[8, 1]
+white = coef(quant)[3, 1]
+black = coef(quant)[4, 1]
+hispanic = coef(quant)[5, 1]
+other = coef(quant)[6, 1]
+white_year = coef(quant)[9, 1]
+black_year = coef(quant)[10, 1]
+hispanic_year = coef(quant)[11, 1]
+other_year = coef(quant)[12, 1]
+white_year2 = coef(quant)[14, 1]
+black_year2 = coef(quant)[15, 1]
+hispanic_year2 = coef(quant)[16, 1]
+other_year2 = coef(quant)[17, 1]
+
+ggplot() + geom_line(aes(x = years, white+(year + white_year)*years+(year_2 + white_year2)*years^2, color = "white")) +
+  geom_line(aes(x = years, black+(year + black_year)*years+(year_2 + black_year2)*years^2, color = "black")) +
+  geom_line(aes(x = years, hispanic+(year + hispanic_year)*years+(year_2 + hispanic_year2)*years^2, color = "hispanic")) +
+  geom_line(aes(x = years, other+(year + other_year)*years+(year_2 + other_year2)*years^2, color = "other"))
 ```
 
