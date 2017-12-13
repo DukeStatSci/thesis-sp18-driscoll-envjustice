@@ -1,6 +1,5 @@
 # Results {#organization}
 
-
 ## Toxicity Trends
 
 Spurred by fear created by a disaster release of toxic chemicals in India, the Community Right to Know Act was created in 1986 to enforce reporting on hazardous chemicals being realeased in to the environment by individual facilities. TRI data, beginning in 1988, is the public release of the data created through the Community Right to Know Act.
@@ -46,6 +45,16 @@ In this application, there are locations that are orders of magnitude more toxic
 Many of the locations that arise as especially toxic in the data are assuredly so. High Point, NC is consistently one of the most toxic tracts in the early 2000's, as confirmed by [EPA reports](https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryID=45198) identifying it as a location prime for testing toxicity abatement measures. Tracts outside of Salt Lake City commonly known for acting as [dumping grounds](http://www.nytimes.com/2002/10/20/us/utah-county-s-toxic-tradition-is-under-threat.html) are consistently ranked as toxic in the early 2000's. Mobile, AL, whose [3 superfund sites](https://19january2017snapshot.epa.gov/enforcement/case-summary-epa-funded-sites-and-communities-chemtura-bankruptcy-settlements_.html#stauffer) were proposed in the early 1990's, routinely ranks as toxic over that time period. 
 
 On the other side of the coin, there are many known toxic events and locations that fail to ever reach the top 5% of toxic tracts, of which Flint, MI, and the Houston major superfund site are good examples.
+
+## Geography of Toxicity Trends
+
+Toxic exposure has been changing dramatically in the US, but the trends it follows have remained similar. In the gif below, we show toxicity across the US from 2010 to 2014. 
+
+![Gif of toxicity in America from 2010 to 2014.](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+
+Though we see impressive reductions over that time, the overall geographic trends of toxicity remain constant. Each region maintains its overall toxicity range, and toxicity wells appear to stay constant. Given the infrastructure required to build up manufacturing, a large part of TRI, the consistency across time is reasonable. 
+
+The toxicity wells we see in the image are interestingly familiar. 
 
 ## Trends in Minority Toxicity Burden
 
@@ -380,8 +389,6 @@ ggplot(perc50) +
 ```
 
 
-## Geographic Changes in Exposure
-
 ## Quantile Regression
 
 Previous sections have focused on teasing apart patterns in the vast amounts of data we have, attempting to find differences in toxicity experienced by minority groups. We find large differences in the toxicity experienced, but may be limited by the choices in division we make. Given we only investigate the variables that we suspect may have a relationship with toxicity, there are likley patterns in teh data that aren't being examined. 
@@ -389,7 +396,6 @@ Previous sections have focused on teasing apart patterns in the vast amounts of 
 In order to better tease out relationships in the data, and for easy interpretation of coefficients, a functionally similar analysis can be done with quantile regression, focusing on the computed parameters as indicators of the differences in experienced toxicity. 
 
 To illustrate the form of model this could take, we build preliminary quantile regression models on the 5th, 50th, and 95th percentiles of the toxicity distribution. To predict log toxicity, we use the year, demographic information, population density as well as quadratic terms. The predictions shown for each race or ethnicity group are fairly consistent with the results shown above. 
-
 ```{r quantreg, echo = FALSE}
 sample = sample_frac(data, size = 0.08)
 sample$p_white = sample$white/sample$pop
@@ -455,4 +461,4 @@ plot_quant = function(pred) {
 plot_quant(exp(predict.rq(quant_den, test)))
 ```
 
-By adding additional block level data to this regression, and testing model fit more rigorously, we may be able to discuss the magnitude of toxicity differences that are attributable to race, and will be more informed on the other factors that hold importance in predicting toxicity. 
+By adding additional block level data to this regression and testing model fit more rigorously, we may be able to discuss the magnitude of toxicity differences that are attributable to race, and will be more informed on the other factors that hold importance in predicting toxicity. Above sections address the empirical reduction in toxicity and the reduction amount attributable to shifts of minority placement in the distribution. An approach able to take it a step further and find the differences attributable to race would add significant value. 
