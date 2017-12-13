@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="3-ref-labels.html">
-<link rel="next" href="A-the-first-appendix.html">
+<link rel="next" href="A-annotated-bibliography.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -100,7 +100,9 @@
 <li class="chapter" data-level="4.6" data-path="4-organization.html"><a href="4-organization.html#quantile-regression"><i class="fa fa-check"></i><b>4.6</b> Quantile Regression</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A-the-first-appendix.html"><a href="A-the-first-appendix.html"><i class="fa fa-check"></i><b>A</b> The First Appendix</a></li>
+<li class="chapter" data-level="A" data-path="A-annotated-bibliography.html"><a href="A-annotated-bibliography.html"><i class="fa fa-check"></i><b>A</b> Annotated Bibliography</a></li>
+<li class="chapter" data-level="B" data-path="B-data-sources.html"><a href="B-data-sources.html"><i class="fa fa-check"></i><b>B</b> Data Sources</a></li>
+<li class="chapter" data-level="C" data-path="C-ecological-fallacy.html"><a href="C-ecological-fallacy.html"><i class="fa fa-check"></i><b>C</b> Ecological Fallacy</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -177,6 +179,104 @@
 </div>
 <div id="quantile-regression" class="section level2">
 <h2><span class="header-section-number">4.6</span> Quantile Regression</h2>
+<pre><code>      tau= 0.05 tau= 0.50 tau= 0.95
+1   2.800828831  8.718791 11.632489
+2   2.554100344  8.589618 11.522855
+3   2.318131772  8.462154 11.415381
+4   2.092923116  8.336401 11.310067
+5   1.878474376  8.212357 11.206913
+6   1.674785552  8.090024 11.105920
+7   1.481856644  7.969401 11.007087
+8   1.299687652  7.850487 10.910414
+9   1.128278575  7.733284 10.815901
+10  0.967629415  7.617790 10.723548
+11  0.817740170  7.504007 10.633355
+12  0.678610841  7.391933 10.545323
+13  0.550241428  7.281570 10.459450
+14  0.432631931  7.172916 10.375738
+15  0.325782349  7.065972 10.294186
+16  0.229692684  6.960739 10.214794
+17  0.144362934  6.857215 10.137562
+18  0.069793101  6.755402 10.062490
+19  0.005983183  6.655298  9.989579
+20 -0.047066819  6.556904  9.918827
+21 -0.089356905  6.460220  9.850236
+22 -0.120887076  6.365247  9.783805
+23 -0.141657330  6.271983  9.719534
+24 -0.151667669  6.180429  9.657423
+25  5.653440531 10.143539 12.972221
+26  5.616416124 10.032272 12.759556
+27  5.575938257  9.922037 12.558581
+28  5.532006932  9.812836 12.369297
+29  5.484622148  9.704667 12.191705
+30  5.433783904  9.597531 12.025803
+31  5.379492201  9.491428 11.871593
+32  5.321747040  9.386357 11.729074
+33  5.260548419  9.282320 11.598245
+34  5.195896339  9.179316 11.479108
+35  5.127790800  9.077344 11.371662
+36  5.056231802  8.976405 11.275907
+37  4.981219345  8.876499 11.191844
+38  4.902753429  8.777626 11.119471
+39  4.820834054  8.679786 11.058789
+40  4.735461219  8.582978 11.009799
+41  4.646634926  8.487204 10.972499
+42  4.554355174  8.392462 10.946891
+43  4.458621962  8.298753 10.932974
+44  4.359435292  8.206077 10.930747
+45  4.256795162  8.114434 10.940212
+46  4.150701573  8.023824 10.961368
+47  4.041154525  7.934246 10.994215
+48  3.928154018  7.845701 11.038754
+49 -0.735321766  8.941427 12.639729
+50 -0.835040104  8.788694 12.445432
+51 -0.918782602  8.638778 12.262263
+52 -0.986549257  8.491681 12.090221
+53 -1.038340072  8.347401 11.929308
+54 -1.074155044  8.205939 11.779522
+55 -1.093994176  8.067295 11.640864
+56 -1.097857465  7.931469 11.513334
+57 -1.085744914  7.798461 11.396932
+58 -1.057656521  7.668271 11.291658
+59 -1.013592286  7.540899 11.197512
+60 -0.953552210  7.416345 11.114493
+61 -0.877536293  7.294608 11.042603
+62 -0.785544534  7.175690 10.981840
+63 -0.677576933  7.059589 10.932206
+64 -0.553633492  6.946306 10.893699
+65 -0.413714209  6.835842 10.866320
+66 -0.257819084  6.728195 10.850069
+67 -0.085948118  6.623366 10.844946
+68  0.101898690  6.521355 10.850950
+69  0.305721339  6.422162 10.868083
+70  0.525519829  6.325786 10.896344
+71  0.761294161  6.232229 10.935732
+72  1.013044335  6.141489 10.986248
+73  3.561941907  9.854712 11.968528
+74  3.817538224  9.750139 11.551432
+75  4.055000182  9.643074 11.161307
+76  4.274327782  9.533516 10.798153
+77  4.475521024  9.421464 10.461970
+78  4.658579907  9.306921 10.152759
+79  4.823504433  9.189884  9.870519
+80  4.970294601  9.070354  9.615251
+81  5.098950411  8.948332  9.386953
+82  5.209471863  8.823817  9.185627
+83  5.301858957  8.696809  9.011272
+84  5.376111692  8.567308  8.863888
+85  5.432230070  8.435314  8.743476
+86  5.470214089  8.300828  8.650034
+87  5.490063751  8.163849  8.583564
+88  5.491779054  8.024376  8.544065
+89  5.475360000  7.882411  8.531538
+90  5.440806587  7.737954  8.545982
+91  5.388118817  7.591003  8.587397
+92  5.317296688  7.441559  8.655783
+93  5.228340201  7.289623  8.751140
+94  5.121249356  7.135194  8.873469
+95  4.996024154  6.978272  9.022769
+96  4.852664593  6.818857  9.199040</code></pre>
+<p><img src="thesis_files/figure-html/quantreg-1.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/quantreg-2.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/quantreg-3.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/quantreg-4.png" width="768" style="display: block; margin: auto;" /><img src="thesis_files/figure-html/quantreg-5.png" width="768" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
@@ -189,7 +289,7 @@
         </div>
       </div>
 <a href="3-ref-labels.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="A-the-first-appendix.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="A-annotated-bibliography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
