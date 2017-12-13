@@ -384,6 +384,12 @@ ggplot(perc50) +
 
 ## Quantile Regression
 
+Previous sections have focused on teasing apart patterns in the vast amounts of data we have, attempting to find differences in toxicity experienced by minority groups. We find large differences in the toxicity experienced, but may be limited by the choices in division we make. Given we only investigate the variables that we suspect may have a relationship with toxicity, there are likley patterns in teh data that aren't being examined. 
+
+In order to better tease out relationships in the data, and for easy interpretation of coefficients, a functionally similar analysis can be done with quantile regression, focusing on the computed parameters as indicators of the differences in experienced toxicity. 
+
+To illustrate the form of model this could take, we build preliminary quantile regression models on the 5th, 50th, and 95th percentiles of the toxicity distribution. To predict log toxicity, we use the year, demographic information, population density as well as quadratic terms. The predictions shown for each race or ethnicity group are fairly consistent with the results shown above. 
+
 ```{r quantreg, echo = FALSE}
 sample = sample_frac(data, size = 0.08)
 sample$p_white = sample$white/sample$pop
@@ -446,11 +452,7 @@ plot_quant = function(pred) {
   grid.arrange(arrangeGrob(five, fifty, ninety, nrow=1))
 } 
 
-predict.rq(quant, test)
-plot_quant(exp(predict.rq(quant_tri_den, test)))
-plot_quant(exp(predict.rq(quant_tri, test)))
-plot_quant(exp(predict.rq(quant_lin, test)))
 plot_quant(exp(predict.rq(quant_den, test)))
-plot_quant(exp(predict.rq(quant, test)))
 ```
 
+By adding additional block level data to this regression, and testing model fit more rigorously, we may be able to discuss the magnitude of toxicity differences that are attributable to race, and will be more informed on the other factors that hold importance in predicting toxicity. 
