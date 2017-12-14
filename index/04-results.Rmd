@@ -1,74 +1,5 @@
 # Results {#organization}
 
-## Toxicity Trends
-
-Spurred by fear created by a disaster release of toxic chemicals in India, the Community Right to Know Act was created in 1986 to enforce reporting on hazardous chemicals being realeased in to the environment by individual facilities. TRI data, beginning in 1988, is the public release of the data created through the Community Right to Know Act.
-
-The time after TRI began collection included a lot of environmental regulation, including the Montreal Protol, the Clean Air Act Amendments of 1990, the Oil Pollution Act of 1990 and the 1994 Executive Order directing 'federal agiencies to identify and address the disproportionately high ... environmental effects ... on minority populations.' (Executive Order, 1994) As more and more environmental protections went in to place and collective environmental attitudes became greener, we expect to see large drops in toxicity experienced by all groups. The early 1990's enforced mandated phase outs of certain CFC's and requirements for facilities to switch to Best Available Control Technology (BACT), so there should be large drops in toxicity.
-
-
-```{r alltoxicity, echo = FALSE, fig.width=7, fig.height=4}
-pounds = fread("data/release_trends.csv", data.table = FALSE)[1:26, ]
-
-ggplot(pounds) + geom_line(aes(x = as.double(year), y = as.double(tox))) + 
-#  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-#                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
-#  annotation_logticks(short = unit(1,"mm"), mid = unit(2.2,"mm"), long = unit(3.5,"mm"), sides = "l", color = "gray65") +
-  labs(x = "Year", y = "Pounds of TRI Chemicals Released", title = "TRI releases by weight over time") +
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-Looking at the net volume of TRI releases, we do see a fairly linear drop in the pounds of TRI chemicals being released nationally between 1988 and 2013. Despite the common use of volume of TRI releases as a study measure (SOURCES) the rest of this work proceeds to use TRI toxicity as the measure of interest. TRI toxicity refers to the weight of each release multiplied by the toxicity weight assigned to the chemical by the EPA. Given that TRI chemicals vary significantly in their potential human effects, toxicity experienced is a better measure of the potential human impact than the net weight of toxic chemicals experienced. Given that this seeks to find differences in pollution experienced by minority groups, toxicicty is even more important, as there is potential that more toxic releases are focused in minority communities, which would not be evident by net weight.
-
-Toxicity trends look very different than the net release trends shown above. This is partially attributable to the strongly skewed distribution of toxicity. As some releases are of extremely toxic chemicals, the distribution of toxicities experienced is extremely right skewed by toxic dumps. 
-
-```{r, echo = FALSE, fig.width=7, fig.height=4}
-ggplot(data[data$year == 2000,]) + geom_density(aes(concentration, weight = pop/sum(pop)), fill = "pink", color = "pink", alpha = 0.7) +
-  labs(x = "Toxicity", y = "Density", title = "Toxicities experienced in 2000") +
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-
-Given the extremely right skewed nature of this distribution, for ease of analysis and interpretation, from here on toxicity is reported as log toxicity. The distributions of log toxicity are much more interpretable, but care must be used to contextualize the results. 
-
-```{r, echo = FALSE, fig.width=7, fig.height=4}
-ggplot(data[data$year == 2000,]) + geom_density(aes(concentration, weight = pop/sum(pop)), fill = "pink", color = "pink", alpha = 0.6) +
-  labs(x = "Log Toxicity", y = "Density", title = "Log Toxicities experienced in 2000") +
-  theme(plot.title = element_text(hjust = 0.5)) + 
-  scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x))) +
-  annotation_logticks(short = unit(1,"mm"), mid = unit(2.2,"mm"), long = unit(3.5,"mm"), sides = "b", color = "gray65")
-```
-
-In this application, there are locations that are orders of magnitude more toxic than the bulk of the United States. These are sites to be aware of, where toxicity is more likely to have an effect on people's lives or health. As discussed in the data section, toxicity measures don't necessarily align with the locations that we know are truly hazardous. 
-
-Many of the locations that arise as especially toxic in the data are assuredly so. High Point, NC is consistently one of the most toxic tracts in the early 2000's, as confirmed by [EPA reports](https://cfpub.epa.gov/si/si_public_record_Report.cfm?dirEntryID=45198) identifying it as a location prime for testing toxicity abatement measures. Tracts outside of Salt Lake City commonly known for acting as [dumping grounds](http://www.nytimes.com/2002/10/20/us/utah-county-s-toxic-tradition-is-under-threat.html) are consistently ranked as toxic in the early 2000's. Mobile, AL, whose [3 superfund sites](https://19january2017snapshot.epa.gov/enforcement/case-summary-epa-funded-sites-and-communities-chemtura-bankruptcy-settlements_.html#stauffer) were proposed in the early 1990's, routinely ranks as toxic over that time period. 
-
-On the other side of the coin, there are many known toxic events and locations that fail to ever reach the top 5% of toxic tracts, of which Flint, MI, and the Houston major superfund site are good examples.
-
-## Geography of Toxicity Trends
-
-Toxic exposure has been changing dramatically in the US, but the trends it follows have remained similar. In the gif below, we show toxicity across the US from 2010 to 2014. 
-
-\begin{center}
-![GIF of toxicity in America from 2010 to 2014.](https://raw.githubusercontent.com/DukeStatSci/thesis-sp18-driscoll-envjustice/master/index/figure/usa.gif)
-\end{center}
-
-Though we see impressive reductions over that time, the overall geographic trends of toxicity remain constant. Each region maintains its overall toxicity range, and toxicity wells appear to stay constant. Given the infrastructure required to build up manufacturing, a large part of TRI, the consistency across time is reasonable. 
-
-The toxicity wells we see in the image are familiar, as many of them occur around large cities, where there is likely to be industry. Though many large cities stand out as having high toxicity, there's not a one to one correlation between areas of high toxicity and population density. As an example, in Texas, Houston and San Antonio have high toxicity values, while the Dallas/Fort has fairly low toxictiy. Comparatively, the more rural areas of Longview and Tyler are very high toxicity. 
-
-Regions that stand out the most include the northern border of Kentucky, the regions surrounding Chicago, the border between New Jersey and Pennsylvania, and the westernmost section of the gulf coast.
-
-A closer view of the Texan region of the gulf coast is shown below. 
-
-\begin{center}
-![GIF of toxicity in America from 2010 to 2014.](https://raw.githubusercontent.com/DukeStatSci/thesis-sp18-driscoll-envjustice/master/index/figure/texas.gif)
-\end{center}
-
-Over the 1990-2013 period, we see an incredible reduction of toxicity in the Dallas/Fort Worth area, going from an area with 
-
-
 ## Trends in Minority Toxicity Burden
 
 Using data at the tract level, we assign the tract concentration to the counts of each group in the tract. By assigning toxicity for each tract, we build four distributions: toxicity for the white population, toxicity for the black population, toxicity for the hispanic population, and toxicity for all other groups. In this case, hispanic is not a mutually exclusive group, and the race groups may contain ethnically hispanic individuals. 
@@ -383,6 +314,7 @@ grid.arrange(arrangeGrob(p1990, p2000, p2013, nrow=1),
 
 
 ## Interacting Risk Cases
+
 ```{r incPlots, include = FALSE, warning = FALSE, fig.width=10, fig.height=4}
 ggplot(perc50) + 
   geom_ribbon(aes(x = year, ymax = log(blackh), ymin = log(blackl), fill = "black"), alpha = 0.3) + 
@@ -410,19 +342,13 @@ In order to better tease out relationships in the data, and for easy interpretat
 
 To illustrate the form of model this could take, we build preliminary quantile regression models on the 5th, 50th, and 95th percentiles of the toxicity distribution. To predict log toxicity, we use the year, demographic information, population density as well as quadratic terms. The predictions shown for each race or ethnicity group are fairly consistent with the results shown above. 
 ```{r quantreg, echo = FALSE}
-sample = sample_frac(data, size = 0.08)
+sample = sample_frac(data, size = 0.20)
 sample$p_white = sample$white/sample$pop
 sample$p_black = sample$black/sample$pop
 sample$p_hispanic = sample$hispanic/sample$pop
 sample$p_other = sample$other/sample$pop
 
-
-quant = rq(log(concentration)~year+year*(p_white+p_black+p_hispanic+p_other+density)+I(year^2)*(p_white+p_black+p_hispanic+p_other+density), 
-           tau = c(0.05, 0.5, 0.95), data = sample)
-quant_lin = rq(log(concentration)~year+year*(p_white+p_black+p_hispanic+p_other+density), tau = c(0.05, 0.5, 0.95), data = sample)
-quant_tri = rq(log(concentration)~year+I(year^2)*(p_white+p_black+p_hispanic+p_other+density)+I(year^3)*(p_white+p_black+p_hispanic+p_other+density), tau = c(0.05, 0.5, 0.95), data = sample)
 quant_den = rq(log(concentration)~year+I(year^2)*(p_white+p_black+p_hispanic+p_other+density)+density*(p_white+p_black+p_hispanic+p_other+density), tau = c(0.05, 0.5, 0.95), data = sample)
-quant_tri_den = rq(log(concentration)~year+I(year^2)*(p_white+p_black+p_hispanic+p_other+density)+I(year^3)*(p_white+p_black+p_hispanic+p_other+density)+density*(p_white+p_black+p_hispanic+p_other+density), tau = c(0.05, 0.5, 0.95), data = sample)
 
 test = data.frame(year = rep(seq(1990, 2013), 4), 
                   p_white = c(rep(1, 24), rep(0, 72)), 

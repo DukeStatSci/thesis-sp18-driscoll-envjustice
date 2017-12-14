@@ -91,18 +91,19 @@
 <li class="chapter" data-level="3.3.1" data-path="3-ref-labels.html"><a href="3-ref-labels.html#simulation-accuracy"><i class="fa fa-check"></i><b>3.3.1</b> Simulation Accuracy</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-organization.html"><a href="4-organization.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
-<li class="chapter" data-level="4.1" data-path="4-organization.html"><a href="4-organization.html#toxicity-trends"><i class="fa fa-check"></i><b>4.1</b> Toxicity Trends</a></li>
-<li class="chapter" data-level="4.2" data-path="4-organization.html"><a href="4-organization.html#geography-of-toxicity-trends"><i class="fa fa-check"></i><b>4.2</b> Geography of Toxicity Trends</a></li>
-<li class="chapter" data-level="4.3" data-path="4-organization.html"><a href="4-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>4.3</b> Trends in Minority Toxicity Burden</a></li>
-<li class="chapter" data-level="4.4" data-path="4-organization.html"><a href="4-organization.html#simulating-changes"><i class="fa fa-check"></i><b>4.4</b> Simulating Changes</a></li>
-<li class="chapter" data-level="4.5" data-path="4-organization.html"><a href="4-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>4.5</b> Interacting Risk Cases</a></li>
-<li class="chapter" data-level="4.6" data-path="4-organization.html"><a href="4-organization.html#quantile-regression"><i class="fa fa-check"></i><b>4.6</b> Quantile Regression</a></li>
+<li class="chapter" data-level="4" data-path="4-trends.html"><a href="4-trends.html"><i class="fa fa-check"></i><b>4</b> General Trends</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-trends.html"><a href="4-trends.html#toxicity-trends"><i class="fa fa-check"></i><b>4.1</b> Toxicity Trends</a></li>
+<li class="chapter" data-level="4.2" data-path="4-trends.html"><a href="4-trends.html#geography-of-toxicity-trends"><i class="fa fa-check"></i><b>4.2</b> Geography of Toxicity Trends</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-organization.html"><a href="5-organization.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-organization.html"><a href="5-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>5.1</b> Trends in Minority Toxicity Burden</a></li>
+<li class="chapter" data-level="5.2" data-path="5-organization.html"><a href="5-organization.html#simulating-changes"><i class="fa fa-check"></i><b>5.2</b> Simulating Changes</a></li>
+<li class="chapter" data-level="5.3" data-path="5-organization.html"><a href="5-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>5.3</b> Interacting Risk Cases</a></li>
+<li class="chapter" data-level="5.4" data-path="5-organization.html"><a href="5-organization.html#quantile-regression"><i class="fa fa-check"></i><b>5.4</b> Quantile Regression</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A-annotated-bibliography.html"><a href="A-annotated-bibliography.html"><i class="fa fa-check"></i><b>A</b> Annotated Bibliography</a></li>
 <li class="chapter" data-level="B" data-path="B-data-sources.html"><a href="B-data-sources.html"><i class="fa fa-check"></i><b>B</b> Data Sources</a></li>
-<li class="chapter" data-level="C" data-path="C-ecological-fallacy.html"><a href="C-ecological-fallacy.html"><i class="fa fa-check"></i><b>C</b> Ecological Fallacy</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -221,7 +222,7 @@
 <h2><span class="header-section-number">2.2</span> Important Caveats</h2>
 <p>Due to the nature of the data, there are a few interesting caveats to consider.</p>
 <ul>
-<li><p>The RSEI data is self reported, and has been thought to contain some severe underreporting. (SOURCE)</p></li>
+<li><p>The RSEI data is self reported, and has been thought to contain some severe underreporting. (De Marchi and Hamilton, 2006)</p></li>
 <li><p>The data is entirely based off a black box fate and transport model. The model has uncertainty not being addressed.</p></li>
 <li><p>The data only captures releases for certain facility types within certain industries, for certain chemical types within those facilities. Not all chemicals are mandated reporting, and any analysis that is done based off the data can’t be extrapolated to discuss toxicity more generally.</p></li>
 <li><p>Not only does the data not capture all chemicals, it also doesn’t adress many common nuicances. Because of this, it is difficult to relate the RSEI scores to health or quality of life outcomes in an area. In discussion of environmental toxicity more generally, it is worth noting that certain toxicity types may be more or less likely to cause adverse effects based on how they reach people in the area (eg. they may or may not reach local water systems). There are also more obvious environmental hazards, that are likely to have strong influence on public health and living conditions that TRI doesn’t address, eg: brownfields, solid waste disposal, animal farming, hazardous waste, etc.</p></li>
@@ -249,7 +250,6 @@
 <h2><span class="header-section-number">2.4</span> Ultimate Data Form</h2>
 <p>The disaggregated microdata from RSEI is one observation per release per block on the 800m grid that it reached. We filter each of the billions of observations to check that it is 1) from a chemical that is consistent across the relevant years 2) from a release that is linked to an industry that is consistent across years, and then allocate the observation to the appropriate geographic unit.</p>
 <p>This data cleaning is done through R, using the DBI and SQLite packages. Since there is so much data, it’s not feasible to process it using typical R functions, so after loading the data in to a database, it becomes queryable using SQL. This significantly speeds up the processes detailed below.</p>
-<p>To accomplish the chemical consistency, we use a data table (provided by Rich Puchalsky (SOURCE)) that contains a row for each chemical with the data of regulation, and the date of deregulation. Using this information, we can select the chemicals that are relevant to any set of years of interest. Chemicals are found by selecting the subset of chemicals where the year of initial regulation is before the interest period, and the year of deregulation is after the interest period, while also excluding delisted chemicals.</p>
 <p>Filtering out observations whose releases are not under a regulated NAICS category for the entire time is more complex. Using a similar table that contains the regulation and deregulation dates of NAICS codes we can find the consistent industry categories. However, the only reference to NAICS or SIC codes are in the facility table that the releases reference. This table provides 6 NAICS codes that are the most common NAICS codes associated with the facility. However, NAICS codes are release specific, not facility specific, meaning that for each emission reported a NAICS code is reported. Removing by facility is not accurate, since facilities have different types of NAICS emissions. The textiles facility we used as an example earlier might make both shoes and jackets, with different industry codes and different releases that have different reporting requirements. To get data on the NAICS codes by submission, data must be taken from the original TRI data, and linked to the disaggregated microdata by the document control number.</p>
 <p>In the data cleansing process, we filter the data to remove industries and chemicals that were not consistent over the period of inquiry, and aggregate the data to the relevant Census geographies. The data, then forms a data set for each year, with an observation for each block group, and just one measure, an aggregated toxicity level.</p>
 <table>

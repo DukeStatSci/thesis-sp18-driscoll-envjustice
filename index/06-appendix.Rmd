@@ -145,5 +145,11 @@
 
 # Data Sources
 
-# Ecological Fallacy
+* RSEI data
+    - Information on RSEI, how it is collected and interpretation can be found [here](https://www.epa.gov/rsei/learn-about-rsei).
+    - Base RSEI files, including yearly total estimates, and summary statistics can be found [here](https://www.epa.gov/rsei/rsei-results-map).
+    - To use time consistent methods, or get more specific geographic information, you can access the entire base of raw data [here](https://aws.amazon.com/public-datasets/epa-rsei/). This includes aggregated microdata still in grid form, aggregated microdata at census levels, and dissaggregated microdata in grid form. 
+    
+* Census data
+  
 

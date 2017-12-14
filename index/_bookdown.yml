@@ -1,5 +1,5 @@
 book_filename: "thesis"
 chapter_name: "Chapter "
-rmd_files: ["index.Rmd", "01-env_justice.Rmd", "02-data.Rmd", "03-methods.Rmd", "04-results.Rmd", "06-appendix.Rmd", "99-references.Rmd"]
+rmd_files: ["index.Rmd", "01-env_justice.Rmd", "02-data.Rmd", "03-methods.Rmd", "035-trends.Rmd", "04-results.Rmd", "05-conclusion", "06-appendix.Rmd"]
 download: [["thesis.pdf", "PDF"], ["thesis.epub", "EPUB"], ["thesis.docx", "Word"]]
 output_dir: "../docs"

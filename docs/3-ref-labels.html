@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="2-data.html">
-<link rel="next" href="4-organization.html">
+<link rel="next" href="4-trends.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -91,18 +91,19 @@
 <li class="chapter" data-level="3.3.1" data-path="3-ref-labels.html"><a href="3-ref-labels.html#simulation-accuracy"><i class="fa fa-check"></i><b>3.3.1</b> Simulation Accuracy</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="4-organization.html"><a href="4-organization.html"><i class="fa fa-check"></i><b>4</b> Results</a><ul>
-<li class="chapter" data-level="4.1" data-path="4-organization.html"><a href="4-organization.html#toxicity-trends"><i class="fa fa-check"></i><b>4.1</b> Toxicity Trends</a></li>
-<li class="chapter" data-level="4.2" data-path="4-organization.html"><a href="4-organization.html#geography-of-toxicity-trends"><i class="fa fa-check"></i><b>4.2</b> Geography of Toxicity Trends</a></li>
-<li class="chapter" data-level="4.3" data-path="4-organization.html"><a href="4-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>4.3</b> Trends in Minority Toxicity Burden</a></li>
-<li class="chapter" data-level="4.4" data-path="4-organization.html"><a href="4-organization.html#simulating-changes"><i class="fa fa-check"></i><b>4.4</b> Simulating Changes</a></li>
-<li class="chapter" data-level="4.5" data-path="4-organization.html"><a href="4-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>4.5</b> Interacting Risk Cases</a></li>
-<li class="chapter" data-level="4.6" data-path="4-organization.html"><a href="4-organization.html#quantile-regression"><i class="fa fa-check"></i><b>4.6</b> Quantile Regression</a></li>
+<li class="chapter" data-level="4" data-path="4-trends.html"><a href="4-trends.html"><i class="fa fa-check"></i><b>4</b> General Trends</a><ul>
+<li class="chapter" data-level="4.1" data-path="4-trends.html"><a href="4-trends.html#toxicity-trends"><i class="fa fa-check"></i><b>4.1</b> Toxicity Trends</a></li>
+<li class="chapter" data-level="4.2" data-path="4-trends.html"><a href="4-trends.html#geography-of-toxicity-trends"><i class="fa fa-check"></i><b>4.2</b> Geography of Toxicity Trends</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-organization.html"><a href="5-organization.html"><i class="fa fa-check"></i><b>5</b> Results</a><ul>
+<li class="chapter" data-level="5.1" data-path="5-organization.html"><a href="5-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>5.1</b> Trends in Minority Toxicity Burden</a></li>
+<li class="chapter" data-level="5.2" data-path="5-organization.html"><a href="5-organization.html#simulating-changes"><i class="fa fa-check"></i><b>5.2</b> Simulating Changes</a></li>
+<li class="chapter" data-level="5.3" data-path="5-organization.html"><a href="5-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>5.3</b> Interacting Risk Cases</a></li>
+<li class="chapter" data-level="5.4" data-path="5-organization.html"><a href="5-organization.html#quantile-regression"><i class="fa fa-check"></i><b>5.4</b> Quantile Regression</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="A-annotated-bibliography.html"><a href="A-annotated-bibliography.html"><i class="fa fa-check"></i><b>A</b> Annotated Bibliography</a></li>
 <li class="chapter" data-level="B" data-path="B-data-sources.html"><a href="B-data-sources.html"><i class="fa fa-check"></i><b>B</b> Data Sources</a></li>
-<li class="chapter" data-level="C" data-path="C-ecological-fallacy.html"><a href="C-ecological-fallacy.html"><i class="fa fa-check"></i><b>C</b> Ecological Fallacy</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -210,7 +211,7 @@
 <h2><span class="header-section-number">3.3</span> Simulation</h2>
 <p>To examine the differing changes in environmental burden over time for minority groups we first use simulation to tease apart the forces in play as each group’s distribution changes over time. For any given value, the percentile it holds in a minority distribution is likely to be different from the percentile it holds in the overall distribution. For example, in 2010 the 75th percentile of the black distribution is 2528.45, while that same value is the 81.44th percentile in the overall distribution.</p>
 <p>We expect the mean of minority distributions to reduce over time for two reasons: the entire distribution is slowly shifting right as we see improvements in environmentally friendly production technology and more comprehensive envirnmental regulation; secondly, we hope that with Title VI protetections, and the work of civil rights advocates, minority communities will be better equipped to mobilize against polluters.</p>
-<p>In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority individuals held in the overall distribution at the start of the period of study to simulate how each group’s distribution would have progressed through time assuming a static position in society at large. This simulation procedure first appeared in (SOURCE).</p>
+<p>In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority individuals held in the overall distribution at the start of the period of study to simulate how each group’s distribution would have progressed through time assuming a static position in society at large. This simulation procedure was first discussed by Bayer, Patrick and Kerwin as a method of identifying the true gains in ‘Black-White Earning Differences’ (2016). The method decomposes observed gains in to two distinct types, distributional convergance, where differences are reduced due to compression of the overall distribution, and positional convergance, where differences are reduced due to changes in the relative means of the distributions.</p>
 <p>This simulation proceeds as follows:</p>
 <ul>
 <li><p>Build an emipirical distribution of toxicity experienced for the entire population and for groups of interest in the starting year.</p></li>
@@ -236,7 +237,7 @@
         </div>
       </div>
 <a href="2-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="4-organization.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="4-trends.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
