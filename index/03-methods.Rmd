@@ -97,7 +97,7 @@ To examine the differing changes in environmental burden over time for minority 
 
 We expect the mean of minority distributions to reduce over time for two reasons: the entire distribution is slowly shifting right as we see improvements in environmentally friendly production technology and more comprehensive envirnmental regulation; secondly, we hope that with Title VI protetections, and the work of civil rights advocates, minority communities will be better equipped to mobilize against polluters. 
 
-In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority individuals held in the overall distribution at the start of the period of study to simulate how each group's distribution would have progressed through time assuming a static position in society at large. This simulation procedure first appeared in (SOURCE).
+In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority individuals held in the overall distribution at the start of the period of study to simulate how each group's distribution would have progressed through time assuming a static position in society at large. This simulation procedure was first discussed by Bayer, Patrick and Kerwin as a method of identifying the true gains in 'Black-White Earning Differences' (2016). The method decomposes observed gains in to two distinct types, distributional convergance, where differences are reduced due to compression of the overall distribution, and positional convergance, where differences are reduced due to changes in the relative means of the distributions.
 
 This simulation proceeds as follows:
 

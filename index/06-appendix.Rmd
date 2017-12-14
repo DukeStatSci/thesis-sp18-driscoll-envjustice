@@ -54,7 +54,12 @@
     - Discusses discrimination in housing at a national level, and trends in individual opinions on neighborhood sorting. 
     - Finds large difference in the toxicity experienced by black individuals. 
     - Higher incomes are associated with lower toxicity in the destinations of individuals, especially for black and hispanic individuals, who only appear to move to lower toxicity areas when they have especially high incomes. 
-    
+  
+* De Marchi, Scott, and James T. Hamilton. "Assessing the accuracy of self-reported data: an evaluation of the toxics release inventory." *Journal of Risk and uncertainty 32.1* (2006): 57-76.  
+    - Compares air emissions as reported in the TRI data to measurements compiled from pollution monitors the EPA has. 
+    - Finds that drips in emissions as recorded in TRI is not always linearly matched by drops in true measures. 
+    - Additionally, reported TRI data is found to not follow Benford's Law, which states that the leading digit's of naturally occuring data should follow a defined distribution. Given TRI data doesn't follow Benford's law, it is likely that the reports aren't accurate estimates. 
+  
 * Downey, Liam. "US metropolitan-area variation in environmental inequality outcomes." *Urban Studies 44.5-6* (2007): 953-977.
     - Addresses the fact that environmental studies have a large distribution of findings, ranging from strong evidence for disparate burden to no evidence of racial inequality.
     - Theorizes that it may be because some areas show disparate while others don't, meaning that in aggregate the truth may be hard to tease apart.
@@ -99,7 +104,11 @@
     - Superfunds are sites that have been designated by the EPA as areas of "significant threat to both surrounding populations and the environment" and are given priority for federal cleanup funds. 
     - While minority communities experience a large portion of the toxicity, they are underrepresented in the superfund site list, meaning they aren't recieving an appropriate benefit from the fund. 
     - Executive Order 12898 (by President Clinton) required that the EPA (and other agencies) have environmental justice policies that "address environmental effects on minority and low-income populations."
-    - Finds that EO 12898 has been ineffective at improving the representation of minority communities in the Superfund program. In fact, finds that since the order minorities are even less likely to be included on the list. 
+    - Finds that EO 12898 has been ineffective at improving the representation of minority communities in the Superfund program. In fact, finds that since the order minorities are even less likely to be included on the list.
+    
+* Order, Executive. "Federal actions to address environmental justice in minority populations and low-income populations: executive order 12898." Federal Register 59.32 (1994): 7629-7633.
+    - Requires that each federal agency "make acheiving environmental justice part of its mission".
+    - Created an interagency working group devoted to environmental justice. 
     
 * Pais J., Crowder K. & Downey L. (2013). Unequal Trajectories: Racial and Class Differences in Residential Exposure to Industrial Hazard. *Social Forces, 92*(3). pp. 1189-1215
     - Focuses on differences via different residential sorting and toxic facility siting. 
