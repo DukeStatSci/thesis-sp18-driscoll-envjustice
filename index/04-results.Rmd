@@ -51,7 +51,7 @@ On the other side of the coin, there are many known toxic events and locations t
 Toxic exposure has been changing dramatically in the US, but the trends it follows have remained similar. In the gif below, we show toxicity across the US from 2010 to 2014. 
 
 \begin{center}
-![GIF of toxicity in America from 2010 to 2014.](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![GIF of toxicity in America from 2010 to 2014.](https://raw.githubusercontent.com/DukeStatSci/thesis-sp18-driscoll-envjustice/master/index/figure/usa_slow2.gif)
 \end{center}
 
 Though we see impressive reductions over that time, the overall geographic trends of toxicity remain constant. Each region maintains its overall toxicity range, and toxicity wells appear to stay constant. Given the infrastructure required to build up manufacturing, a large part of TRI, the consistency across time is reasonable. 

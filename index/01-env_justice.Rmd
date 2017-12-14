@@ -1,17 +1,9 @@
-<!--
-This is for including Chapter 1.  Notice that it's also good practice to name your chunk.  This will help you debug potential issues as you knit.  The chunk above is called intro and the one below is called chapter1.  Feel free to change the name of the Rmd file as you wish, but don't forget to change it here from chap1.Rmd.
--->
-
-<!--
-The {#rmd-basics} text after the chapter declaration will allow us to link throughout the document back to the beginning of Chapter 1.  These labels will automatically be generated (if not specified) by changing the spaces to hyphens and capital letters to lowercase.  Look for the reference to this label at the beginning of Chapter 2.
--->
-
 # Environmental Justice {#env_justice}
 
 ## Environmental Justice Theories
 The growing body of environmental literature has shown with increasing certainty that minorities in America experience a higher poullution level on average than the white population. The literature has focused primarily on air pollution and industrial facilities releases, the two areas with the most consistently accessible data. Many authors have focused on point source pollution, measuring individual pollution as a binary: the presence or absence of a polluting facility in the geographic level of analysis (Szasz and Meuser, 1997). An alternate measure of pollution exposure has been the count of polluting facilities within various buffer zones. These measures, limited by available data, fail to account for the variance in what chemicals, and how much of them, facilities emit. Alternate approaches include data on transportation emissions, and broader environmental data, like levels of NO2 and PM2.5. 
 
-Environmental justice literature results are not all in agreement. Many studies conclude that minorities do experience a disproportionate toxicity or pollution burden (Gilbert and Chakraborty, 2011; Fisher, Kelly and Romm, 2006; Kravitz-Wirtz et al., 2016), others find that economic class accounts for most of the difference in experienced toxicity (Anderton et al., 1994), yet others find no racial differences (Hunter et al., 2003; Downey, 2007). 
+Environmental justice literature results are not all in agreement. Many studies conclude that minorities do experience a disproportionate toxicity or pollution burden (Gilbert and Chakraborty, 2011; Fisher, Kelly and Romm, 2006; Kravitz-Wirtz et al., 2016), others find that economic class accounts for most of the difference in experienced toxicity (Anderton et al., 1994), yet others find no racial differences (Hunter et al., 2003; Downey, 2007). The incredibly heterogeneous results have led to some dissent in the academic community with some saying that all the field has achieved is to show that "in some specific areas, some ostensibly identifiable groups may, in some instances, live closer to some selected environmental hazards" (Bowen, 2002).
 
 Environmental justice research is unique in that research and advocacy have gone hand in hand, leading to questions guided by the needs of communities. This trend has led to unusually focused work, evaluating specific communities for the presence of specfic toxins at specific times (Sadd et al., 1999; US GAO, 1893; Moghadam and Kayahan, 2017; Gilbert and Chakraborty, 2011). Though some work has had a broader net, few authors have broached national data (Ringquist, 1997; Hunter et al., 2003) and even fewer have used data spanning significant time (Kravitz-Wirtz et al., 2016). Due to the definitions of pollution being used, uncertainty in accessible pollution data, and differing geographic units of analysis, work spanning broader time periods as well as a wider geographic range is neccessary to try to understand processes operating on a national scale that lead to environmental inequality.
 
@@ -41,7 +33,10 @@ Though the current theories of siting choices would all create the same behaviou
 
 
 ## Goals 
-- address the first question of ej literature by (with this new+improved data, over a longer period of time than analyzed in any of the literature) by looking at how the groups differ, and how that changes over time.
--improve by using accurate measures of location (not people within range of TRI, not amount of pollution, but the toxicity of the pollution experienced by ppl)
-- what is the relative toxicity experienced by minority groups over this time period
-- how protective are finances?
+
+This work aims to address some of the limitations of the current environmental justice literature by examining a comprehensive dataset that covers the entire nation, with data spanning from 1990 to 2013. The broad temporal and spatial is nearly unparalleled in environmental justice literature, the last study spanning this length period covered the years 1970 to 1994 (Been and Gupta, 1997), which relied only upon tract level hazardous waste site data. 
+
+Several questions will be addressed:
+    - Finding the empirical fifth, fiftieth, and ninety fifth percentiles of experienced toxicity for white, black, and hispanic populations. 
+    - Simulating how minority distributions would currently look given they had held constant their relative position in the overall distributions. This measure acts allows us to see how much of the improvement we see is attributable to the compression of the full distribution, and how much improvement is attributable to an improvment in the relative state of minority groups. 
+    - An initial analysis of how income, and it's coincidence with minority status, is related to experienced toxicity.

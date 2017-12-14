@@ -42,6 +42,12 @@
     - Introduces a decomposition method to show the gains of black men over time, and address how much of that is due to distributional convergence (ie changes in the overall distribution of incomes) rather than positional convergence. 
     - Finds that below the median, there has been strong racial convergence, likely due to improved access to education.
 
+* Been, Vicki, and Francis Gupta. "Coming to the nuisance or going to the barrios? A longitudinal analysis of environmental justice claims." Ecology law quarterly 24.1 (1997): 1-56.
+    - Studied commercial hazardous waste treatment storage facilities from 1970 to 1994.
+    - They didn't have the computational power to use GIS to create concentric radii around the sites, so they analyzed at the tract level. 
+
+* Bowen, William. "An analytical review of environmental justice research: what do we really know?." Environmental management 29.1 (2002): 3-15.
+
 * Burwell-Naney K. et al. (2013). Spatial disparity in the distribution of superfund sites in South Carolina: an ecological study. *Environmental Health, 12*(1).
     - Addresses only the 26 superfund sites in SC, focuses on the disparities in spatial distribution. (Similar to Fisher)
     - Uses the 2000 Census data at both tract and block level for population data, as well as data on Superfund locations. 

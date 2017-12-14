@@ -2,11 +2,21 @@
 
 In the literature there is disagreement on the verifiability of environmental racism, with some studies finding extraordinary differences in environments experienced by minorities, others hypothesizing that none were found due to high level geographic data, and yet others claiming that all toxicity differences can be accounted for by other geographic characteristics - not race.
 
+The strength of this analysis relies on data that has yet to be explored at a time period so lengthy. The geographic and temporal range of the data allow for a more in depth analysis of 
+
 Regardless of the cause behind environmental racism, the data I have presented appears to tangibly show distinctly different distributions of toxicity experienced by minority groups. This work has yet to include geographic variables (such as census region, population density, suburb vs. city, level of manufacturing, availability of jobs, housing market, access to transportation etc)
 
-"expansion of the black population in suburbia fundamentally have not changed the distribution and the types of suburbs open to blacks"
+"expansion of the black population in suburbia fundamentally have not changed the distribution and the types of suburbs open to blacks" -Ant
  
  "demonstrated that patterns of residential inequity which may underlie the
- findings of prior studies are consistent with more general residential segregation patterns"
+ findings of prior studies are consistent with more general residential segregation patterns" - Ant
  
- "Further longitudinal analysis must determine whether these results simply reflect known social inequities in residential patterns around existing industrial centers or indicate a prejudicial choice of locations in newly emerging industrial areas"
+ "Further longitudinal analysis must determine whether these results simply reflect known social inequities in residential patterns around existing industrial centers or indicate a prejudicial choice of locations in newly emerging industrial areas" - Ant
+ 
+ 
+"The implication is usually that the activities of society have imposed greater health risks on them and that, in turn, the risks they pose are unjust or unfair. Does the empirical evidence support such broad conclusions?"
+
+"that in some specific
+areas, some ostensibly identifiable groups in the population
+may in some instances live closer to some selected
+environmental hazards"
