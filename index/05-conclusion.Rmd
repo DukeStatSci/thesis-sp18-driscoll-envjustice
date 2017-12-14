@@ -1,5 +1,12 @@
 # Conclusion {-}
 
-testing testing 
+In the literature there is disagreement on the verifiability of environmental racism, with some studies finding extraordinary differences in environments experienced by minorities, others hypothesizing that none were found due to high level geographic data, and yet others claiming that all toxicity differences can be accounted for by other geographic characteristics - not race.
 
-123 hello
+Regardless of the cause behind environmental racism, the data I have presented appears to tangibly show distinctly different distributions of toxicity experienced by minority groups. This work has yet to include geographic variables (such as census region, population density, suburb vs. city, level of manufacturing, availability of jobs, housing market, access to transportation etc)
+
+"expansion of the black population in suburbia fundamentally have not changed the distribution and the types of suburbs open to blacks"
+ 
+ "demonstrated that patterns of residential inequity which may underlie the
+ findings of prior studies are consistent with more general residential segregation patterns"
+ 
+ "Further longitudinal analysis must determine whether these results simply reflect known social inequities in residential patterns around existing industrial centers or indicate a prejudicial choice of locations in newly emerging industrial areas"

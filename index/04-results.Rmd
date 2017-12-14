@@ -50,11 +50,17 @@ On the other side of the coin, there are many known toxic events and locations t
 
 Toxic exposure has been changing dramatically in the US, but the trends it follows have remained similar. In the gif below, we show toxicity across the US from 2010 to 2014. 
 
-![Gif of toxicity in America from 2010 to 2014.](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+\begin{center}
+![GIF of toxicity in America from 2010 to 2014.](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+\end{center}
 
 Though we see impressive reductions over that time, the overall geographic trends of toxicity remain constant. Each region maintains its overall toxicity range, and toxicity wells appear to stay constant. Given the infrastructure required to build up manufacturing, a large part of TRI, the consistency across time is reasonable. 
 
-The toxicity wells we see in the image are interestingly familiar. 
+The toxicity wells we see in the image are familiar, as many of them occur around large cities, where there is likely to be industry. Though many large cities stand out as having high toxicity, there's not a one to one correlation between areas of high toxicity and population density. As an example, in Texas, Houston and San Antonio have high toxicity values, while the Dallas/Fort has fairly low toxictiy. Comparatively, the more rural areas of Longview and Tyler are very high toxicity. 
+
+Regions that stand out the most include the northern border of Kentucky, the regions surrounding Chicago, the border between New Jersey and Pennsylvania, and the westernmost section of the gulf coast.
+
+A closer view of the Texan region of h
 
 ## Trends in Minority Toxicity Burden
 

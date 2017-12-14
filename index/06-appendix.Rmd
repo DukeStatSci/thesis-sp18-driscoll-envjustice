@@ -3,98 +3,130 @@
 `r if(!knitr:::is_latex_output()) '# (APPENDIX) Appendix {-}'` 
 
 # Annotated Bibliography
-* Ash, Michael, et al. "Is environmental justice good for white folks? Industrial air toxics exposure in Urban America." Social Science Quarterly 94.3 (2013): 616-636.
 
-* Downey, Liam. "US metropolitan-area variation in environmental inequality outcomes." Urban Studies 44.5-6 (2007): 953-977.
-
-* Ash, Michael, and T. Robert Fetter. "Who Lives on the Wrong Side of the Environmental Tracks? Evidence from the EPA's Risk-Screening Environmental Indicators Model." Social Science Quarterly 85.2 (2004): 441-462.
-
-* Ash, Michael, and James K. Boyce. "Measuring corporate environmental justice performance." Corporate Social Responsibility and Environmental Management 18.2 (2011): 61-79.
-
-* O'Neil, Sandra George. "Superfund: evaluating the impact of executive order 12898." Environmental Health Perspectives 115.7 (2007): 1087.
-
-* Ringquist, Evan J. "Equity and the distribution of environmental risk: The case of TRI facilities." Social science quarterly (1997): 811-829.
-
-* Sadd, James L., et al. ""Every breath you take...": the demographics of toxic air releases in Southern California." Economic Development Quarterly 13.2 (1999): 107-123.
-
-* Hunter, Lori M., et al. "Environmental hazards, migration, and race." Population & Environment 25.1 (2003): 23-39.
-
-* Bayer, Patrick, and Kerwin Kofi Charles. Divergent Paths: Structural Change, Economic Rank, and the Evolution of Black-White Earnings Differences, 1940-2014. No. w22797. National Bureau of Economic Research, 2016.
-
-* Anderton, Douglas L., et al. "Environmental equity: the demographics of dumping." Demography 31.2 (1994): 229-248.
-
-* Pollock III, Philip H., and M. Elliot Vittas. "Who bears the burdens of environmental pollution? Race, ethnicity, and environmental equity in Florida." Social Science Quarterly (1995): 294-310.
-
-* Fisher J. B., Kelly M. & Romm J. (2006). Scales of environmental justice: Combining GIS and spatial analysis for air toxics in West Oakland, California. *Health & Place, 12*, pp. 701-714.
-    * Uses data from the ISCST3 air dispersion model, and local knowledge of non-point soureces of diesel emissions in West Oakland.
-    * Does a disparate impact analysis based on the EPA's requirements to classify an area as disproportionately impacted.
-    * Proves that the point sources are not randomly dispersed accros the Bay area, let alone the Oakland area, and shows statistically significant clusters of facilities. 
-    * Relatively unique in the literature due to its discussion of non point source pollution, specifically using map data to evaulate high traffic areas and major shipping routes. 
-
-
-* Kravitz-Wirtz N., Crowder K., Hajat A. & Sass V. (2016). The Long-term Dynamics of Racial/Ethnic Inequality in Neighborhood Air Pollution Exposure, 1990-2009. *Du Bois Review, 13*(2), pp. 237-259.
-    * Uses data from the Panel Study of Income Dynamics (PSID), and data on nitrogen dioxide (NO2), and particulate matter (PM2.5 and PM10) from the Toxic Resource Inventory (TRI) and the Air Quality System (AQS).
-    * Find that "Blacks and Latinos are, on average, more likely to be exposed to higher levels of NO2, PM2.5, and PM10 than Whites."
-    * More specifically, examines the "correspondence between neighborhood racial composition and pollution levels" using the household level data in PSID.
-    * Additionally uses measures of population density and residential segregation (measured using multigroup entropy index) of the areas each of the households are located in. 
-    * Uses a multilevel repeated measures model. Level 1 is individual intercepts and slopes, Level 2 is the average of all intercepts and slopes, with coefficients for race and time, Level 3 accounts for metropolitan areas. 
-    * Conclusions: There are substantial racial differneces in exposure to several kinds pollution. This persists even for households in similar circumstances. Declines in pollution over time have gone predominantly to minority groups. 
-    * Future work: Disentangle if differences come from "racially distinct patterns of individual mobility", "neighborhood change", or industrial siting. 
-
-
-* Gilbert A. & Chakraborty, J. (2011). Using geographically weighted regression for environmental justice analysis: Cumulative cancer risks from air toxics in Florida. *Social Science Research, 40*, pp. 273-286.
-    * Created on a tract level analysis, using data on air pollutants in Florida, Census 2000 data, and data on cancer risk. 
-    * Toxic data used is the EPA National-Scale Air Toxics Assesment in 1999, used because they think that the point source estimates usually implemented are limiting, and because NATA also provides estimation of cancer risk. 
-    * Statistical methodology based up geographically weighted regression, as an attempt to address the traditional regression techniques currently being used in the literature. 
-    * Finds that race is related to the experienced cancer risk of individuals. 
-
+* Anderton, Douglas L., et al. "Environmental equity: the demographics of dumping." *Demography 31.2* (1994): 229-248.
+    - Addresses only facilities for treatment, storage, and disposal of hazardous waste, no point source, no moving source.
+    - Uses Census tract level data and finds no statistically significant difference in prevalence in tracts with high minority populations.
+    - Yet also claims that hazards are more likely to be found in tracts with Hispanic groups?
+    - "Fundamental differences in geographic setting present inhabitants of different areas with inherently unequal environmental circumstances."
 
 * Ard K. (2015). Trends in exposure to industrial air toxins for different racial and socioeconomic groups: A spatial and temporal examination of environmental inequality in the U.S. from 1995 to 2004. *Social Science Research, 53*, pp. 375-390.
-    * Uses data from 1995 to 2004, sourcing toxicity data from RSEI and racial data from the GeoLytics releases of the 1990 and 2000 Census', interpolating through 2004. 
-    * Measures experienced toxicity as the weight of total toxic releases in a block group. 
-    * Aims to close the gap in how air pollution exposure "has varied by policy implementation boundaries". Approaches modeling through the lens of alternating geographies in an attempt to answer that question, using EPA regions, states, MSAs and counties. 
-    * Models the log pollution experienced in block group i in geographic unit j at time t using the overall mean, location, and time data to predict. 
-    * Uses multi-level models to take in to account the correlated structure of observations 
-    * Finds that African Americans have the most dramatic changes to exposure. (Slope of ~-60), but are still more exposed than whites. Relative toxicity does not appear to decrease.
-    * Suggests that future work should use variance component models to "show that the most variance in pollution exposure can be explained at the county level". Also suggests further work on the protective aspects of income by race, and suggest a trend the literature towards isolating causal mechanisms.
-    * Looking at income, they find that income is less protective for minorities, ie high income black people were more exposed than high income white people. 
+    - Uses data from 1995 to 2004, sourcing toxicity data from RSEI and racial data from the GeoLytics releases of the 1990 and 2000 Census', interpolating through 2004.
+    - Measures experienced toxicity as the weight of total toxic releases in a block group. 
+    - Aims to close the gap in how air pollution exposure "has varied by policy implementation boundaries". Approaches modeling through the lens of alternating geographies in an attempt to answer that question, using EPA regions, states, MSAs and counties. 
+    - Models the log pollution experienced in block group i in geographic unit j at time t using the overall mean, location, and time data to predict. 
+    - Uses multi-level models to take in to account the correlated structure of observations 
+    - Finds that African Americans have the most dramatic changes to exposure. (Slope of ~-60), but are still more exposed than whites. Relative toxicity does not appear to decrease.
+    - Suggests that future work should use variance component models to "show that the most variance in pollution exposure can be explained at the county level". Also suggests further work on the protective aspects of income by race, and suggest a trend the literature towards isolating causal mechanisms.
+    - Looking at income, they find that income is less protective for minorities, ie high income black people were more exposed than high income white people. 
+    
+* Ash, Michael, et al. "Is environmental justice good for white folks? Industrial air toxics exposure in Urban America." *Social Science Quarterly 94.3* (2013): 616-636.
+    - Uses RSEI data to look at toxic air exposure in urban areas. 
+    - Finds that exposure is correlated with minority presence.
+    - Finds that in areas with high minority pollution burden there is a higher average pollution experienced by all groups. Aka in high toxicity areas there is more inequality.
+    - Given that disparity areas are generally high toxicity, environmental justice movements could also benefit white people.
+
+* Ash, Michael, and T. Robert Fetter. "Who Lives on the Wrong Side of the Environmental Tracks? Evidence from the EPA's Risk-Screening Environmental Indicators Model." *Social Science Quarterly 85.2* (2004): 441-462.
+    - Examines correlation between air pollution exposure and social and economic factors in several cities. 
+    - Uses Census 1990 data, and a reformat of RSEI data.
+    - Finds that black individuas are more likely to live in more polluted cities, and even more likely to live in the more polluted neighborhoods in a city. 
+
+* Ash, Michael, and James K. Boyce. "Measuring corporate environmental justice performance." Corporate Social Responsibility and Environmental Management 18.2 (2011): 61-79.
+    - Addresses the idea of implementing environmental justice through corporate stratgies. Turning the idea of corporate social responsibility against polluters in an effort to create self regulation. 
+    - Develops a measure across all facilities managed by a corporation to find patterns of injustice in their actions.
+    - Finds that in 54% of examined corporate polluters minorities bear excess burden, with 15% of cases having minorities bearing over 50% of the burden, when they are only 30% of the population.
+    
+* Bayer, Patrick, and Kerwin Kofi Charles. Divergent Paths: Structural Change, Economic Rank, and the Evolution of Black-White Earnings Differences, 1940-2014. No. w22797. *National Bureau of Economic Research*, 2016.
+    - Examines working and non-working white and black men to find how the earnings gap has changed since 1950. 
+    - Defines 'positional rank' as the percentile the median black man would hold in the white distribution.
+    - Introduces a decomposition method to show the gains of black men over time, and address how much of that is due to distributional convergence (ie changes in the overall distribution of incomes) rather than positional convergence. 
+    - Finds that below the median, there has been strong racial convergence, likely due to improved access to education.
 
 * Burwell-Naney K. et al. (2013). Spatial disparity in the distribution of superfund sites in South Carolina: an ecological study. *Environmental Health, 12*(1).
-    * Addresses only the 26 superfund sites in SC, focuses on the disparities in spatial distribution. (Similar to Fisher)
-    * Uses the 2000 Census data at both tract and block level for population data, as well as data on Superfund locations. 
-    * Found that over half of black individuals lived in tracts containing a Superfund site, yet a higher percentage of whites have a superfund site. 
-
-
-* Moghadam A. K. & Kayahan B. (2017). What influences the pattern of pollutant releases? An investigation of firms' siting and households' sorting decisions in Ontario, Canada. *Journal of Environmental Planning and Management, 60*(4). pp. 743-754.
-    * Discusses the issue of how siting decisions are made by polluting firms. Compares that idea to the neighborhood sorting concept. 
-    * Used data from the 1996, 2001, and 2006 Canadian Census' (I think the only one not American data) as well as the National Pollutant Release Inventory.
-    * Defined neighborhoods as affected if there was a facility within one mile radius of the borders.
-    * Used neighborhood characteristics in a binomial regression to predict presence or absence of a facility.
-    * Found that clean neighborhoods were negatively correlated with % immigrants. 
+    - Addresses only the 26 superfund sites in SC, focuses on the disparities in spatial distribution. (Similar to Fisher)
+    - Uses the 2000 Census data at both tract and block level for population data, as well as data on Superfund locations. 
+    - Found that over half of black individuals lived in tracts containing a Superfund site, yet a higher percentage of whites have a superfund site. 
 
 * Crowder, Kyle, and Liam Downey. "Interneighborhood migration, race, and environmental hazards: Modeling microlevel processes of environmental inequality." *American Journal of Sociology 115.4* (2010): 1110-1149.
-    * Uses individual level data and neighborhood level industrial hazard data. Individual data is sourced from the Panel Study of Income Dynamics, which follows families across decades and records household characteristics. 
-    * Points out the lack of multilevel data on mobility at an individual level. This is the focus since it helps to address the question of environmental inequality origins, and if they result from disproportionate migration.
-    * Uses point data for toxicity estimates, and weights the point level toxicity observations by distance to individual to create individual level toxicity estimates. 
-    * Discusses discrimination in housing at a national level, and trends in individual opinions on neighborhood sorting. 
-    * Finds large difference in the toxicity experienced by black individuals. 
-    * Higher incomes are associated with lower toxicity in the destinations of individuals, especially for black and hispanic individuals, who only appear to move to lower toxicity areas when they have especially high incomes. 
+    - Uses individual level data and neighborhood level industrial hazard data. Individual data is sourced from the Panel Study of Income Dynamics, which follows families across decades and records household characteristics. 
+    - Points out the lack of multilevel data on mobility at an individual level. This is the focus since it helps to address the question of environmental inequality origins, and if they result from disproportionate migration.
+    - Uses point data for toxicity estimates, and weights the point level toxicity observations by distance to individual to create individual level toxicity estimates. 
+    - Discusses discrimination in housing at a national level, and trends in individual opinions on neighborhood sorting. 
+    - Finds large difference in the toxicity experienced by black individuals. 
+    - Higher incomes are associated with lower toxicity in the destinations of individuals, especially for black and hispanic individuals, who only appear to move to lower toxicity areas when they have especially high incomes. 
+    
+* Downey, Liam. "US metropolitan-area variation in environmental inequality outcomes." *Urban Studies 44.5-6* (2007): 953-977.
+    - Addresses the fact that environmental studies have a large distribution of findings, ranging from strong evidence for disparate burden to no evidence of racial inequality.
+    - Theorizes that it may be because some areas show disparate while others don't, meaning that in aggregate the truth may be hard to tease apart.
+    - Finds that inequality varies over the examined metropolitan areas. 
+    - Finds that neither income inequality nor segregation can explain the variation of inequality across cities. 
 
+* Fisher J. B., Kelly M. & Romm J. (2006). Scales of environmental justice: Combining GIS and spatial analysis for air toxics in West Oakland, California. *Health & Place, 12*, pp. 701-714.
+    - Uses data from the ISCST3 air dispersion model, and local knowledge of non-point soureces of diesel emissions in West Oakland.
+    - Does a disparate impact analysis based on the EPA's requirements to classify an area as disproportionately impacted.
+    - Proves that the point sources are not randomly dispersed accros the Bay area, let alone the Oakland area, and shows statistically significant clusters of facilities. 
+    - Relatively unique in the literature due to its discussion of non point source pollution, specifically using map data to evaulate high traffic areas and major shipping routes. 
+    
+* Gilbert A. & Chakraborty, J. (2011). Using geographically weighted regression for environmental justice analysis: Cumulative cancer risks from air toxics in Florida. *Social Science Research, 40*, pp. 273-286.
+    - Created on a tract level analysis, using data on air pollutants in Florida, Census 2000 data, and data on cancer risk. 
+    - Toxic data used is the EPA National-Scale Air Toxics Assesment in 1999, used because they think that the point source estimates usually implemented are limiting, and because NATA also provides estimation of cancer risk. 
+    - Statistical methodology based up geographically weighted regression, as an attempt to address the traditional regression techniques currently being used in the literature. 
+    - Finds that race is related to the experienced cancer risk of individuals. 
+
+* Hunter, Lori M., et al. "Environmental hazards, migration, and race." Population & Environment 25.1 (2003): 23-39.
+     - Uses census data on county level outmigration as it relates to the presence of environmental hazards.
+     - Addresses outmigration as one of the potential sources of environmental inequality. If it were a source, we would expect to see minorities moving to more hazardous areas, and white families fleeing the hazardous areas. 
+     - When accounting for socioeconomic factors, labor force opportunities and climate, no difference is found in outmigration between social groups. 
+     - Results may not be positive due to level of analysis. Finer grain or individual level may give different results.
+     
+* Kravitz-Wirtz N., Crowder K., Hajat A. & Sass V. (2016). The Long-term Dynamics of Racial/Ethnic Inequality in Neighborhood Air Pollution Exposure, 1990-2009. *Du Bois Review, 13*(2), pp. 237-259.
+    - Uses data from the Panel Study of Income Dynamics (PSID), and data on nitrogen dioxide (NO2), and particulate matter (PM2.5 and PM10) from the Toxic Resource Inventory (TRI) and the Air Quality System (AQS).
+    - Find that "Blacks and Latinos are, on average, more likely to be exposed to higher levels of NO2, PM2.5, and PM10 than Whites."
+    - More specifically, examines the "correspondence between neighborhood racial composition and pollution levels" using the household level data in PSID.
+    - Additionally uses measures of population density and residential segregation (measured using multigroup entropy index) of the areas each of the households are located in. 
+    - Uses a multilevel repeated measures model. Level 1 is individual intercepts and slopes, Level 2 is the average of all intercepts and slopes, with coefficients for race and time, Level 3 accounts for metropolitan areas. 
+    - Conclusions: There are substantial racial differneces in exposure to several kinds pollution. This persists even for households in similar circumstances. Declines in pollution over time have gone predominantly to minority groups. 
+    - Future work: Disentangle if differences come from "racially distinct patterns of individual mobility", "neighborhood change", or industrial siting. 
+
+* Moghadam A. K. & Kayahan B. (2017). What influences the pattern of pollutant releases? An investigation of firms' siting and households' sorting decisions in Ontario, Canada. *Journal of Environmental Planning and Management, 60*(4). pp. 743-754.
+    - Discusses the issue of how siting decisions are made by polluting firms. Compares that idea to the neighborhood sorting concept. 
+    - Used data from the 1996, 2001, and 2006 Canadian Census' (I think the only one not American data) as well as the National Pollutant Release Inventory.
+    - Defined neighborhoods as affected if there was a facility within one mile radius of the borders.
+    - Used neighborhood characteristics in a binomial regression to predict presence or absence of a facility.
+    - Found that clean neighborhoods were negatively correlated with % immigrants. 
+  
+* O'Neil, Sandra George. "Superfund: evaluating the impact of executive order 12898." Environmental Health Perspectives 115.7 (2007): 1087.
+    - Superfunds are sites that have been designated by the EPA as areas of "significant threat to both surrounding populations and the environment" and are given priority for federal cleanup funds. 
+    - While minority communities experience a large portion of the toxicity, they are underrepresented in the superfund site list, meaning they aren't recieving an appropriate benefit from the fund. 
+    - Executive Order 12898 (by President Clinton) required that the EPA (and other agencies) have environmental justice policies that "address environmental effects on minority and low-income populations."
+    - Finds that EO 12898 has been ineffective at improving the representation of minority communities in the Superfund program. In fact, finds that since the order minorities are even less likely to be included on the list. 
+    
 * Pais J., Crowder K. & Downey L. (2013). Unequal Trajectories: Racial and Class Differences in Residential Exposure to Industrial Hazard. *Social Forces, 92*(3). pp. 1189-1215
-    * Focuses on differences via different residential sorting and toxic facility siting. 
-    * Statistical methodology used is a latent class growth analysis. 
-    * Data used is longitudinal xyz and neighborhood level pollution. 
-    * Found large difference in pollution exposure by race. Also found that minorities were more likely to experience persistance in being highly exposed.
-    * Examined how that finding relates to having access to the suburbs, and found that even controlling for suburban attainment, economic status, and ability to move, there was still a racial difference. 
+    - Focuses on differences via different residential sorting and toxic facility siting. 
+    - Statistical methodology used is a latent class growth analysis. 
+    - Data used is longitudinal xyz and neighborhood level pollution. 
+    - Found large difference in pollution exposure by race. Also found that minorities were more likely to experience persistance in being highly exposed.
+    - Examined how that finding relates to having access to the suburbs, and found that even controlling for suburban attainment, economic status, and ability to move, there was still a racial difference. 
+
+* Ringquist, Evan J. "Equity and the distribution of environmental risk: The case of TRI facilities." *Social science quarterly* (1997): 811-829.
+    - Looks at point sources in TRI data to examine if facilities are concentrated in minority communities. 
+    - Uses TRI data along with probit models against TRI facilities in ZIP codes.
+    - Finds that even with other socioeconomic and zip code factors, TRI facilities are more likely to be placed in zip codes with high minority populations. 
+    - Shows that racial minorities are more likely to live near environmental risk. 
+
+* Sadd, James L., et al. ""Every breath you take...": the demographics of toxic air releases in Southern California." *Economic Development Quarterly 13.2* (1999): 107-123.
+    - Techniques used include GIS mapping, logit, ordered logit, and tobit regression. 
+    - Find that while controlling for factors that are likely to be relevant to toxicity, such as manufacturing employment, minorities are more likely to be in neighborhoods with high toxicity.    
 
 * Szasz, A., & Meuser, M. (1997). Environmental inequalities: Literature review and proposals for new directions in research and theory. *Current sociology, 45*(3), 99-120.
-    * Environmental justice work brought the "tactics and rhetoric of the Civil Rights movement to bear on an environmental issue"
-    * 3 papers created the canon: The US GAO examination of demographics near four large hazardous waste sites, The United Church of Christ's study on demographics in zip codes that had or didn't have hazardous waste treatment sites, and a study finding that 21 out of 25 of solid waste facilites in Houston were in predominantly black neighborhoods. 
-    * Data has been trying to ground race as the main inequality of interest, as opposed to the common focus on class. 
-    * Mixed results in environmental justice can be due to several things, one being the ecological fallacy, or another being that injustices aren't equal across areas. It may be that local studies are more successful due to the local nature/histories of locations. 
-    * So far work has focused mostly on showing that inequities exist. These data driven questions, with tangible answers, have driven the field, but have created room for more qualitative work focusing on the histories that led to these inequalities. 
-    * Additional neglected topics in the field include: a larger historical framework, as current data has been both temporally and regionally limited. A larger global framework, since nearly all work has been focused on America. An investigation of the location of the wealthy, as examining the flip side of the coin may provide as much information about comparative trends for the poor.
-    * The field as a whole needs to address the larger implications of environmental justice, recontextualizing it as a small (yet fundamental) part of the social inequalities that have defined America's history. 
+    - Environmental justice work brought the "tactics and rhetoric of the Civil Rights movement to bear on an environmental issue"
+    - 3 papers created the canon: The US GAO examination of demographics near four large hazardous waste sites, The United Church of Christ's study on demographics in zip codes that had or didn't have hazardous waste treatment sites, and a study finding that 21 out of 25 of solid waste facilites in Houston were in predominantly black neighborhoods. 
+    - Data has been trying to ground race as the main inequality of interest, as opposed to the common focus on class. 
+    - Mixed results in environmental justice can be due to several things, one being the ecological fallacy, or another being that injustices aren't equal across areas. It may be that local studies are more successful due to the local nature/histories of locations. 
+    - So far work has focused mostly on showing that inequities exist. These data driven questions, with tangible answers, have driven the field, but have created room for more qualitative work focusing on the histories that led to these inequalities. 
+    - Additional neglected topics in the field include: a larger historical framework, as current data has been both temporally and regionally limited. A larger global framework, since nearly all work has been focused on America. An investigation of the location of the wealthy, as examining the flip side of the coin may provide as much information about comparative trends for the poor.
+    - The field as a whole needs to address the larger implications of environmental justice, recontextualizing it as a small (yet fundamental) part of the social inequalities that have defined America's history. 
+
 
 # Data Sources
 
