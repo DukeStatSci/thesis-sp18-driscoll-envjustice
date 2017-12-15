@@ -2,7 +2,7 @@
 
 ## Trends in Minority Toxicity Burden
 
-Using data at the tract level, we assign the tract concentration to the counts of each group in the tract. By assigning toxicity for each tract, we build four distributions: toxicity for the white population, toxicity for the black population, toxicity for the hispanic population, and toxicity for all other groups. In this case, hispanic is not a mutually exclusive group, and the race groups may contain ethnically hispanic individuals. 
+Using data at the tract level, we assign the tract concentration to the counts of each group in the tract. By assigning toxicity for each tract, we build four distributions: toxicity for the white population, toxicity for the black population, toxicity for the Hispanic population, and toxicity for all other groups. In this case, Hispanic is not a mutually exclusive group, and the race groups may contain ethnically Hispanic individuals. 
 
 For each of the distributions, the 5th, 50th, and 95th percentiles are calculated for each time period. In the case of toxicity, the 5th and 95th percentiles are especially of interest, as they represent the non-polluted neighborhoods that each group has access to and the level of pollution trap that each group falls in to. Clearly, for all variables, lower toxicity is better. 
 
@@ -151,7 +151,7 @@ grid.arrange(arrangeGrob(five, five_rel, nrow=1),
              arrangeGrob(color_legend, line_legend, nrow=1), nrow=2,heights=c(10, 1))
 ```
 
-As we see in the 5th percentile plots, the 5th percentile of experienced toxicity is steadily decreasing for all groups. Given the y axis has been logged, and we see a linear trend, toxicity has seen an exponential drop over the years. There appear to be two distinct groups, with the black and 'other' groups significantly higher than the white and hispanic groups in 1988, and even more distinctly seperated by 2013. Though we see incredible improvements in toxicity for all groups, the relative improvement shows a different story. The difference for the 'other' minorities is most impressive, originally having 5th percentile toxicity at approximately 1.5 times the rate of the white 5th percentile, but ending at over 6 times the white 5th percentile. 
+As we see in the 5th percentile plots, the 5th percentile of experienced toxicity is steadily decreasing for all groups. Given the y axis has been logged, and we see a linear trend, toxicity has seen an exponential drop over the years. There appear to be two distinct groups, with the black and 'other' groups significantly higher than the white and Hispanic groups in 1988, and even more distinctly separated by 2013. Though we see incredible improvements in toxicity for all groups, the relative improvement shows a different story. The difference for the 'other' minorities is most impressive, originally having 5th percentile toxicity at approximately 1.5 times the rate of the white 5th percentile, but ending at over 6 times the white 5th percentile. 
 
 From this plot we see that though minorities have had the largest net decreases in 5th percentile toxicity, those gains are an artifact of how much higher their original toxicity was. When framing improvements relative to the white population, there has been no improvement, in some cases relative toxicity has regressed.
 
@@ -167,19 +167,19 @@ grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
              arrangeGrob(color_legend, line_legend, nrow=1), nrow=2,heights=c(10, 1))
 ```
 
-Ninety-fifth percentile toxicity is in some ways the most of interest. The difference between estimates for white and minorities is approximately an order of magnitude at the 5th, 50th, and 95th percentile, but at this level an order of magnitude is more significant than in the 5th percentile. An interesting difference is that at the high end of the distribution, we see the 'other' minority group has a relative toxicity close to 1, where in previous plots the other group had significantly worse relative toxicity. Similarly, though the hispanic group previously performed closest to the white group, at the 95th percentile the hispanic group performs more similarly to the black distribution. 
+Ninety-fifth percentile toxicity is in some ways the most of interest. The difference between estimates for white and minorities is approximately an order of magnitude at the 5th, 50th, and 95th percentile, but at this level an order of magnitude is more significant than in the 5th percentile. An interesting difference is that at the high end of the distribution, we see the 'other' minority group has a relative toxicity close to 1, where in previous plots the other group had significantly worse relative toxicity. Similarly, though the Hispanic group previously performed closest to the white group, at the 95th percentile the Hispanic group performs more similarly to the black distribution. 
 
-Examining the changes in each of these plots independently gives us a glimpse at how the distributions as a whole are shifting. The lack of change, or even worsening, of relative toxicity for the black and other distributions at the 5th percentile may be indicative of barriers minorities face in access to clean communities. As wealthier communities are getting ever cleaner, minorities are still unable to gain access to them, meaning less improvement in the low tail of the minority distributions. The hispanic distribution appears to be in line with the white distribution, which may be true due to the relationship with race. Seperating the hispanic group by race as well may yield different results. 
+Examining the changes in each of these plots independently gives us a glimpse at how the distributions as a whole are shifting. The lack of change, or even worsening, of relative toxicity for the black and other distributions at the 5th percentile may be indicative of barriers minorities face in access to clean communities. As wealthier communities are getting ever cleaner, minorities are still unable to gain access to them, meaning less improvement in the low tail of the minority distributions. The Hispanic distribution appears to be in line with the white distribution, which may be true due to the relationship with race. Separating the Hispanic group by race as well may yield different results. 
 
 Comparatively, the changes at the 50th percentile show that minorities have all consistently improved faster than the white 50th percentile, meaning that the bulk of the distribution has been shifting faster than the white distribution. 
 
-In the 95th percentile, we see the hispanic group performing similarly to the white distribution, while the black and hispanic distributions improve until the early 2000's, and then flatten out or rise relative to the white distribution. With the widening gap in the 5th percentile, the closing gap in the 50th percentile, and the stagnation of change in the 95th, we see that the distribution is shifting left and condensing as the left tail stagnates, and the right tail slowly lowers. 
+In the 95th percentile, we see the Hispanic group performing similarly to the white distribution, while the black and Hispanic distributions improve until the early 2000's, and then flatten out or rise relative to the white distribution. With the widening gap in the 5th percentile, the closing gap in the 50th percentile, and the stagnation of change in the 95th, we see that the distribution is shifting left and condensing as the left tail stagnates, and the right tail slowly lowers. 
 
-In essense we are seeing the "rich getting richer" phenomenon in the 5th percentile of the white distribution. Those that already have access to clean communities are seeing improved toxicity, with those who weren't already in clean communities unable to catch up, and locked out of the lowest toxicity communities. 
+In essence we are seeing the "rich getting richer" phenomenon in the 5th percentile of the white distribution. Those that already have access to clean communities are seeing improved toxicity, with those who weren't already in clean communities unable to catch up, and locked out of the lowest toxicity communities. 
 
 ## Simulating Changes
 
-Being able to build the true distributions that each group experiences over time allows us to see how relative toxicity burden has changed over time. Yet the changes presented in the analysis above are solely the net changes experienced by each group. Given minorities are more likely to be in the right tail of the distribution, any compression of that tail would result in both a net improvement for minority groups and a relative improvement to the white distribution. Those changes, though positive, don't represent a true change in the position minorities hold in the distribution, as their comparatice position is still in the high percentiles of the distribution, only the distribution has shifted favorably. 
+Being able to build the true distributions that each group experiences over time allows us to see how relative toxicity burden has changed over time. Yet the changes presented in the analysis above are solely the net changes experienced by each group. Given minorities are more likely to be in the right tail of the distribution, any compression of that tail would result in both a net improvement for minority groups and a relative improvement to the white distribution. Those changes, though positive, don't represent a true change in the position minorities hold in the distribution, as their relative position is still in the high percentiles of the distribution, only the distribution has shifted favorably. 
 
 To find how much of the change is attributable to changes of minority position, we use the simulation method discussed in section 3. By holding the percentile of each individual constant, but applying it to the new distribution, we can see what the minority distribution would have looked like if the minority position within the overall distribution had not changed. 
 
@@ -276,7 +276,7 @@ grid.arrange(arrangeGrob(sim_tox(perc50, 50), relative_sim(perc50, 50), nrow=1),
              arrangeGrob(color_legend, line_legend, nrow=1), nrow=2,heights=c(10, 1))
 ```
 
-Changes at the 50th percentile were much more impressive in the initial analysis, and remain that way. The simulated distributions still show improvement, but very minor compared to the observed improvement. The simulated black 50th percentile drops from 3 times to 2.75 times the white 50th percentile, where the true distribution drops from 3 times to 1.5 times the white distribution. All the simulations show the same pattern, with the hispanic group showing the largest difference between true and simulated 50th percentile, the simulated group ending at 2.25 times the white distribution, and the true group ending at 0.75 times the white distribution. 
+Changes at the 50th percentile were much more impressive in the initial analysis, and remain that way. The simulated distributions still show improvement, but very minor compared to the observed improvement. The simulated black 50th percentile drops from 3 times to 2.75 times the white 50th percentile, where the true distribution drops from 3 times to 1.5 times the white distribution. All the simulations show the same pattern, with the Hispanic group showing the largest difference between true and simulated 50th percentile, the simulated group ending at 2.25 times the white distribution, and the true group ending at 0.75 times the white distribution. 
 
 Interpreting the differences in simulated and true values as the portion of change attributable to where each group stands in the overall distribution, it seems that there has been significant change in the positions minorities hold in the overall toxicity distribution.
 
@@ -320,7 +320,9 @@ grid.arrange(arrangeGrob(p1990, p2000, p2013, nrow=1),
 
 ## Interacting Risk Cases
 
+Above we've seen the differing experiences of changing toxicities by race. We find that toxicity is significantly improving for all, but relative improvement has begun to stagnate for minority groups at some levels. This begs the question of what the trends are for individuals with interacting risk cases. Given the multifaceted social identities individuals hold, a single metric will by definition be missing part of the pattern. Ideally we would be able to represent the complex power structures and dynamic social categorizations in our society, but with limited data, and the inherent complexity of the problem, we can begin to broach this problem by looking at the intersection of two commonly discussed at risk groups. In this case we examine how the trends of experienced toxicity vary for each race group when considering income levels.
 
+To do so we split households in to low income (under 25k,) medium (between 25 and 75k,) and high income (over 75k).
 
 ```{r incPlots, include = FALSE, warning = FALSE, fig.width=10, fig.height=4}
 pov = data[!is.na(data$blackh), ]
@@ -375,12 +377,31 @@ hisp = ggplot() +
   labs(x = "Year", y = "Log Toxicity")
 ```
 
-```{r}
-white
+First we examine How the fifth, fiftieth and ninety-fifth percentiles differ for the black distribution. The ribbon shows the difference between the high income and low income groups within the respective race groups. Dotted lines represent the high income group, and solid lines represent the medium income group. In this case the fiftieth and ninety-fifth percentile act as would be expected, with the high income group experiencing significantly lower toxicity across the board. However, the fifth percentile shows the inverse pattern, with high income households experiencing higher toxicity. One reason this could be true is that high income individuals may be more likely to live in suburbs or urban areas, rather than rural areas. 
 
+```{r}
+grid.arrange(black, arrangeGrob(color_legend, line_income_legend, nrow=1), nrow=2,heights=c(10, 1))
+```
+
+In the white distributions we see a similar pattern. The ninety-fifth percentile continues to show the expected behavior at the ninety-fifth percentile, but in both the fiftieth and fifth percentiles the high income group has a significantly higher toxicity. 
+
+```{r}
+grid.arrange(white, arrangeGrob(color_legend, line_income_legend, nrow=1), nrow=2,heights=c(10, 1))
+```
+
+The Hispanic group shows exactly the opposite pattern of the white distribution, with the high income distribution experiencing higher toxicity in the fiftieth and ninety-fifth percentiles, and lower toxicity in the fifth percentile. In the fiftieth and ninety-fifth percentile, the differences between toxicities experienced by each income group are minimal. The fifth percentile, however, shows significantly lower toxicities experienced by the high income group. 
+
+```{r}
+grid.arrange(hisp, arrangeGrob(color_legend, line_income_legend, nrow=1), nrow=2,heights=c(10, 1))
+```
+
+Interestingly, the group with the largest differences between high and low income across all percentile groups appears to be the white distribution. This may indicate that since income is less relevant to minority groups (not necessarily less protective, but less predictive), housing discrimination and neighborhood sorting may be an area to consider. Given the rational sociopolitical reasons theorized for environmental justice origins, it may be that income is less predictive for minorities due to reduced choice in housing locations, meaning that even given the economic viability of escaping toxicity (or the opposite of moving to urban areas that may have more toxicity) is less feasible. 
+
+```{r}
 grid.arrange(arrangeGrob(black, hisp, white, nrow=1), arrangeGrob(color_legend, line_income_legend, nrow=1), nrow=2, heights=c(10, 1))
 ```
 
+Seeing these results together we find they aren't internally consistent, and do not follow the expected pattern. As hypothesized in discussion of the black distributions, it may be that there are confounding factors that aren't being addressed. Intersectionality requires a more complex view of identities as explanation of lived experiences, and these factors do not appear to be enough to understand the underlying patterns. Potential areas to explore include: population density, prevalence of local manufacturing jobs, level of political engagement, and education levels. 
 
 ## Quantile Regression
 
@@ -388,8 +409,8 @@ Previous sections have focused on teasing apart patterns in the vast amounts of 
 
 In order to better tease out relationships in the data, and for easy interpretation of coefficients, a functionally similar analysis can be done with quantile regression, focusing on the computed parameters as indicators of the differences in experienced toxicity. 
 
-To illustrate the form of model this could take, we build preliminary quantile regression models on the 5th, 50th, and 95th percentiles of the toxicity distribution. To predict log toxicity, we use the year, demographic information, population density as well as quadratic terms. The predictions shown for each race or ethnicity group are fairly consistent with the results shown above. The distinct seperate between the white and hispanic distributions as compared to the black and 'other' distributions is mirrored in the model predictions. The model appears to follow the observed patterns fairly well, aside from a strange fit for the 'other' distribution in the 5th percentile. 
-```{r quantreg, echo = FALSE}
+To illustrate the form of model this could take, we build preliminary quantile regression models on the 5th, 50th, and 95th percentiles of the toxicity distribution. To predict log toxicity, we use the year, demographic information, population density as well as quadratic terms. The predictions shown for each race or ethnicity group are fairly consistent with the results shown above. The distinct seperation between the white and hispanic distributions as compared to the black and 'other' distributions is mirrored in the model predictions. The model appears to follow the observed patterns fairly well, aside from a strange fit for the 'other' distribution in the 5th percentile. 
+```{r quantreg, echo = FALSE, fig.height=6}
 sample = sample_frac(data, size = 0.10)
 sample$p_white = sample$white/sample$pop
 sample$p_black = sample$black/sample$pop
@@ -411,7 +432,7 @@ plot_quant = function(pred) {
   geom_line(aes(x = years, pred[25:48, 1], color = "black")) +
   geom_line(aes(x = years, pred[49:72, 1], color = "hispanic")) +
   geom_line(aes(x = years, pred[73:96, 1], color = "other")) +
-  labs(x = "Years", y = "Concentration") +
+  labs(x = "Years", y = "Concentration, 5th Percentile") +
   scale_y_log10(limits = c(min, max), breaks = scales::trans_breaks("log10", function(x) 10^x), 
                 labels = scales::trans_format("log10", scales::math_format(10^.x))) +
   annotation_logticks(short = unit(.5,"mm"), mid = unit(2,"mm"),  
@@ -422,7 +443,7 @@ plot_quant = function(pred) {
   geom_line(aes(x = years, pred[25:48, 2], color = "black")) +
   geom_line(aes(x = years, pred[49:72, 2], color = "hispanic")) +
   geom_line(aes(x = years, pred[73:96, 2], color = "other")) +
-  labs(x = "Years", y = "Concentration") + 
+  labs(x = "Years", y = "Concentration, 50th Percentile") + 
   scale_y_log10(limits = c(min, max), breaks = scales::trans_breaks("log10", function(x) 10^x),
                 labels = scales::trans_format("log10", scales::math_format(10^.x))) +
   annotation_logticks(short = unit(.5,"mm"), mid = unit(2,"mm"),  
@@ -433,14 +454,14 @@ plot_quant = function(pred) {
   geom_line(aes(x = years, pred[25:48, 3], color = "black")) +
   geom_line(aes(x = years, pred[49:72, 3], color = "hispanic")) +
   geom_line(aes(x = years, pred[73:96, 3], color = "other")) +
-  labs(x = "Years", y = "Concentration") +  
+  labs(x = "Years", y = "Concentration, 95th Percentile") +  
   scale_y_log10(limits = c(min, max), breaks = scales::trans_breaks("log10", function(x) 10^x), 
                 labels = scales::trans_format("log10", scales::math_format(10^.x))) +
   annotation_logticks(short = unit(.5,"mm"), mid = unit(2,"mm"),  
                       long = unit(3.5,"mm"), sides = "l", color = "gray65") +
   guides(color = FALSE)
   
-  grid.arrange(arrangeGrob(five, fifty, ninety, nrow=1))
+  grid.arrange(arrangeGrob(five, fifty, ninety, nrow=1), color_legend, nrow=2,heights=c(10, 1))
 } 
 
 quant_den = rq(log(concentration)~year+p_white+p_black+p_hispanic+p_other+I(year^3)*(p_white+p_black+p_hispanic+p_other+density)+density*(p_white+p_black+p_hispanic+p_other+density), tau = c(0.05, 0.5, 0.95), data = sample)
@@ -448,4 +469,4 @@ quant_den = rq(log(concentration)~year+p_white+p_black+p_hispanic+p_other+I(year
 plot_quant(exp(predict.rq(quant_den, test)))
 ```
 
-By adding additional block level data to this regression and testing model fit more rigorously, we may be able to discuss the magnitude of toxicity differences that are attributable to race, and will be more informed on the other factors that hold importance in predicting toxicity. Above sections address the empirical reduction in toxicity and the reduction amount attributable to shifts of minority placement in the distribution. An approach able to take it a step further and find the differences attributable to race would add significant value. 
+By adding additional block level data to this regression and testing model fit more rigorously, we may be able to discuss the magnitude of toxicity differences that are attributable to race, and will be more informed on the other factors that hold importance in predicting toxicity. Above sections address the empirical reduction in toxicity and the reduction amount attributable to shifts of minority placement in the distribution. An approach able to take it a step further and find the differences attributable to race would add significant value.
