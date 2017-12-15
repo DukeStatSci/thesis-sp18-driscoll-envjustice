@@ -1,0 +1,160 @@
+--------------------------------------------------------------------------------
+Codebook for NHGIS data file 'nhgis0001_ds123_1990_tract'
+--------------------------------------------------------------------------------
+ 
+Contents
+    - Data Summary
+    - Data Dictionary
+    - Citation and Use
+ 
+Additional documentation on NHGIS data sources is available at: 
+    https://www.nhgis.org/documentation/tabular-data 
+ 
+--------------------------------------------------------------------------------
+Data Summary
+--------------------------------------------------------------------------------
+ 
+Year:             1990
+Geographic level: Census Tract (by State--County)
+Dataset:          1990 Census: STF 3 - Sample-Based Data
+   NHGIS code:    1990_STF3
+   NHGIS ID:      ds123
+Breakdown(s):     Geographic Subarea:
+                     Total area (00)
+ 
+Tables:
+ 
+1. Race of Householder by Household Income in 1989
+   Universe:    Households
+   Source code: NP82
+   NHGIS code:  E4W
+ 
+--------------------------------------------------------------------------------
+Data Dictionary
+--------------------------------------------------------------------------------
+ 
+Context Fields 
+        GISJOIN:     GIS Join Match Code
+        YEAR:        Data File Year
+        ANRCA:       Alaska Native Regional Corporation Code
+        RES_ONLYA:   American Indian Reservation [excluding trust lands] Code
+        TRUSTA:      American Indian Reservation [trust lands only] Code
+        AIANHHA:     American Indian Area/Alaska Native Area/Hawaiian Home Land Code
+        RES_TRSTA:   Reservation/Trust Lands Code
+        BLCK_GRPA:   Block Group Code
+        TRACTA:      Census Tract Code
+        CDA:         Congressional District (101st) Code
+        C_CITYA:     Consolidated City Code
+        COUNTY:      County Name
+        COUNTYA:     County Code
+        CTY_SUBA:    County Subdivision Code
+        DIVISIONA:   Division Code
+        MSA_CMSAA:   Metropolitan Statistical Area/Consolidated Metropolitan Statistical Area Code
+        PLACEA:      Place Code
+        PMSAA:       Primary Metropolitan Statistical Area Code
+        REGIONA:     Region Code
+        STATE:       State Name
+        STATEA:      State Code
+        URBRURALA:   Urban/Rural Code
+        URB_AREAA:   Urban Area Code
+        ZIPA:        5-Digit ZIP Code Code
+        CD103A:      Congressional District (103rd) Code
+        ANPSADPI:    Area Name/PSAD Term/Part Indicator
+ 
+Breakdown:
+    Geographic Subarea: Total area (00)
+ 
+    Table 1:     Race of Householder by Household Income in 1989
+    Universe:    Households
+    Source code: NP82
+    NHGIS code:  E4W
+        E4W001:      White >> Less than $5,000
+        E4W002:      White >> $5,000 to $9,999
+        E4W003:      White >> $10,000 to $14,999
+        E4W004:      White >> $15,000 to $24,999
+        E4W005:      White >> $25,000 to $34,999
+        E4W006:      White >> $35,000 to $49,999
+        E4W007:      White >> $50,000 to $74,999
+        E4W008:      White >> $75,000 to $99,999
+        E4W009:      White >> $100,000 or more
+        E4W010:      Black >> Less than $5,000
+        E4W011:      Black >> $5,000 to $9,999
+        E4W012:      Black >> $10,000 to $14,999
+        E4W013:      Black >> $15,000 to $24,999
+        E4W014:      Black >> $25,000 to $34,999
+        E4W015:      Black >> $35,000 to $49,999
+        E4W016:      Black >> $50,000 to $74,999
+        E4W017:      Black >> $75,000 to $99,999
+        E4W018:      Black >> $100,000 or more
+        E4W019:      American Indian, Eskimo, or Aleut >> Less than $5,000
+        E4W020:      American Indian, Eskimo, or Aleut >> $5,000 to $9,999
+        E4W021:      American Indian, Eskimo, or Aleut >> $10,000 to $14,999
+        E4W022:      American Indian, Eskimo, or Aleut >> $15,000 to $24,999
+        E4W023:      American Indian, Eskimo, or Aleut >> $25,000 to $34,999
+        E4W024:      American Indian, Eskimo, or Aleut >> $35,000 to $49,999
+        E4W025:      American Indian, Eskimo, or Aleut >> $50,000 to $74,999
+        E4W026:      American Indian, Eskimo, or Aleut >> $75,000 to $99,999
+        E4W027:      American Indian, Eskimo, or Aleut >> $100,000 or more
+        E4W028:      Asian or Pacific Islander >> Less than $5,000
+        E4W029:      Asian or Pacific Islander >> $5,000 to $9,999
+        E4W030:      Asian or Pacific Islander >> $10,000 to $14,999
+        E4W031:      Asian or Pacific Islander >> $15,000 to $24,999
+        E4W032:      Asian or Pacific Islander >> $25,000 to $34,999
+        E4W033:      Asian or Pacific Islander >> $35,000 to $49,999
+        E4W034:      Asian or Pacific Islander >> $50,000 to $74,999
+        E4W035:      Asian or Pacific Islander >> $75,000 to $99,999
+        E4W036:      Asian or Pacific Islander >> $100,000 or more
+        E4W037:      Other race >> Less than $5,000
+        E4W038:      Other race >> $5,000 to $9,999
+        E4W039:      Other race >> $10,000 to $14,999
+        E4W040:      Other race >> $15,000 to $24,999
+        E4W041:      Other race >> $25,000 to $34,999
+        E4W042:      Other race >> $35,000 to $49,999
+        E4W043:      Other race >> $50,000 to $74,999
+        E4W044:      Other race >> $75,000 to $99,999
+        E4W045:      Other race >> $100,000 or more
+ 
+--------------------------------------------------------------------------------
+Citation and Use of NHGIS Data
+--------------------------------------------------------------------------------
+ 
+All persons are granted a limited license to use this documentation and the
+accompanying data, subject to the following conditions:
+
+* Publications and research reports employing NHGIS data (either tabular or GIS)
+  must cite it appropriately. The citation should include the following:
+
+    Steven Manson, Jonathan Schroeder, David Van Riper, and Steven Ruggles. 
+    IPUMS National Historical Geographic Information System: Version 12.0 [Database]. 
+    Minneapolis: University of Minnesota. 2017. 
+    http://doi.org/10.18128/D050.V12.0
+
+* Publications and research reports employing school attendance areas data
+  (either tabular or GIS) must cite it appropriately. The citation should
+  include the following:
+
+    The College of William and Mary and the Minnesota Population Center.
+    School Attendance Boundary Information System (SABINS): Version 1.0.
+    Minneapolis, MN: University of Minnesota 2011.
+
+* For policy briefs or articles in the popular press, we recommend that you cite the use of NHGIS data as follows:
+
+    IPUMS NHGIS, University of Minnesota, www.nhgis.org.
+
+* If possible, citations involving school attendance areas should also include
+  the URL for the SABINS site:
+
+    http://www.sabinsdata.org/.
+
+In addition, we request that users send us a copy of any publications, research
+reports, or educational material making use of the data or documentation.
+Printed matter should be sent to:
+
+    NHGIS
+    Minnesota Population Center
+    University of Minnesota
+    50 Willey Hall
+    225 19th Ave S
+    Minneapolis, MN 55455
+
+Send electronic material to: nhgis@umn.edu

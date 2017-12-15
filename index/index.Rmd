@@ -66,9 +66,8 @@ if(!require(thesisdowndss))
   devtools::install_github("mine-cetinkaya-rundel/thesisdowndss")
 library(thesisdowndss)
 library(knitr)
-knitr::opts_chunk$set(fig.width=8, fig.height=5) 
+knitr::opts_chunk$set(fig.width=10, fig.height=4, echo = FALSE) 
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
-knitr::opts_chunk$set(echo = FALSE) 
 library(magrittr)
 library(readr)
 library(ggplot2)
@@ -119,7 +118,7 @@ t2013 = as.data.frame(fread("data/toxic/tract/toxic_2013_2010_tract.csv", data.t
 t2014 = as.data.frame(fread("data/toxic/tract/toxic_2014_2010_tract.csv", data.table = FALSE))
 
 read_in_pov = function(year, tox) {
-  data = as.data.frame(fread(paste0("data/census/hisp_pov/hisp_pov_tract_", year, ".csv"), data.table = FALSE))
+  data = as.data.frame(fread(paste0("data/census/income_tract_", year, ".csv"), data.table = FALSE))
   data = data[complete.cases(data), ]
   data$id = str_pad(data$id, 11, pad = "0", side = "left")
   data = merge(data, tox, by.x = "id", by.y = "block")
@@ -148,11 +147,11 @@ p2007 = read_in_pov(2007, t2007)
 p2008 = read_in_pov(2008, t2008)
 p2009 = read_in_pov(2009, t2009)
 p2010 = read_in_pov(2010, t2010)
-p2011 = read_in_pov(2011, t2011)
-p2012 = read_in_pov(2012, t2012)
-p2013 = read_in_pov(2013, t2013)
+#p2011 = read_in_pov(2011, t2011)
+#p2012 = read_in_pov(2012, t2012)
+#p2013 = read_in_pov(2013, t2013)
 
-pov_data = rbind.fill(p1990, p1991, p1992, p1993, p1994, p1996, p1997, p1998, p1999, p2000, p2001, p2002, p2003, p2005, p2006, p2007, p2008, p2009, p2010, p2011, p2012, p2013)
+pov_data = rbind.fill(p1990, p1991, p1992, p1993, p1994, p1996, p1997, p1998, p1999, p2000, p2001, p2002, p2003, p2005, p2006, p2007, p2008, p2009, p2010)
 
 #Environmental justice literature has focused largely on the motivations behind facility siting that lead to inequality and policy approaches to help fix the disproportionate burden of environmental hazards on minority communities. The questions being asked are critical to creating policy that helps correct the problem of hazard allocation. A gap in the literature is the need for an investigation of the dynamic world of hazard allocation over time. 
 
@@ -199,12 +198,11 @@ hisp_data = rbind.fill(h1990, h1991, h1992, h1993, h1994, h1996, h1997, h1998, h
 
 msa_tracts = fread("data/census/msa_tracts.csv", data.table = FALSE)[, 1]
 
-data = merge(hisp_data, pov_data, by = c("id", "year"))
+data = merge(hisp_data, pov_data, by = c("id", "year"), all.x = TRUE)
 data = data[, 1:18]
-names(data) = c("id", "year", "pop", "white", "black", "hispanic", "other", "concentration", "area", "whiteh", "whitel", "blackh", "blackl",
-                "otherh", "otherl", "hisph", "hispl", "pop_pov")
+names(data)[8:9] = c("concentration", "area")
 data$density = data$pop/data$area
-sub = sample(1:nrow(data), 20000, replace = FALSE)
+data$pov_pop = rowSums(data[, 10:18])
 
 msa_data = data[data$id %in% msa_tracts, ]
 dense_data = data[data$density > as.numeric(data$density)[5], ]
@@ -222,11 +220,11 @@ on chapters.
 
 # Abstract {.unnumbered}
 
-Environmental justice literature has been significantly limited by data availability. As such, the literature has focused on neighborhood level studies, working hand in hand with organizers to assess and understand micro-level toxcicity disparity patterns in communities. As an injustice inherent to the societal structure of our nation, environmental justice questions need to be addressed at a national scale to truly gain an understanding of where we have been and where we are going. The Risk Screening Environmental Indicator model (RSEI) data was released for public use in 2015, opening a window to work with fine grain toxicity data available nationally since 1988. Combining RSEI toxicity data with Census demographic data allows the creation of empircal distributions of toxicity experienced by any subset of the American public. 
+Environmental justice studies have been significantly limited by data availability. As such, the literature has focused on neighborhood level studies, working hand in hand with organizers to assess and understand micro-level toxcicity disparity patterns in communities. However, as an injustice inherent to the societal structure of our nation, environmental justice questions need to be addressed at a national scale to truly gain understanding. The Risk Screening Environmental Indicator model (RSEI) data was released for public use in 2015, allowing the public to work with fine grain toxicity data available nationally since 1988. 
 
-Improving on past binary measures of pollution exposure, with data on an extended time period, we are able to broach more systematic questions. Specifically we look at: the overall geography of toxicity in America; how the 5th, 50th, and 95th percentiles of toxicity experienced by each race group varies over time; and how protective higher incomes are for differing race groups. Through creating toxicity distributions for minority and low-income groups over the 23 year period, we are able to see how toxicity burdens change over time, and how changes were distributed over different groups. 
+Improving on past binary measures of pollution exposure, with data on an extended time period, we are able to broach more systematic questions. Combining RSEI toxicity data with Census demographic data, we create empircal distributions of toxicity experienced by the American public to look at: the overall geography of toxicity in America; how the 5th, 50th, and 95th percentiles of toxicity experienced by each race group varies over time; and how protective higher incomes are for differing race groups. Through creating toxicity distributions for minority and low-income groups over the 23 year period, we are able to see how toxicity burdens change over time. 
 
-Results show that toxicity is decreasing dramatically for all, and though the gap is closing, there still remains a large difference in toxicity experienced between white and minority groups. 
+Results show that toxicity is decreasing dramatically for all and, though the gap is closing, there still remains a large difference in toxicity experienced between white and minority groups. 
 
 
 ### Keywords {.unnumbered}

@@ -7,6 +7,8 @@ The strength of this analysis relies on the time period avaialable for the RSEI,
 The geographic and temporal range of the data allow for a more in depth analysis of 
 
 Potential future work
+* use IPF to get crosstabs at lower levels. 
+* use more income groups 
 
 
 

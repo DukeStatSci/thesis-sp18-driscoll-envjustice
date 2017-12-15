@@ -6,7 +6,7 @@ The questions we would like to pose - how the distributions of toxicity that ind
 
 This analysis depends on two data sources, the disaggregated RSEI toxic release data (as compiled to contain only releases that are consistently reported between 1990 and 2010) as well as relevant demographic information from the Census. 
 
-RSEI toxicity data can be obtained at extremely fine level (the 800 meter grid across the United States,) but the finest grain Census data is available at is the block level, which contains between 0 and a thousand people. At such low geographic levels, cross tabs aren't available for demographics due to identifiability concerns. Using a low level of geography (like census blocks or block groups) is important for the environmental aspect of this analysis, since environmental hazards can be very localized, especially along neighborhood lines in urban areas. 
+RSEI toxicity data can be obtained at extremely fine level (the 800 meter grid across the United States,) but the finest grain Census data is available at is the block level, which contains between 0 and a few thousand people. At such low geographic levels, cross tabs aren't available for demographics due to identifiability concerns. Using a low level of geography (like census blocks or block groups) is important for the environmental aspect of this analysis, since environmental hazards can be very localized, especially along neighborhood lines in urban areas. 
 
 Unfortunately, the availability of cross tabulations is equally important to the goal of this work in examining inequality of environmental burden held by minority groups in America. The intersection of social identies, especially those steeped in systems of oppression, is extremely important for identifying unequal burdens. For example, low income populations across the board may be more likely to experience environmental hazards, but low income minority populations may be much more likely than low income white populations to experience extreme hazard. The intersections of demographic charictersitics, such as race and income or race and education are likely to be important in teasing out differences true inequality burden. 
 
@@ -75,15 +75,10 @@ g = g + scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
 g
 ```
 
-As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly tract and county data seems to build a distribution quite similar to the block group level assignment. Initial results were replicated using all 3 levels of assignment, and conclusions remained the same. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it lost the street block by street block variation that we had deemed so crucial, meaning aggregating several block groups gives us a conceptual equivalent 'neighborhood' level of aggregation. 
+As expected, the state level assignment is a poor approximation of the lower level assignments. Given that we are assigning each individual the mean toxicity in their entire state, we are eliminating most of the variation from the data. Interestingly tract and county data seems to build a distribution quite similar to the block group level assignment. Initial results were replicated using all 3 levels of assignment, and conclusions remained the same. This may be because the block group level is aggregating a large enough group of our fine grain toxicity data that it has already lost the street block by street block variation that we had deemed so crucial, meaning aggregating several block groups gives us a conceptually equivalent 'neighborhood' level of aggregation. 
 
-The ecological fallacy is a consistent discussion in environmental justice literature. It is speculated to be the reason for varying results, as toxicity data can be sensitive to geographic level of analysis, time of collection, and area. In this case, conclusions appear robust to unit of assignments.
+The ecological fallacy is a consistent discussion in environmental justice literature. It is speculated to be the reason for varying results, as toxicity data can be sensitive to geographic level of analysis, time of collection, and area. In this case, conclusions appear to be relatively robust to unit of assignments.
 
-## Temporal Level of Analysis 
-
-Given the layout of this non-parametric method, we can find the changes in positional distribution for any two given years. Though we are most interested in the complete change from the starting year of 1988 to 2014, the gradual changes and the speed of change from year to year is also of interest. While we have the full range of data from 1988 to 2014 for the toxicity data, we only have available Census data from the decennial census and the ACS. That means that we have snapshots of data from 1990, 2000, and continuous data for 2010 on. 
-
-In order to do a continuous analysis from 1990 until the most recent toxicity data, we chose to use linear interpolation between the decenial census. For 2010 through 2013 data, we use the 5 year ACS sample. 
 
 ## Simulation
 ```{r densityCalcs, include = FALSE}
@@ -93,15 +88,15 @@ density_overall = ewcdf(bg2010$concentration, weights = bg2010$total/sum(bg2010$
 overallperc = round(density_overall(black2010), 4)*100
 ```
 
-To examine the differing changes in environmental burden over time for minority groups we first use simulation to tease apart the forces in play as each group's distribution changes over time. For any given value, the percentile it holds in a minority distribution is likely to be different from the percentile it holds in the overall distribution. For example, in 2010 the 75th percentile of the black distribution is `r black2010`, while that same value is the `r overallperc`th percentile in the overall distribution. 
+To examine the differing changes in environmental burden over time for minority groups we use simulation to tease apart the forces in play as each group's distribution changes over time. For any given toxicity value, the percentile it holds in a minority distribution is likely to be different from the percentile it holds in the overall distribution. For example, in 2010 the 75th percentile of the black distribution is `r black2010`, while that same value is the `r overallperc`th percentile in the overall distribution. 
 
-We expect the mean of minority distributions to reduce over time for two reasons: the entire distribution is slowly shifting right as we see improvements in environmentally friendly production technology and more comprehensive envirnmental regulation; secondly, we hope that with Title VI protetections, and the work of civil rights advocates, minority communities will be better equipped to mobilize against polluters. 
+We expect the mean of minority distributions to reduce over time for two reasons: the entire distribution is slowly shifting right and compressing as we see improvements in environmentally friendly production technology and more comprehensive envirnmental regulation; secondly, we hope that with Title VI protetections, and the work of civil rights advocates, minority communities will be better equipped to mobilize against polluters, shifting the mean of minority distribution right relative to the overall distribution.
 
-In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority individuals held in the overall distribution at the start of the period of study to simulate how each group's distribution would have progressed through time assuming a static position in society at large. This simulation procedure was first discussed by Bayer, Patrick and Kerwin as a method of identifying the true gains in 'Black-White Earning Differences' (2016). The method decomposes observed gains in to two distinct types, distributional convergance, where differences are reduced due to compression of the overall distribution, and positional convergance, where differences are reduced due to changes in the relative means of the distributions.
+In order to track how minority distribution and the overall distribution have changed over the period of study, we use the positions that minority individuals held in the overall distribution at the start of the period of study to simulate how each group's distribution would have progressed through time assuming a static position in society at large. This simulation procedure was first discussed by Bayer, Patrick and Kerwin as a method of identifying the true gains in 'Black-White Earning Differences' (2016). The method decomposes observed gains in to two distinct types, distributional convergence, where inequality is reduced due to compression of the overall distribution, and positional convergence, where inequality is reduced due to changes in the relative means of the distributions.
 
 This simulation proceeds as follows:
 
-* Build an emipirical distribution of toxicity experienced for the entire population and for groups of interest in the starting year. 
+* Build an emipirical distribution of toxicity experienced for the entire population and for each group of interest in the starting year. 
 
 * Sample individuals from the empirical distributions of the groups of interest. 
 
@@ -109,11 +104,11 @@ This simulation proceeds as follows:
 
 * Create an empirical distribution for the entire population in the ending year. 
 
-* For each sampled percentile, find the corresponding toxicity value in the full empirical distribution of the ending year and compile results to create a simulated group of interest.
+* For each computed percentile, find the corresponding toxicity value in the full empirical distribution of the ending year and compile results to create a simulated group of interest.
 
 Using this method we can hold constant the place each individual (and more broadly each group) holds in the overall distribution, but follow the changes in the distribution as a whole. The collection of values simulated now represents where each individual or group would have been if they had held the same relative position in the overall toxicity distribution, meaning there had been no positional improvement for the group as a whole.
 
-If there had been positional improvement for a group, we would expect the simulated distributions to paint a bleaker picture of the environmental burden borne than the true distribution of the ending year. 
+If there had been positional improvement for a group, we would expect the simulated distributions to paint a bleaker picture of the inequalities of environmental burden borne than the true distribution of the ending year. 
 
 ###Simulation Accuracy
 
@@ -143,4 +138,4 @@ grid.arrange(s5, s50, s95, ncol=3)
 
 ```
 
-For the 5th quantile, a relatively low n produces a fairly stable result, sampling with n = 15,000 appears sufficient. Due to the extreme right skew of the data, the 95th percentile requires a larger sample. Still n = 50,000 is sufficient. 
+For the 5th quantile, a relatively small sample produces a fairly stable result, sampling with n = 15,000 appears sufficient. Due to the extreme right skew of the data, the 95th percentile requires a larger sample. Still n = 50,000 is sufficient. 
