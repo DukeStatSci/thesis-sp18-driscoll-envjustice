@@ -14,7 +14,8 @@ body <- dashboardBody(
     ),
     column(width = 4,
            box(width = NULL, status = "warning",
-               textInput("addressInput", label = "Enter your address:", value = "Duke University, Durham, NC")
+               textInput("addressInput", label = "Enter your address:", value = "Duke University, Durham, NC"),
+               actionButton("search", "Search")
            ),
            box(width = NULL, 
                plotOutput("hist", height = 200)

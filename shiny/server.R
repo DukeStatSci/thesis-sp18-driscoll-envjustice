@@ -18,7 +18,15 @@ lower48 = subset(counties, !(counties$STATEFP %in% c("15", "02", "72")))
 nc = subset(counties, counties$STATEFP %in% c("37"))
 p = "+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
 
+
 function(input, output, session) {
+
+  latlon = c(-78.93823, 36.00143)
+  
+  observeEvent(input$search, {
+    latlon = geocode(input$addressInput, output = "latlon", source = "google")
+    print(latlon)
+  })
   
   output$map = renderLeaflet({
     map = leaflet(nc) %>%
@@ -26,9 +34,8 @@ function(input, output, session) {
                   fillOpacity = 0.8, fillColor = ~colorQuantile("YlOrRd", ALAND)(ALAND),
                   highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE))
     
-    latlon = geocode(input$addressInput, output = "latlon", source = "google")
-    ll = SpatialPoints(latlon, proj4string = CRS(p))
-    current = ll %over% nc
+    #ll = SpatialPoints(latlon, proj4string = CRS(p))
+    #current = ll %over% nc #to get the value at the current loc
     
     map = map %>% setView(lng = latlon[1], lat = latlon[2], zoom = 11)
     
