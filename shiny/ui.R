@@ -18,7 +18,10 @@ body <- dashboardBody(
                actionButton("search", "Search")
            ),
            box(width = NULL, 
-               plotOutput("hist", height = 200)
+               plotOutput("national", height = 200)
+           ),
+           box(width = NULL,
+               plotOutput("race", height = 200)
            ),
            p(
              class = "text-muted", "Enter text here so I can give context."
