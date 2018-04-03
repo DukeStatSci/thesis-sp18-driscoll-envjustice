@@ -32,7 +32,10 @@ These three theories all boil down to the same outcome. Despite using different 
 Though the current theories of siting choices would all create the same behavior, the different reasonings can help to explain (and perhaps change) the trends that lead to environmental injustice. 
 
 
-## Goals 
+# Public Access Data
+
+
+# Goals 
 
 This work aims to address some of the limitations of the current environmental justice literature by examining a comprehensive dataset that covers the entire nation, with data spanning from 1990 to 2013. The broad temporal and spatial coverage is nearly unparalleled in environmental justice literature, with the last study of this length spanning the years 1970 to 1994 (Been and Gupta, 1997), which relied only upon tract level hazardous waste site data. 
 

@@ -6,6 +6,7 @@ library(ggmap)
 library(rgdal)
 library(readr)
 
+#TODO: profiling shiny apps
 #TODO: pass tract data when zoom is > 11
 #TODO: make the map appear on startup
 #TODO: create a warning thing for when geolocation fails.
@@ -76,7 +77,7 @@ function(input, output, session) {
       theme(legend.position = "bottom") + 
       scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
         labels = scales::trans_format("log10", scales::math_format(10^.x)),
-        limits = c(0.1, 28000)) +
+        limits = c(0.5, 45000)) +
       annotation_logticks(
         short = unit(.5,"mm"),
         mid = unit(2,"mm"), 
@@ -86,12 +87,12 @@ function(input, output, session) {
   }) 
   
   output$race = renderPlot({
-    ggplot() + geom_density(aes(tract()$tox, weight = tract()$black/sum(tract()$black), color = "black")) + xlab("Log Toxicity") +
-      geom_density(aes(tract()$tox, weight = tract()$white/sum(tract()$white), color = "white")) +
+    ggplot() + geom_density(aes(tract()$tox, weight = tract()$black/sum(tract()$black), fill = "black"), alpha = 0.4 , color = NA) + xlab("Log Toxicity") +
+      geom_density(aes(tract()$tox, weight = tract()$white/sum(tract()$white), fill = "white"), alpha = 0.4 , color = NA) +
       theme(legend.position = "bottom") +
       scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
                     labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                    limits = c(0.1, 28000)) +
+                    limits = c(0.5, 45000)) +
       annotation_logticks(
         short = unit(.5,"mm"),
         mid = unit(2,"mm"), 
