@@ -27,13 +27,9 @@ The overt discrimination theory speculates on the intentions of the individuals 
 
 The institutional discrimination theory relies primarily on housing dynamics. Based on the knowledge that the number of minority individuals living near a sited facility has risen since first measured (Crowder et al., 2010), the theory states that minorities move towards polluting facilities due to reduced choice in the housing market. Reduced choice can arise in several ways: the choices realtors make in showing homes or the availability of mortgages or loans. Local governments can compound the problems with housing, as minority areas are more likely to be rezoned for industrial purposes by local government (Pais et al., 2013). 
 
-These three theories all boil down to the same outcome. Despite using different language and justifications, all represent different forms of institutional discrimination. Economic explanations rely on the segregation of minority communities created by redlining. Redlining destroyed investment in communities, prevented black families from investing in homes, and enforced segregated communities. Redlining created the geography and culture that enables economic and sociopolitical explanation, making it a consequence of previous overt discrimination.
+These three theories all boil down to the same outcome. Despite using different language and explanations, all represent different forms of institutional discrimination. Economic explanations rely on the segregation of minority communities created by redlining. Redlining destroyed investment in communities, prevented black families from investing in homes, and enforced segregated communities. Redlining created the geography and culture that enables economic and sociopolitical explanation, making it a consequence of previous overt discrimination.
 
 Though the current theories of siting choices would all create the same behavior, the different reasonings can help to explain (and perhaps change) the trends that lead to environmental injustice. 
-
-
-# Public Access Data
-
 
 # Goals 
 
@@ -45,4 +41,4 @@ Several questions will be addressed:
 
 * Simulating how minority distributions would currently look given they had held constant their relative position in the overall distributions. This measure allows us to see how much of the improvement we see is attributable to the compression of the overall toxicity distribution, and how much improvement is attributable to changes in the relative state of minority groups. 
 
-* An initial analysis of how income, and its relationship with minority status, is related to experienced toxicity.
+* An app that provides access to information on the local state of environmental justice. 

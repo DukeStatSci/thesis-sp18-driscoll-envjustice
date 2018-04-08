@@ -1,0 +1,10 @@
+name: shiny
+title:
+username:
+account: amd112
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 315569
+bundleId: 1302456
+url: https://amd112.shinyapps.io/shiny/
+when: 1522872128.66584

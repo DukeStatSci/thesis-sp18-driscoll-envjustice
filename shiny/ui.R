@@ -18,7 +18,7 @@ body <- dashboardBody(
                actionButton("search", "Search")
            ),
            p(
-             class = "text-muted", "This plot shows the distribution of toxicity experienced nationally, as compared to the distribution of toxicity experienced within your county."
+             class = "text-muted", "This plot shows the distribution of toxicity experienced across the nation, the state, and within your county."
            ),
            box(width = NULL, 
                plotOutput("national", height = 200)

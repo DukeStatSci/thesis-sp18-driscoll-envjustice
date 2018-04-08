@@ -60,14 +60,18 @@ If you receive a duplicate label error after knitting, make sure to delete the i
 -->
 
 ```{r libraries, include_packages, include = FALSE}
+knitr::opts_chunk$set(fig.width=10, fig.height=4, echo = FALSE) 
+knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
+
 if(!require(devtools))
   install.packages("devtools", repos = "http://cran.rstudio.com")
 if(!require(thesisdowndss))
   devtools::install_github("mine-cetinkaya-rundel/thesisdowndss")
 library(thesisdowndss)
+devtools::install_github("amd112/rseiAnalysis")
+library("rseiAnalysis")
+
 library(knitr)
-knitr::opts_chunk$set(fig.width=10, fig.height=4, echo = FALSE) 
-knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
 library(magrittr)
 library(readr)
 library(ggplot2)
@@ -81,13 +85,12 @@ library(readr)
 library(tidyr)
 library(lme4)
 library(devtools)
-devtools::install_github("amd112/rseiAnalysis")
-library("rseiAnalysis")
-#needed for RSEI
-set.seed(4012)
 library(data.table)
 library(grid)
 library(gridExtra)
+
+#needed for RSEI
+set.seed(4012)
 ```
 
 ```{r readInData, include = FALSE}
@@ -226,7 +229,7 @@ By combining RSEI and Census demographic data, we are able to assign experienced
 
 Results show that toxicity is decreasing dramatically for all and, though the gap is closing, there still remains a large difference in toxicity experienced between white and minority groups. Additionally, the effects of income on experienced toxicity are unclear, and may need additional data to untangle. 
 
-RSEI data is released under The Emergency Planning and Community Right-to-Know Act (EPCRA,) and contains data that would be incredibly useful to communities, but is incredibly intricate and complex. These results are incorporated in to a publicly available app that allows users to investigate toxicity in their area relative to the US, and investigate the differences in racial toxicty burden.
+RSEI data is released under The Emergency Planning and Community Right-to-Know Act (EPCRA,) and contains data that would be useful to communities, but is incredibly intricate and complex. These results are incorporated in to a publicly available app that allows users to investigate toxicity in their area relative to the US at large, and investigate the differences in local racial toxicty burden.
 
 
 ### Keywords {.unnumbered}
