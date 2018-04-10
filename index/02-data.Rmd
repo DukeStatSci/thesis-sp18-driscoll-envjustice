@@ -1,14 +1,14 @@
 # Data {#data}
 
-## Raw Data
+## Risk Screening Environmental Indicators Model Data
 
 The Risk Screening Environmental Indicators (RSEI) Model is a geographically detailed data set produced by the Environmental Protection Agency (EPA). RSEI data is based upon the Toxic Release Inventory (TRI), which collects data on toxic releases in the US. 
 
 TRI data is self reported by facilities, with each observation being a release of a reporting chemical at a reporting facility. For each observation, data is collected on which chemical was released, how much of it was released, and the facility from which it was released. This data is collected for a mandated set of industries, facilities, and chemicals that change over time.
 
-The detailed location and chemical data that is collected through TRI is reformatted through a fate and transport model to create RSEI. The RSEI data shows where each release has traveled on an 800m grid across the USA. The ultimate data is an observation for each release, for each square in the grid that the release hits. This gives us an idea of how the chemicals spread from the source locations, and enables us to create a map across the entire nation for where TRI chemicals accumulate in any year between 1988 and 2014. This is a much improved measure of pollution, as it theoretically shows the true amount of toxins experienced in any given location.
+The detailed location and chemical data that is collected through TRI is reformatted through a fate and transport model to create RSEI. The RSEI data shows where each release has traveled on an 800m by 800m grid across the USA. The ultimate data is an observation for each release, for each square in the grid that the release hits. This gives us an idea of how the chemicals spread from the source locations, and enables us to create a map across the entire nation for where TRI chemicals accumulate in any year between 1988 and 2014. This is a much improved measure of pollution, as it theoretically shows the true amount of toxins experienced in any given location.
 
-The initial RSEI disaggregated microdata is approximately 4 terabytes of data. Given that the 800m grid across the United States has on the order of 10 billion squares, each release hits many squares, we have many releases, and the data covers 24 years, this is an enormous data set.
+The initial RSEI disaggregated microdata is approximately 4 terabytes of data. Given that the 800m by 800m grid across the United States has on the order of 10 billion squares, each release hits many squares, we have many releases, and the data covers 24 years, this is an enormous data set.
 
 The RSEI reformat of the TRI contains the following variables: X and Y are the geographic identifiers for the square on the grid across the US, with (0, 0) in the center of the US. Release number tells us which release that row is associated with. Chemical number through media are all release specific data. Conc (concentration) is specific to the release at that square, indicating the concentration of the chemical across that grid cell. ToxConc is the toxicity weighted concentration of that release in that grid cell. 'Score' variables are toxicity values as weighted by the population in that grid cell. 
 
@@ -29,39 +29,39 @@ Below see an example of the disaggregated microdata:
 
 Due to the nature of the data, there are a few interesting caveats to consider. 
 
-* The RSEI data is self reported, and has been thought to contain some severe underreporting. (De Marchi and Hamilton, 2006)
+The RSEI data is self reported, and has been thought to contain some severe underreporting (De Marchi and Hamilton, 2006). This could lead to low estimates of toxicity, and could bias results if certain areas or industries are more likely to underreport.
 
-* The data is entirely based off a black box fate and transport model. The model has uncertainty that is not reported in RSEI and therefore is not being addressed. 
+The data is entirely based off a black box fate and transport model. The model has uncertainty that is not reported in RSEI and therefore is not being addressed. The raw data we use are estimates to begin with, but are being treated as observed data. 
 
-* The data only captures releases for certain facility types within certain industries, for certain chemical types within those facilities. Not all chemicals are mandated reporting, and any analysis that is done based off the data can't be extrapolated to discuss toxicity more generally. 
+The data only captures releases for certain facility types within certain industries, for certain chemical types within those facilities. Not all chemicals are mandated reporting, and any analysis that is done based off the data can't be extrapolated to discuss toxicity more generally. Some important industries (like mining) are not monitored over the entire period, so areas that strongly represent those industries will have deflated toxicity estimates. 
 
-* Not only does the data not capture all chemicals, it also doesn't address many common nuisances. Because of this, it is difficult to relate the RSEI scores to health or quality of life outcomes in an area. In discussion of environmental toxicity more generally, it is worth noting that certain toxicity types may  be more or less likely to cause adverse effects based on how they reach people in the area (eg. they may or may not reach local water systems). There are also more obvious environmental hazards, that are likely to have strong influence on public health and living conditions that TRI doesn't address, eg: brownfields, solid waste disposal, animal farming, hazardous waste, etc.
+Not only does the data not capture all chemicals, it also doesn't address many common nuisances. Because of this, it is difficult to relate the RSEI scores to health or quality of life outcomes in an area. In discussion of environmental toxicity more generally, it is worth noting that certain toxicity types may be more or less likely to cause adverse effects based on how they reach people in the area (eg. they may or may not reach local water systems). There are also more obvious environmental hazards, that are likely to have strong influence on public health and living conditions that TRI doesn't address, eg: brownfields, solid waste disposal, animal farming, hazardous waste, etc.
 
-* RSEI gives the weight of the release and the chemical of the release, but chemicals have very different levels of toxicity. A small amount of mercury released is much more problematic than a small amount of CO2. To that end, the EPA assigned each chemical a 'toxicity' weight, by which the amount of the chemical released is multiplied. This means that we can aggregate all the chemicals in an area, and compare the overall toxicity over space and time. The toxicity weights allow us to compare to other chemicals' toxicity weight, and overall toxicity of a given chemical release, but also means that the values only have meaning in comparison.
+Another detail of the data that makes interpreting results difficult is the way chemicals are compared. RSEI gives the weight of the release and the chemical of the release, but chemicals have very different levels of toxicity. A small amount of mercury released is much more problematic than a small amount of CO2. To that end, the EPA assigned each chemical a 'toxicity' weight, by which the amount of the chemical released is multiplied. This means that we can aggregate all the chemicals in an area, and compare the overall toxicity over space and time. The toxicity weights allow us to compare to other chemicals' toxicity weight, and overall toxicity of a given chemical release, but also means that the values only have meaning in comparison.
 
 Despite the limitations that the data presents, it provides an incredibly detailed and complex view of toxicity in America that is worth delving in to. 
 
-## Consistency in Reporting (detailed data description)
+## Data Consistency
 
 ### Census Comparability
 
 RSEI data is available between 1988 and 2015, and over that time Census geographies have experienced considerable overhaul. Many of our questions of interest involve demographic characteristics, and the changes we see in environmental toxicity over time for those demographics. As such, we need to be able to aggregate the toxicity to block group or tract level to be able to merge with Census data. To do so, we caluclate the toxicity values in Census 2010 geography. Since we want to use Census areas as the unit of analysis, we use crosswalks that help us transform past Census data to the 2010 geographies. 
 
-### Details of Chemical Consistency
+### Chemical Consistency
 
 Comparability across time, space, and chemicals is a consistent topic through this section. Though the EPA is incredibly detailed in their data collection, they are also subject to changing scientific consensus, and therefore haven't been able to provide entirely consistent data. 
 
 Over time, as chemicals have been found to be toxic, they have been added to the list of TRI mandated reporting chemicals. There are also chemicals that through renewed understanding have been removed from the mandated reporting list. Because the list of chemicals reported changes over time, aggregating all the data would cause us to see artificial jumps in toxicity. These jumps wouldn't be reflective of actual increases in toxicity, but rather that the toxicity was beginning to be measured. These jumps may change what areas appear toxic in the data, as industries that don't have to report at some point in the time frame will be entirely removed from the dataset. Several of those industries are very highly polluting, and after elimination locations that focus strongly on those industries will show inaccurate low scores. 
 
-### Details of Industry Reporting Consistency
+### Industry Reporting Consistency
 
 TRI regulates who needs to self report using the North American Industry Classification System (NAICS), and before NAICS was available used its predecessor, the Standard Industrial Classification (SIC) system. Just as we see changes in the regulations for chemicals, we see changes in the regulations of various industries. NAICS codes that need to report are regulated independently of chemical codes, and NAICS codes that are not consistently reported across the time period of interest must be removed to maintain continuity. As an example, a textiles facility releasing mercury might fall under mandated reporting due to their NAICS code, but the neighboring mining facility that also releases mercury might not have to report becuase of the NAICS code. If that changes over the time period, and suddenly the mining industry also mandates reporting, we will see an artificial huge jump in the mercury present in that area if we don't remove by industry.
 
-## Ultimate Data Form
+## Data Cleanup
 
 This data cleaning is done through R, using the DBI and SQLite packages. Since there is so much data, it's not feasible to process it using typical R functions, so after loading the data in to a database, it becomes queryable using SQL. This significantly speeds up the processes detailed below.
 
-The disaggregated microdata from RSEI is one observation per release per block on the 800m grid that it reached. We filter each of the billions of observations to check that it is 
+The disaggregated microdata from RSEI is one observation per release per block on the 800m by 800m grid that it reached. We filter each of the billions of observations to check that it is 
 
 * from a chemical that is consistent across the relevant years, and
 

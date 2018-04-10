@@ -60,6 +60,7 @@ If you receive a duplicate label error after knitting, make sure to delete the i
 -->
 
 ```{r libraries, include_packages, include = FALSE}
+library(knitr)
 knitr::opts_chunk$set(fig.width=10, fig.height=4, echo = FALSE) 
 knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80),tidy=TRUE)
 
@@ -71,13 +72,13 @@ library(thesisdowndss)
 devtools::install_github("amd112/rseiAnalysis")
 library("rseiAnalysis")
 
-library(knitr)
 library(magrittr)
 library(readr)
 library(ggplot2)
 library(dplyr)
 library(plyr)
 library(zoo)
+library(lemon)
 library(stringr)
 library(spatstat)
 library(quantreg)
@@ -225,9 +226,9 @@ on chapters.
 
 Environmental justice studies have been significantly limited by data availability, focusing on neighborhood level studies and working hand in hand with organizers to study toxcicity disparity patterns within communities. As an injustice inherent to the societal structure of our nation, environmental justice questions should be addressed at a national scale. The Risk Screening Environmental Indicator model (RSEI) data was released for public use in 2015, allowing work with fine grain toxicity data available nationally since 1988. 
 
-By combining RSEI and Census demographic data, we are able to assign experienced toxicity measures to the people residing in each block group. This fine grain data, over an extended time period, allows discussion of macro level trends including: the overall geography of toxicity in America; how the 5th, 50th, and 95th percentiles of toxicity experienced by each race group varies over time; and how protective higher incomes are for each race group. 
+RSEI data is extremely fine grain, but contains many inconsistencies over time, and needs to be aggregated to Census geography. By aggregating RSEI data, we are able to calculate toxicity measures for each block group. In combination with Census data, this allows us to build distributions of toxicity experienced by minority groups in America. This fine grain data, over an extended time period, allows discussion of macro level trends including: the overall geography of toxicity in America; how the 5th, 50th, and 95th percentiles of toxicity experienced by each race group varies over time; and how protective higher incomes are for each race group. 
 
-Results show that toxicity is decreasing dramatically for all and, though the gap is closing, there still remains a large difference in toxicity experienced between white and minority groups. Additionally, the effects of income on experienced toxicity are unclear, and may need additional data to untangle. 
+Results show that toxicity is decreasing dramatically for all and, though the gap is closing, there still remains a large difference in toxicity experienced between white and minority groups. Additionally, the effects of income on experienced toxicity are unclear, and may need additional data to untangle.
 
 RSEI data is released under The Emergency Planning and Community Right-to-Know Act (EPCRA,) and contains data that would be useful to communities, but is incredibly intricate and complex. These results are incorporated in to a publicly available app that allows users to investigate toxicity in their area relative to the US at large, and investigate the differences in local racial toxicty burden.
 

@@ -29,7 +29,7 @@ counties@data =data.frame(counties@data, data_county[match(counties@data[,"GEOID
 
 #lower48 = subset(counties, !(counties$STATEFP %in% c("15", "02", "72")))
 matrix = read.csv("state_adjacent.csv", header = FALSE)
-nc = subset(counties, counties$STATEFP == "37")
+nc = subset(counties, counties$STATEFP %in% c("37", "51", "47", "13", "45"))
 p = "+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
 
 
@@ -57,15 +57,22 @@ function(input, output, session) {
     subset(counties, counties@data$STATEFP %in% adjacent_list())
   })
   
+  observeEvent(input$search, {
+    leafletProxy("map", session, data = map_data()) %>%
+      #addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 0.5, 
+      #            fillOpacity = 0.8, fillColor = ~pal(log(tox) * abs(log(tox)))
+      #) %>%
+      setView(lng = latlon()[1], lat = latlon()[2], zoom = 9) 
+  })
+  
   output$map = renderLeaflet({
-    map = leaflet(map_data()) %>%
+    map = leaflet(counties) %>%
       addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 0.5, 
                   fillOpacity = 0.8, fillColor = ~pal(log(tox) * abs(log(tox)))
-                  #, highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE)
                   ) %>%
       addLegend(position = "topleft", title = "", pal = pal, values = log(counties@data$tox) * abs(log(counties@data$tox)))
     
-    map = map %>% setView(lng = latlon()[1], lat = latlon()[2], zoom = 9) 
+    map = map %>% setView(lng = -78.94001, lat = 36.00153, zoom = 9) 
     
     map
   })

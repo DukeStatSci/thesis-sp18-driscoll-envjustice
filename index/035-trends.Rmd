@@ -1,4 +1,4 @@
-# General Trends {#trends}
+# Exploratory Analysis {#trends}
 
 ## Toxicity Trends
 

@@ -6,10 +6,10 @@ Using data at the tract level, we assign the tract concentration to the populati
 
 For each of the distributions, the 5th, 50th, and 95th percentiles are calculated for each time period. In the case of toxicity, the 5th and 95th percentiles are especially of interest, as they represent the non-polluted neighborhoods that each group has access to and the level of pollution trap that each group falls in to. Clearly, for all variables, lower toxicity is better. 
 
-Plots describing the trends for each quantile are shown below. On the left is the log toxicity for the quantile over time. On the right is the toxicity minorities experience relative to the white distribution. These values are computed as the net (not log) toxicity of the given quantile for a group divided by the net toxicity of the quantile for the white distribution.
+Plots describing the trends for each percentile are shown below. On the left is the log toxicity for the percentile over time. On the right is the toxicity minorities experience relative to the white distribution. These values are computed as the net (not log) toxicity of the given percentile for a group divided by the net toxicity of the percentile for the white distribution.
 
 
-```{r quantileCalcs, echo = FALSE, message = FALSE, warning = FALSE}
+```{r percentileCalcs, echo = FALSE, message = FALSE, warning = FALSE}
 library(plyr)
 
 sim05 = fread("data/simulation05.csv", data.table = FALSE)
@@ -47,12 +47,11 @@ perc95 = get_perc(data, 0.95, sim = sim95)
 ```{r createPlots, echo = FALSE, message = FALSE, fig.width=8, fig.height=4}
 tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
   g = ggplot(data = cur_data) + 
-  geom_line(aes(x = year, y = white, color = "white")) +
-  geom_line(aes(x = year, y = black, color = "black")) + 
-  geom_line(aes(x = year, y = hispanic, color = "hispanic")) + 
-  geom_line(aes(x = year, y = other, color = "other")) + 
-  labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity")) +
-  theme(plot.title = element_text(hjust = 0.5))
+    geom_line(aes(x = year, y = white, color = "white")) +
+    geom_line(aes(x = year, y = black, color = "black")) + 
+    geom_line(aes(x = year, y = hispanic, color = "hispanic")) + 
+    geom_line(aes(x = year, y = other, color = "other")) + 
+    labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
   }
@@ -79,7 +78,6 @@ tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
 relative_tox = function(data, perc, legend = FALSE, smooth = FALSE) {
   g = ggplot(data) +
     labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution"), colour = "Color") +
-    theme(plot.title = element_text(hjust = 0.5)) +
     theme(legend.position="bottom")
   if (smooth == TRUE) {
     g = g + 
@@ -116,8 +114,7 @@ pov_tox = function(cur_data, perc, legend = FALSE) {
     geom_line(aes(x = year, y = nativel, color = "native")) + 
     geom_line(aes(x = year, y = asianl, color = "asian")) + 
     geom_line(aes(x = year, y = otherl, color = "other")) + 
-    labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th PCTL Toxicity"), color = "Legend") +
-    theme(plot.title = element_text(hjust = 0.5))
+    labs(x = "Year", y = "Group Toxicity", title = paste0(perc, "th PCTL Toxicity"), color = "Legend")
   if (legend == FALSE) {
     g = g + guides(color = FALSE)
   }
@@ -167,7 +164,7 @@ grid.arrange(arrangeGrob(ninetyfive, ninetyfive_rel, nrow=1),
              arrangeGrob(color_legend, line_legend, nrow=1), nrow=2,heights=c(10, 1))
 ```
 
-Ninety-fifth percentile toxicity is in some ways the most of interest. The difference between estimates for white and minorities is approximately an order of magnitude at the 5th, 50th, and 95th percentile, but at this level an order of magnitude is more significant than in the 5th percentile. An interesting difference is that at the high end of the distribution, we see the 'other' minority group has a relative toxicity close to 1, where in previous plots the other group had significantly worse relative toxicity. It's important to consider that although race groups had to be combined to maintain consistency over the time period, may groups are represented in the 'other' category. The difference we see in the trends may be due to the populations that are more likely to live in areas at the 95th percentile of toxicity. The Hispanic group previously performed closest to the white group, at the 95th percentile the Hispanic group performs more similarly to the black distribution. 
+95^th^ percentile toxicity is in some ways the most of interest. The difference between estimates for white and minorities is approximately an order of magnitude at the 5th, 50th, and 95th percentile, but at this level an order of magnitude is more significant than in the 5th percentile. An interesting difference is that at the high end of the distribution, we see the 'other' minority group has a relative toxicity close to 1, where in previous plots the other group had significantly worse relative toxicity. It's important to consider that although race groups had to be combined to maintain consistency over the time period, may groups are represented in the 'other' category. The difference we see in the trends may be due to the populations that are more likely to live in areas at the 95th percentile of toxicity. The Hispanic group previously performed closest to the white group, at the 95th percentile the Hispanic group performs more similarly to the black distribution. 
 
 Examining the changes in each of these plots independently gives us a glimpse at how the distributions as a whole are shifting. The lack of change, or even worsening, of relative toxicity for the black and other distributions at the 5th percentile may be indicative of barriers minorities face in access to clean communities. As wealthier communities are getting ever cleaner, minorities are still unable to gain access to them, meaning less improvement in the low tail of the minority distributions.  
 
@@ -177,20 +174,19 @@ In the 95th percentile, we see the Hispanic group performing similarly to the wh
 
 In essence we are seeing the "rich getting richer" phenomenon in the 5th percentile of the white distribution. Those that already have access to clean communities are seeing improved toxicity, with those who weren't already in clean communities unable to catch up, as they are locked out of the lowest toxicity communities. 
 
-## Simulating Changes
+## Trends in Simulated Minority Toxicity Burden
 
 Being able to build the true distributions that each group experiences over time allows us to see how relative toxicity burden has changed over time. Yet the changes presented in the analysis above are solely the net changes experienced by each group. Given minorities are more likely to be in the right tail of the distribution, any compression of that tail would result in both a net improvement for minority groups and a relative improvement to the white distribution. Those changes, though positive, don't represent a true change in the position minorities hold in the distribution, as their relative position is still in the high percentiles of the distribution, only the distribution has shifted favorably. 
 
 To find how much of the change is attributable to changes of minority position, we use the simulation method discussed in section 3. By holding the percentile of each individual constant, but applying it to the new distribution, we can see what the minority distribution would have looked like if the minority position within the overall distribution had not changed. 
 
-Improvement will only represent true environmental justice when all groups are equally likely to be represented at any given quantile, not when the distribution is compressed enough that differences are negligible. 
+Improvement will only represent true environmental justice when all groups are equally likely to be represented at any given percentile, not when the distribution is compressed enough that differences are negligible. 
 
 
 ```{r changePlots, echo = FALSE, warning = FALSE, fig.width=10, fig.height=4}
 sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
   g = ggplot(data = cur_data) + 
-        labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity")) +
-        theme(plot.title = element_text(hjust = 0.5))
+        labs(x = "Year", y = "Toxicity", title = paste0(perc, "th PCTL Group Toxicity"))
   if (smooth == TRUE) {
     g = g +
       geom_line(aes(x = year, y = white, color = "white"), alpha = 0.3) +
@@ -230,8 +226,7 @@ sim_tox = function(cur_data, perc, legend = FALSE, smooth = FALSE, log = TRUE) {
 
 relative_sim = function(data, perc, legend = FALSE, smooth = FALSE) {
   g = ggplot(data) +
-    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution")) +
-    theme(plot.title = element_text(hjust = 0.5)) + 
+    labs(x = "Year", y = "Toxicity Relative to White Dist.", title = paste0(perc, "th PCTL Toxicity Relative to White Distribution")) + 
     theme(legend.position="bottom") +
     geom_line(aes(x = year, y = (white/white), color = "white")) 
   if (smooth == TRUE) {
@@ -285,46 +280,58 @@ grid.arrange(arrangeGrob(sim_tox(perc95, 95), relative_sim(perc95, 95), nrow=1),
              arrangeGrob(color_legend, line_legend, nrow=1), nrow=2,heights=c(10, 1))
 ```
 
-Simulations of the 95th percentile show even less improvement, meaning nearly all the change minorities experience is from moving towards a lower quantile in the overall distribution. At the 95th percentile the black distribution shows the largest difference to it's simulated distribution. The simulated black 95th percentile ends at 2.25 times that of the white distribution, while the 95th percentile of the true distribution ends at 1.75 times that of the white distribution. 
+Simulations of the 95th percentile show even less improvement, meaning nearly all the change minorities experience is from moving towards a lower percentile in the overall distribution. At the 95th percentile the black distribution shows the largest difference to it's simulated distribution. The simulated black 95th percentile ends at 2.25 times that of the white distribution, while the 95th percentile of the true distribution ends at 1.75 times that of the white distribution. 
 
-From this we see that the distribution of quantiles occupied by minority groups was originally shifted towards the higher quantiles, but over time have shifted right. Plotting the percentiles of each group within their full distribution that year, we see that in 1990 all minority groups are strongly skewed towards the higher end of the distribution. As time goes on, more minorities exist in the lower percentiles, and more whites exist in the higher percentiles of the distribution.
+From this we see that the distribution of percentiles occupied by minority groups was originally shifted towards the higher percentiles, but over time have shifted right. Plotting the percentiles of each group within their full distribution that year, we see that in 1990 all minority groups are strongly skewed towards the higher end of the distribution. As time goes on, more minorities exist in the lower percentiles, and more whites exist in the higher percentiles of the distribution.
 
-```{r densityplots, warning = FALSE,echo = FALSE, fig.width=10, fig.height=4, message = FALSE}
+```{r densityplots, warning = FALSE,echo = FALSE, fig.width=10, fig.height=6, message = FALSE}
 quants = read_csv("data/quantiles.csv")
-p2013 = ggplot(quants) + 
-  geom_density(aes(black2013, fill = "black", color = "black"), alpha = 0.05) + 
-  geom_density(aes(white2013, fill = "white", color = "white"), alpha = 0.05) + 
-  geom_density(aes(other2013, fill = "other", color = "other"), alpha = 0.05) + 
-  geom_density(aes(hispanic2013, fill = "hisp", color = "hisp"), alpha = 0.05) + 
-  labs(x = "Percentile in 2013", y = "Density") +
-  guides(color = FALSE, fill = FALSE)
-p1990 = ggplot(quants) + 
-  geom_density(aes(black1990, fill = "black", color = "black"), alpha = 0.05) + 
-  geom_density(aes(white1990, fill = "white", color = "white"), alpha = 0.05) + 
-  geom_density(aes(other1990, fill = "other", color = "other"), alpha = 0.05) + 
-  geom_density(aes(hispanic1990, fill = "hisp", color = "hisp"), alpha = 0.05) + 
-  labs(x = "Percentile in 1990", y = "Density") +
-  guides(color = FALSE, fill = FALSE)
-p2000 = ggplot(quants) + 
-  geom_density(aes(black2000, fill = "black", color = "black"), alpha = 0.05) + 
-  geom_density(aes(white2000, fill = "white", color = "white"), alpha = 0.05) + 
-  geom_density(aes(other2000, fill = "other", color = "other"), alpha = 0.05) + 
-  geom_density(aes(hispanic2000, fill = "hisp", color = "hisp"), alpha = 0.05) + 
-  labs(x = "Percentile in 2000", y = "Density") +
-  guides(color = FALSE, fill = FALSE)
 
-grid.arrange(arrangeGrob(p1990, p2000, p2013, nrow=1),
-             color_legend, nrow=2,heights=c(10, 1))
+quants$y2013 = "2013"
+quants$y2000 = "2000"
+quants$y1990 = "1990"
+
+legend_grab = ggplot(quants) + 
+  geom_density(aes(hispanic2013, linetype = y2013), alpha = 0.05, size = 1) + 
+  geom_density(aes(hispanic2000, linetype = y2000), alpha = 0.05, size = 1) + 
+  geom_density(aes(hispanic1990, linetype = y1990), alpha = 0.05, size = 1) +
+  labs(x = "Percentile", y = "Density") + ylim(0, 1.8) + theme(legend.position = "bottom") + labs(linetype = "Year")
+
+year_legend = g_legend(legend_grab)
+
+pblack = ggplot(quants) + 
+  geom_density(aes(black2013, fill = "black", color = "black", linetype = y2013), alpha = 0.05, size = 1) + 
+  geom_density(aes(black2000, fill = "black", color = "black", linetype = y2000), alpha = 0.05, size = 1) + 
+  geom_density(aes(black1990, fill = "black", color = "black", linetype = y1990), alpha = 0.05, size = 1) + 
+  labs(x = "Percentile", y = "Density") +
+  guides(color = FALSE, fill = FALSE, linetype = FALSE) + ylim(0, 1.8)
+
+pwhite = ggplot(quants) + 
+  geom_density(aes(white2013, linetype = y2013), fill = "mediumorchid", color = "mediumorchid" ,alpha = 0.05, size = 1) + 
+  geom_density(aes(white2000, linetype = y2000), fill = "mediumorchid", color = "mediumorchid", alpha = 0.05, size = 1) + 
+  geom_density(aes(white1990, linetype = y1990), fill = "mediumorchid", color = "mediumorchid", alpha = 0.05, size = 1) +
+  labs(x = "Percentile", y = "Density") +
+  guides(color = FALSE, fill = FALSE, linetype = FALSE) + ylim(0, 1.8)
+
+phispanic = ggplot(quants) + 
+  geom_density(aes(hispanic2013, linetype = y2013), fill = "olivedrab4", color = "olivedrab4" ,alpha = 0.05, size = 1) + 
+  geom_density(aes(hispanic2000, linetype = y2000), fill = "olivedrab4", color = "olivedrab4", alpha = 0.05, size = 1) + 
+  geom_density(aes(hispanic1990, linetype = y1990), fill = "olivedrab4", color = "olivedrab4", alpha = 0.05, size = 1) +
+  labs(x = "Percentile", y = "Density") +
+  guides(color = FALSE, fill = FALSE, linetype = FALSE) + ylim(0, 1.8)
+
+grid.arrange(arrangeGrob(pwhite, pblack, phispanic, nrow=3),
+             arrangeGrob(color_legend, year_legend, nrow=1), nrow = 2,heights=c(10, 1))
 ```
 
 
 ## Interacting Risk Cases
 
-Above we've seen the differing experiences of changing toxicities by race. We find that toxicity is significantly improving for all, but relative improvement has begun to stagnate for minority groups at some levels. This begs the question of what the trends are for individuals with interacting risk cases. Given the multifaceted social identities individuals hold, a single metric will by definition be missing part of the pattern. Ideally we would be able to represent the complex power structures and dynamic social categorizations in our society, but with limited data, and the inherent complexity of the problem, we can begin to broach this problem by looking at the intersection of two commonly discussed at risk groups. In this case we examine how the trends of experienced toxicity vary for each race group when considering income levels.
+Above we have seen the differing experiences of changing toxicities by race. We find that toxicity is significantly improving for all, but relative improvement has begun to stagnate for minority groups at some levels. This begs the question of what the trends are for individuals with interacting risk cases. Given the multifaceted social identities individuals hold, a single metric will by definition be missing part of the pattern. Ideally we would be able to represent the complex power structures and dynamic social categorizations in our society, but with limited data, and the inherent complexity of the problem, we can begin to broach this problem by looking at the intersection of two commonly discussed at risk groups. In this case we examine how the trends of experienced toxicity vary for each race group when considering income levels.
 
-To do so we split households in to low income (under 25k,) medium (between 25 and 75k,) and high income (over 75k).
+To do so we split households in to low income (under 25,000,) medium (between 25,000 and 75,000,) and high income (over 75,000).
 
-```{r incPlots, include = FALSE, warning = FALSE, fig.width=10, fig.height=4}
+```{r incPlots, include = FALSE, warning = FALSE, fig.width=10, fig.height=8}
 pov = data[!is.na(data$blackh), ]
 pov05 = get_perc(pov, 0.05, variables = names(data)[10:18])
 pov50 = get_perc(pov, 0.50, variables = names(data)[10:18])
@@ -337,59 +344,59 @@ line_income_legend = g_legend(legend_grab)
 black = ggplot() + 
   geom_line(aes(x = year, y = blackh), color = "coral2", linetype = "longdash", pov95) +
   geom_line(aes(x = year, y = blackm), color = "coral2", size = 0.7, pov95) + 
-  geom_ribbon(aes(x = year, ymax = blackh, ymin = blackl), fill = "coral2", alpha = 0.3, pov95) + 
+  geom_line(aes(x = year, y = blackl), color = "coral2", linetype = "dotted", pov95) + 
   geom_line(aes(x = year, y = blackh), color = "coral2", linetype = "longdash", pov05) +
   geom_line(aes(x = year, y = blackm), color = "coral2", size = 0.7, pov05) + 
-  geom_ribbon(aes(x = year, ymax = blackh, ymin = blackl), fill = "coral2", alpha = 0.3, pov05) +  
+  geom_line(aes(x = year, y = blackl), color = "coral2", linetype = "dotted", pov05) +  
   geom_line(aes(x = year, y = blackh), color = "coral2", linetype = "longdash", pov50) +
   geom_line(aes(x = year, y = blackm), color = "coral2", size = 0.7, pov50) + 
-  geom_ribbon(aes(x = year, ymax = blackh, ymin = blackl), fill = "coral2", alpha = 0.3, pov50) + 
+  geom_line(aes(x = year, y = blackl), color = "coral2", linetype = "dotted", pov50) + 
   scale_y_log10(limits = c(min, max), breaks = scales::trans_breaks("log10", function(x) 10^x), labels = scales::trans_format("log10", scales::math_format(10^.x))) +
   annotation_logticks(short = unit(.5,"mm"), mid = unit(2,"mm"), long = unit(3.5,"mm"), sides = "l", color = "gray65") +
-  labs(x = "Year", y = "Log Toxicity")
+  labs(x = "Year", y = "Log Toxicity", main = "Toxicity for each income group in black population")
 
 white = ggplot() + 
   geom_line(aes(x = year, y = whiteh), color = "mediumorchid", linetype = "longdash", pov95) +
   geom_line(aes(x = year, y = whitem), color = "mediumorchid", size = 0.7, pov95) + 
-  geom_ribbon(aes(x = year, ymax = whiteh, ymin = whitel), fill = "mediumorchid", alpha = 0.3, pov95) + 
+  geom_line(aes(x = year, y = whitel), color = "mediumorchid", linetype = "dotted", pov95) + 
   geom_line(aes(x = year, y = whiteh), color = "mediumorchid", linetype = "longdash", pov05) +
   geom_line(aes(x = year, y = whitem), color = "mediumorchid", size = 0.7, pov05) + 
-  geom_ribbon(aes(x = year, ymax = whiteh, ymin = whitel), fill = "mediumorchid", alpha = 0.3, pov05) +  
+  geom_line(aes(x = year, y = whitel), color = "mediumorchid", linetype = "dotted", pov05) +  
   geom_line(aes(x = year, y = whiteh), color = "mediumorchid", linetype = "longdash", pov50) +
   geom_line(aes(x = year, y = whitem), color = "mediumorchid", size = 0.7, pov50) + 
-  geom_ribbon(aes(x = year, ymax = whiteh, ymin = whitel), fill = "mediumorchid", alpha = 0.3, pov50) + 
+  geom_line(aes(x = year, y = whitel), color = "mediumorchid", linetype = "dotted", pov50) + 
   scale_y_log10(limits = c(min, max), breaks = scales::trans_breaks("log10", function(x) 10^x), labels = scales::trans_format("log10", scales::math_format(10^.x))) +
   annotation_logticks(short = unit(.5,"mm"), mid = unit(2,"mm"), long = unit(3.5,"mm"), sides = "l", color = "gray65") +
-  labs(x = "Year", y = "Log Toxicity")
+  labs(x = "Year", y = "Log Toxicity", main = "Toxicity for each income group in white population")
 
 hisp = ggplot() + 
   geom_line(aes(x = year, y = hisph), color = "olivedrab4", linetype = "longdash", pov95) +
   geom_line(aes(x = year, y = hispm), color = "olivedrab4", size = 0.7, pov95) + 
-  geom_ribbon(aes(x = year, ymax = hisph, ymin = hispl), fill = "olivedrab4", alpha = 0.3, pov95) + 
+  geom_line(aes(x = year, y = hispl), color = "olivedrab4", linetype = "dotted", pov95) + 
   geom_line(aes(x = year, y = hisph), color = "olivedrab4", linetype = "longdash", pov05) +
   geom_line(aes(x = year, y = hispm), color = "olivedrab4", size = 0.7, pov05) + 
-  geom_ribbon(aes(x = year, ymax = hisph, ymin = hispl), fill = "olivedrab3", alpha = 0.3, pov05) +  
+  geom_line(aes(x = year, y = hispl), color = "olivedrab4", linetype = "dotted",  pov05) +  
   geom_line(aes(x = year, y = hisph), color = "olivedrab4", linetype = "longdash", pov50) +
   geom_line(aes(x = year, y = hispm), color = "olivedrab4", size = 0.7, pov50) + 
-  geom_ribbon(aes(x = year, ymax = hisph, ymin = hispl), fill = "olivedrab4", alpha = 0.3, pov50) + 
+  geom_line(aes(x = year, y = hispl), color = "olivedrab4", linetype = "dotted", pov50) + 
   scale_y_log10(limits = c(min, max), breaks = scales::trans_breaks("log10", function(x) 10^x), labels = scales::trans_format("log10", scales::math_format(10^.x))) +
   annotation_logticks(short = unit(.5,"mm"), mid = unit(2,"mm"), long = unit(3.5,"mm"), sides = "l", color = "gray65") +
-  labs(x = "Year", y = "Log Toxicity")
+  labs(x = "Year", y = "Log Toxicity", main = "Toxicity for each income group in hispanic population")
 ```
 
-First we examine How the fifth, fiftieth and ninety-fifth percentiles differ for the black distribution. The ribbon shows the difference between the high income and low income groups within the respective race groups. Dotted lines represent the high income group, and solid lines represent the medium income group. In this case the fiftieth and ninety-fifth percentile act as would be expected, with the high income group experiencing lower toxicity across the board. However, the fifth percentile shows the inverse pattern, with high income households experiencing higher toxicity. One reason this could be true is that high income individuals may be more likely to live in suburbs or urban areas, rather than rural areas. 
+First we examine How the 5^th^, 50^th^ and 95^th^ percentiles differ for the black distribution. The ribbon shows the difference between the high income and low income groups within the respective race groups. Dotted lines represent the high income group, and solid lines represent the medium income group. In this case the 50^th^ and 95^th^ percentile act as would be expected, with the high income group experiencing lower toxicity across the board. However, the 5^th^ percentile shows the inverse pattern, with high income households experiencing higher toxicity. One reason this could be true is that high income individuals may be more likely to live in suburban or urban areas, rather than rural areas. 
 
 ```{r}
 grid.arrange(black, arrangeGrob(color_legend, line_income_legend, nrow=1), nrow=2,heights=c(10, 1))
 ```
 
-In the white distributions we see a similar pattern. The ninety-fifth percentile continues to show the expected behavior at the ninety-fifth percentile, but in both the fiftieth and fifth percentiles the high income group has a significantly higher toxicity. 
+In the white population we see a similar pattern. The 95^th^ percentile continues to show the expected behavior at the 95^th^ percentile, but in both the 50^th^ and 5^th^ percentiles the high income group has a significantly higher toxicity. 
 
 ```{r}
 grid.arrange(white, arrangeGrob(color_legend, line_income_legend, nrow=1), nrow=2,heights=c(10, 1))
 ```
 
-The Hispanic group shows exactly the opposite pattern of the white distribution, with the high income distribution experiencing higher toxicity in the fiftieth and ninety-fifth percentiles, and lower toxicity in the fifth percentile. In the fiftieth and ninety-fifth percentile, the differences between toxicities experienced by each income group are minimal. The fifth percentile, however, shows significantly lower toxicities experienced by the high income group. 
+The Hispanic group shows exactly the opposite pattern of the white distribution, with the high income distribution experiencing higher toxicity in the 50^th^ and 95^th^ percentiles, and lower toxicity in the 5^th^ percentile. In the 50^th^ and 95^th^ percentile, the differences between toxicities experienced by each income group are minimal. The 5^th^ percentile, however, shows significantly lower toxicities experienced by the high income group. 
 
 ```{r}
 grid.arrange(hisp, arrangeGrob(color_legend, line_income_legend, nrow=1), nrow=2,heights=c(10, 1))

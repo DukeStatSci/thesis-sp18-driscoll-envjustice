@@ -1,10 +1,10 @@
-# Public Data {#publicdata}
+# Public Interaction {#publicdata}
 
 ## Data Accessibility
 
 TRI data originates from The Emergency Planning and Community Right-to-Know Act (EPCRA). The bill was largely motivated by an incident at a chemical production plant in Bhopal, India. Approximately 40 tons of Methyl Isocyanate was released in to the air, killing upwards of 5000 people living in the surrounding area. The disaster created a panic in the United States, and created public demand for transparency on toxic releases in their communities. 
 
-Public use generally doesn't extend in to the full depth of TRI data, due to its size and complexity. Simple tools were developed by the EPA to allow public access to the data, including [a map] (https://www.epa.gov/rsei/rsei-results-map) that allows you to click on a state and learn what number it is ranked in the US. Data available has incredible potential address the richness of the information we have on a much more local level. There is also [an app](https://www.epa.gov/rsei/get-easyrsei) that allows for investigation of RSEI data. Though quite thourough, it requires extensive setup. 
+Public use generally doesn't extend in to the full depth of TRI data, due to its size and complexity. Simple tools were developed by the EPA to allow public access to the data, including [a map](https://www.epa.gov/rsei/rsei-results-map) that allows you to click on a state and learn what number it is ranked in the US. Data available has incredible potential address the richness of the information we have on a much more local level. There is also [an app](https://www.epa.gov/rsei/get-easyrsei) that allows for investigation of RSEI data. Though quite thourough, it requires extensive setup. 
 
 The intent of this app is to allow an easier outlet to find information about local RSEI data, allow comparisons more complex than rankings, and introduce environmental justice related data. 
 

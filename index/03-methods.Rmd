@@ -1,12 +1,12 @@
-# Approaches and Methods {#ref-labels}
+# Methodology {#ref-labels}
 
-## Geographic Level of Analysis
+## Geographic Level
 
 The questions we would like to pose - how the distributions of toxicity that individuals experience over time are predicted by their complex, multidimensional identities - is inherently intended to use individuals as the unit of analysis. Until now environmental justice work has used census geographies or point sources as the unit of analysis. 
 
 We depend on two data sources, the disaggregated RSEI toxic release data (as compiled to contain only releases that are consistently reported between 1990 and 2010) as well as relevant demographic information from the Census. 
 
-RSEI toxicity data can be obtained at extremely fine level (the 800 meter grid across the United States,) but the finest grain Census data is available at is the block level, which contains between 0 and a few thousand people. At such low geographic levels, cross tabs aren't available for demographics due to identifiability concerns. Using a low level of geography (like census blocks or block groups) is important for the environmental aspect of this analysis, since environmental hazards can be very localized, especially along neighborhood lines in urban areas. 
+RSEI toxicity data can be obtained at extremely fine level (the 800m by 800m grid across the United States,) but the finest grain Census data is available at is the block level, which contains between 0 and a few thousand people. At such low geographic levels, cross tabs aren't available for demographics due to identifiability concerns. Using a low level of geography (like census blocks or block groups) is important for the environmental aspect of this analysis, since environmental hazards can be very localized, especially along neighborhood lines in urban areas. 
 
 Unfortunately, the availability of cross tabulations is equally important to the goal of this work in examining inequality of environmental burden held by minority groups in America. The intersection of social identities, especially those steeped in systems of oppression, is extremely important for identifying unequal burdens. For example, low income populations across the board may be more likely to experience environmental hazards, but low income minority populations may be much more likely than low income white populations to experience extreme hazard. The intersections of demographic characteristics, such as race and income or race and education are likely to be important in teasing out differences true inequality burden. 
 
@@ -88,6 +88,8 @@ density_overall = ewcdf(bg2010$concentration, weights = bg2010$total/sum(bg2010$
 overallperc = round(density_overall(black2010), 4)*100
 ```
 
+### Process
+
 To examine how environmental burden changes over time for minority groups we use simulation to tease apart the forces at play in each group's changing distributions. We expect the mean of minority distributions to reduce over time for two reasons: the toxicity distribution for the entire population is slowly shifting right and compressing as we see improvements in environmentally friendly production technology and more comprehensive environmental regulation; secondly, we hope that with Title VI protections and the work of civil rights advocates, minority communities will be better equipped to mobilize against polluters, shifting the mean of minority distribution right relative to the overall distribution.
 
 These two explanations for decreasing toxicity can translate into two descriptors of distributional change:
@@ -118,11 +120,13 @@ Using this method we can hold constant the place each individual (and more broad
 
 If there had been positional improvement for a group, we would expect the simulated distributions to paint a bleaker picture of the inequalities of environmental burden borne than the observed distribution of the ending year. 
 
-###Simulation Accuracy
+### Accuracy
 
-We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5th, 50th and 95th quantiles with different sampling sizes. This is done by simulating the new distribution at time t repeatedly with varying n, and describing the distribution of quantiles produced. This sampling helps us to choose a sample size that gives a sufficiently precise estimation, and frames the final values we report. 
+In order to estimate the standard errors of simulated estimates of the 5^th^, 50^th^ and 95^th^ percentiles, we execute the simulation process from 1990 to 2010 
 
-```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=3}
+We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5^th^, 50^th^ and 95^th^ percentiles with different sample sizes. This is done by simulating the new distribution at time t repeatedly with varying n, and describing the distribution of percentiles produced. This sampling helps us to choose a sample size that gives a sufficiently precise estimation, and frames the final values we report. 
+
+```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=6}
 sim_se_05 = read_csv("data/bootstrap_simulation_se_05.csv")
 sim_se_50 = read_csv("data/bootstrap_simulation_se_50.csv")
 sim_se_95 = read_csv("data/bootstrap_simulation_se_95.csv")
@@ -130,20 +134,20 @@ sim_se_95 = read_csv("data/bootstrap_simulation_se_95.csv")
 s5 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_05) +
   geom_line(aes(x = n, y = mean), data = sim_se_05) +
-  labs(x = "Size of simulated group", y = "Simulated 5th Percentile") + coord_cartesian(ylim=c(40, 100))
+  labs(x = "Size of simulated group (n)", y = "Simulated 5th Percentile") + coord_cartesian(ylim=c(40, 100)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.title.x=element_blank())
 
 s50 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_50) +
   geom_line(aes(x = n, y = mean), data = sim_se_50) +
-  labs(x = "Size of simulated group", y = "Simulated 50th Percentile") + coord_cartesian(ylim=c(7000, 9000))
+  labs(x = "Size of simulated group (n)", y = "Simulated 50th Percentile") + coord_cartesian(ylim=c(7000, 9000)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.title.x=element_blank())
 
 s95 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_95) +
   geom_line(aes(x = n, y = mean), data = sim_se_95) +
-  labs(x = "Size of simulated group", y = "Simulated 95th Percentile") + coord_cartesian(ylim=c(80000, 140000))
+  labs(x = "Size of simulated group (n)", y = "Simulated 95th Percentile") + coord_cartesian(ylim=c(80000, 140000)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.text.y=element_text(size=7), axis.text.x=element_blank())
 
-grid.arrange(s5, s50, s95, ncol=3)
+grid.arrange(s5, s50, s95, ncol=1)
 
 ```
 
-For the 5th quantile, a relatively small sample produces a fairly stable result, sampling with n = 15,000 appears sufficient. Due to the extreme right skew of the data, the 95th percentile requires a larger sample. Still n = 50,000 is sufficient.
+For the 5^th^ percentile, a relatively small sample produces a fairly stable result, as variance does not reduce substantially with n > 20,000. Due to the extreme right skew of the data, the 95th percentile requires a larger sample to reach a stable variance. Still n = 50,000 is sufficient, and that size is used for all samples. 
