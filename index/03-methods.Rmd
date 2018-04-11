@@ -122,9 +122,9 @@ If there had been positional improvement for a group, we would expect the simula
 
 ### Accuracy
 
-In order to estimate the standard errors of simulated estimates of the 5^th^, 50^th^ and 95^th^ percentiles, we execute the simulation process from 1990 to 2010 
+In order to estimate the standard errors of simulated estimates of the 5^th^, 50^th^ and 95^th^ percentiles, we repeatedly execute the simulation process on data for the black population in 1990. Simulating the changes of the entire black population would mean dealing with a population of around 29 million, but with a large sample we should be able to get a good estimate. 
 
-We use bootstrap sampling to approximate the standard errors of the simulated estimates of the 5^th^, 50^th^ and 95^th^ percentiles with different sample sizes. This is done by simulating the new distribution at time t repeatedly with varying n, and describing the distribution of percentiles produced. This sampling helps us to choose a sample size that gives a sufficiently precise estimation, and frames the final values we report. 
+To figure out how large the sample needs to be, we run the simulation 20 times for each n tested and show the mean and standard error of the estimate. 
 
 ```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=6}
 sim_se_05 = read_csv("data/bootstrap_simulation_se_05.csv")
@@ -134,20 +134,20 @@ sim_se_95 = read_csv("data/bootstrap_simulation_se_95.csv")
 s5 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_05) +
   geom_line(aes(x = n, y = mean), data = sim_se_05) +
-  labs(x = "Size of simulated group (n)", y = "Simulated 5th Percentile") + coord_cartesian(ylim=c(40, 100)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.title.x=element_blank())
+  labs(x = "Size of simulated group (n)", y = "Simulated 5th Percentile") + coord_cartesian(ylim=c(40, 100)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.title.x=element_blank(), axis.text.y=element_text(size=8))
 
 s50 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_50) +
   geom_line(aes(x = n, y = mean), data = sim_se_50) +
-  labs(x = "Size of simulated group (n)", y = "Simulated 50th Percentile") + coord_cartesian(ylim=c(7000, 9000)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.title.x=element_blank())
+  labs(x = "Size of simulated group (n)", y = "Simulated 50th Percentile") + coord_cartesian(ylim=c(7000, 9000)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.title.x=element_blank(), axis.text.y=element_text(size=7))
 
 s95 = ggplot() + 
   geom_ribbon(aes(x = n, ymin = mean-sd, ymax = mean+sd), alpha=0.2, data = sim_se_95) +
   geom_line(aes(x = n, y = mean), data = sim_se_95) +
-  labs(x = "Size of simulated group (n)", y = "Simulated 95th Percentile") + coord_cartesian(ylim=c(80000, 140000)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.text.y=element_text(size=7), axis.text.x=element_blank())
+  labs(x = "Size of simulated group (n)", y = "Simulated 95th Percentile") + coord_cartesian(ylim=c(80000, 140000)) + scale_x_continuous(labels = scales::comma) + geom_vline(xintercept = 50000, color = "darkgrey") + theme(axis.text.y=element_text(size=6), axis.text.x=element_blank())
 
 grid.arrange(s5, s50, s95, ncol=1)
 
 ```
 
-For the 5^th^ percentile, a relatively small sample produces a fairly stable result, as variance does not reduce substantially with n > 20,000. Due to the extreme right skew of the data, the 95th percentile requires a larger sample to reach a stable variance. Still n = 50,000 is sufficient, and that size is used for all samples. 
+For the 5^th^ percentile, a relatively small sample produces a fairly stable result, as standard error does not reduce substantially with n larger than 20,000. Due to the extreme right skew of the data, the 95th percentile requires a larger sample to reach a stable estimate. Still n = 50,000 is sufficient, and that size is used for all samples. 

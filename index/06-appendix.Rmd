@@ -13,6 +13,12 @@
 * **Ash, Michael, and T. Robert Fetter. "Who Lives on the Wrong Side of the Environmental Tracks? Evidence from the EPA's Risk-Screening Environmental Indicators Model." *Social Science Quarterly 85.2* (2004): 441-462.**
 
 * **Ash, Michael, and James K. Boyce. "Measuring corporate environmental justice performance." Corporate Social Responsibility and Environmental Management 18.2 (2011): 61-79.**
+
+* **Bache, S. M. & Wickham, H. (2014). magrittr: A Forward-Pipe Operator for R. R package version 1.5. https://CRAN.R-project.org/package=magrittr **
+
+* **Bates, H., Maechler, M., Bolker, B. & Walker, S. (2015). Fitting Linear Mixed-Effects Models Using lme4. Journal of Statistical Software, 67(1), 1-48. doi:10.18637/jss.v067.i01.**
+
+* **Baptiste, A. (2017). gridExtra: Miscellaneous Functions for "Grid" Graphics. R package version 2.3. https://CRAN.R-project.org/package=gridExtra **
     
 * **Bayer, Patrick, and Kerwin Kofi Charles. Divergent Paths: Structural Change, Economic Rank, and the Evolution of Black-White Earnings Differences, 1940-2014. No. w22797. *National Bureau of Economic Research*, 2016.**
 
@@ -22,11 +28,17 @@
 
 * **Burwell-Naney K. et al. (2013). Spatial disparity in the distribution of superfund sites in South Carolina: an ecological study. *Environmental Health, 12*(1).**
 
+* **Chang, W., Cheng, J., Allaire, JJ., Xie, Yihui & McPherson, J. (2017). shiny: Web Application Framework for R. R package version 1.0.5. https://CRAN.R-project.org/package=shiny**
+
 * **Crowder, Kyle, and Liam Downey. "Interneighborhood migration, race, and environmental hazards: Modeling microlevel processes of environmental inequality." *American Journal of Sociology 115.4* (2010): 1110-1149.**
   
 * **De Marchi, Scott, and James T. Hamilton. "Assessing the accuracy of self-reported data: an evaluation of the toxics release inventory." *Journal of Risk and uncertainty 32.1* (2006): 57-76.**  
   
+* **Dowle, M. & Srinivasan, A. (2017). data.table: Extension of `data.frame`. R package version 1.10.4-3. https://CRAN.R-project.org/package=data.table**
+  
 * **Downey, Liam. "US metropolitan-area variation in environmental inequality outcomes." *Urban Studies 44.5-6* (2007): 953-977.**
+
+* ** Edwards, S.M. (2018). lemon: Freshing Up your 'ggplot2' Plots. R package version 0.3.3. https://CRAN.R-project.org/package=lemon **
 
 * **Fisher J. B., Kelly M. & Romm J. (2006). Scales of environmental justice: Combining GIS and spatial analysis for air toxics in West Oakland, California. *Health & Place, 12*, pp. 701-714.**
     
@@ -52,6 +64,19 @@
 * **Sadd, James L., et al. ""Every breath you take...": the demographics of toxic air releases in Southern California." *Economic Development Quarterly 13.2* (1999): 107-123.**
 
 * **Szasz, A., & Meuser, M. (1997). Environmental inequalities: Literature review and proposals for new directions in research and theory. *Current sociology, 45*(3), 99-120.**
+
+* **Wickham, H., Hester, J. & Francois, R. (2017). readr: Read Rectangular Text Data. R package version 1.1.1. https://CRAN.R-project.org/package=readr **
+
+* **Wickham, H. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2009.**
+
+* **Wickham, H., Francois, R., Henry, L. & Müller , K. (2017). dplyr: A Grammar of Data Manipulation. R package version 0.7.4. https://CRAN.R-project.org/package=dplyr **
+
+* **Wickham, H. (2011). The Split-Apply-Combine Strategy for Data Analysis. Journal of Statistical Software, 40(1), 1-29. URL http://www.jstatsoft.org/v40/i01/.**
+
+* **Wickham, H. (2018). stringr: Simple, Consistent Wrappers for Common String Operations. R package version 1.3.0. https://CRAN.R-project.org/package=stringr ** 
+
+* **Yihui Xie (2018). knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version 1.20.**
+
 
 # Access to RSEI data
     - Information on RSEI, how it is collected and interpretation can be found [here](https://www.epa.gov/rsei/learn-about-rsei).

@@ -284,7 +284,7 @@ Simulations of the 95th percentile show even less improvement, meaning nearly al
 
 From this we see that the distribution of percentiles occupied by minority groups was originally shifted towards the higher percentiles, but over time have shifted right. Plotting the percentiles of each group within their full distribution that year, we see that in 1990 all minority groups are strongly skewed towards the higher end of the distribution. As time goes on, more minorities exist in the lower percentiles, and more whites exist in the higher percentiles of the distribution.
 
-```{r densityplots, warning = FALSE,echo = FALSE, fig.width=10, fig.height=6, message = FALSE}
+```{r densityplots, warning = FALSE,echo = FALSE, fig.width=10, fig.height=9, message = FALSE}
 quants = read_csv("data/quantiles.csv")
 
 quants$y2013 = "2013"

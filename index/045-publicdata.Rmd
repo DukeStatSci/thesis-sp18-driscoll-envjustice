@@ -10,7 +10,7 @@ The intent of this app is to allow an easier outlet to find information about lo
 
 ## App Intent and Description
 
-The app built focuses on communicating the distribution of toxicity in a given local area as compared to the national and state distributions. Additionally, it shows the difference in toxicity burden experienced by black communities as compared to white communities. 
+The app built focuses on communicating the distribution of toxicity in a given local area as compared to the national and state distributions. The app was build primarily through Shiny (Chang, 2017). Additionally, it shows the difference in toxicity burden experienced by black communities as compared to white communities. 
 
 The priority in organizing the app was to provide as much information as possible in as intuitive a form as possible. To do this, we prioritized three pieces of information we found to be most useful for communities interested in their toxicities. 
 
@@ -27,3 +27,9 @@ The third, and last, chart is meant to convey the environmental justice themes d
 RSEI's origin lies in corporate accountability, and that may be an area that the public would be interested in pursuing. Specifically, data on which companies are polluting locally, and which chemicals are being released. It would be possible, using the dissagregated microdata to filter toxicity by many metrics, including the facility, and the specific chemical, but it isn't computationally feasible. 
 
 Feasibility issues continue to arise when attempting to use block group and tract data. Visualizing geography at that level is very slow to render, and makes the app too slow to be reasonably useful. Despite that, mapping at a county level still provides significant context to the toxicity measure
+
+## Further Data Engagement
+
+With the data publicly available, this work is entirely reproducible. To make that a more accessible process I've created a package, "rseiAnalysis", that helps transform the initial disaggregated microdata in to consistent tract level estimates, and combining them with demographic data.
+
+The package contains functions that will aggregate geography, transform data from demographic count to percentile of toxicity for each demographic, create plots of the CDF's for each group, or simulate what distributions would have been given percentile placement stayed the same across time.
