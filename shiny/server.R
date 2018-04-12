@@ -24,7 +24,9 @@ race_tract$id = str_pad(race_tract$id, 11, "left", pad = "0")
 data_tract = merge(data_tract, race_tract, by.x = "tract", by.y = "id", all = TRUE) #300 ms
 data_tract[is.na(data_tract$tox), "tox"] = 1*10^-6
 
-counties = readOGR("cb_2016_us_county_20m.shp", layer = "cb_2016_us_county_20m", GDAL1_integer64_policy = TRUE) #2000ms
+
+states = readOGR("shapes/cb_2017_us_state_20m.shp", layer = "cb_2017_us_state_20m", GDAL1_integer64_policy = TRUE)
+counties = readOGR("shapes/cb_2016_us_county_20m.shp", layer = "cb_2016_us_county_20m", GDAL1_integer64_policy = TRUE) #2000ms
 counties = subset(counties, !(counties$STATEFP %in% c("15", "02", "72")))
 counties@data = counties@data[, c(1, 5, 6, 8)]
 counties@data$GEOID = as.character(counties@data$GEOID)
@@ -34,10 +36,17 @@ counties@data$tox[is.na(counties@data$tox)] = 1*(10^-6)
 #counties = ms_simplify(counties, keep_shapes)
 
 matrix = read.csv("state_adjacent.csv", header = FALSE)
-nc = subset(counties, counties$STATEFP %in% c("37", "51", "47", "13", "45"))
 p = proj4string(counties)
 
-#the map is 3890ms 
+find_adj_state = function(latlon, states_list) {
+  t = SpatialPoints(matrix(as.numeric(latlon), nrow = 1), proj4string = CRS(p))
+  t = t %over% states
+  t = as.numeric(t$STATEFP)
+  t = matrix[matrix$V1 == t, ]
+  t = as.character(t[!is.na(t)])
+  t = t[!(t %in% states_list)]
+  t
+}
 
 pal = colorNumeric("magma", log(counties@data$tox) * abs(log(counties@data$tox)), na.color = "#C1C1C1", reverse = TRUE)
 
@@ -45,39 +54,46 @@ function(input, output, session) {
   
   values = reactiveValues(
     latlon = c(-78.94001, 36.00153), 
-    current_c = SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p)) %over% counties ,
-    add_states = c()
+    current_c = SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p)) %over% counties,
+    states_list = c("37", "51", "47", "13", "45")
   )
+  
   data = reactiveValues(
     tract = data_tract[startsWith(as.character(data_tract$tract), as.character(isolate(values$current_c$GEOID))), ]
   )
-  print(isolate(values$latlon))
-  print(isolate(values$ll))
-  print(isolate(values$current_c))
-  print(isolate(values$current_c$GEOID))
-  print(isolate(data$tract[1:5, ]))
 
   observeEvent(input$search, {
     values$latlon = geocode(input$addressInput, output = "latlon", source = "dsk")
     values$ll = SpatialPoints(matrix(as.numeric(values$latlon), nrow = 1), proj4string = CRS(p))
+    print(values$ll)
     values$current_c = values$ll %over% counties
     data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
   })
   
-  map_data = reactive({ 
-    subset(counties, counties@data$STATEFP %in% adjacent_list())
+  observeEvent(input$map_bounds, {
+    map_topleft = c(input$map_bounds$west, input$map_bounds$north)
+    map_topright= c(input$map_bounds$east, input$map_bounds$north)
+    map_botleft = c(input$map_bounds$east, input$map_bounds$south)
+    map_botright = c(input$map_bounds$east, input$map_bounds$south)
+    print(map_botright)
+    states_adj = union(union(find_adj_state(map_topleft, states_list), find_adj_state(map_botright, states_list)), 
+                       union(find_adj_state(map_topright, states_list), find_adj_state(map_botleft, states_list)))
+    values$states_list = append(states, states_adj)
+    values$map_data = subset(counties, counties@data$STATEFP %in% states_adj)
+    print(states_adj)
+    leafletProxy("map", session) %>%
+      addPolygons(data = values$map_data, color = "#444444", weight = 1, smoothFactor = 0.5, 
+                  opacity = 0.5, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
+                 )
   })
   
   observeEvent(input$search, {
     leafletProxy("map", session) %>%
-      #addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 0.5, 
-      #            fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
-      #           ) %>%
       setView(lng = values$latlon[1], lat = values$latlon[2], zoom = 9)
   })
   
   output$map = renderLeaflet({
-    map = leaflet(counties) %>%
+    map = leaflet(subset(counties, counties@data$STATEFP %in% c("37", "51", "47", "13", "45"))) %>%
       addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 0.5, 
                   fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
                   ) %>%
@@ -94,9 +110,6 @@ function(input, output, session) {
     )
     comp = complete.cases(data$tract[, c(1:2, 4:11)])
     temp = data$tract[comp, ]
-    
-    print(temp[1:5, ])
-    print(data$tract[1:5, ])
     
     state = substr(values$current_c$GEOID, 1, nchar(values$current_c$GEOID) - 3)
     state_tox = subset(counties, counties@data$STATEFP == state)@data$tox
