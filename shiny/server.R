@@ -9,8 +9,6 @@ library(data.table)
 library(stringr)
 library(rmapshaper)
 
-
-
 #TODO: make the map appear on startup
 #TODO: create a warning thing for when geolocation fails.
 #TODO: figure out how to change latlon as the map is shifted
@@ -47,46 +45,41 @@ function(input, output, session) {
   
   values = reactiveValues(
     latlon = c(-78.94001, 36.00153), 
-    current_c = SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p)) %over% counties 
+    current_c = SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p)) %over% counties ,
+    add_states = c()
   )
   data = reactiveValues(
     tract = data_tract[startsWith(as.character(data_tract$tract), as.character(isolate(values$current_c$GEOID))), ]
   )
-  #print(isolate(values$latlon))
-  #print(isolate(values$ll))
-  #print(isolate(values$current_c))
-  #print(isolate(values$current_c$GEOID))
-  #print(isolate(data$tract[1:5, ]))
+  print(isolate(values$latlon))
+  print(isolate(values$ll))
+  print(isolate(values$current_c))
+  print(isolate(values$current_c$GEOID))
+  print(isolate(data$tract[1:5, ]))
 
   observeEvent(input$search, {
-    #print(data$tract[1, ])
     values$latlon = geocode(input$addressInput, output = "latlon", source = "dsk")
-    print(values$latlon)
     values$ll = SpatialPoints(matrix(as.numeric(values$latlon), nrow = 1), proj4string = CRS(p))
-    #print(values$ll)
     values$current_c = values$ll %over% counties
-    print(values$current_c$GEOID)
     data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
-    print(data$tract[1:5, ])
   })
   
   map_data = reactive({ 
-    #print(adjacent_list())
     subset(counties, counties@data$STATEFP %in% adjacent_list())
   })
   
   observeEvent(input$search, {
     leafletProxy("map", session) %>%
       #addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 0.5, 
-      #            fillOpacity = 0.8, fillColor = ~pal(log(tox) * abs(log(tox)))
-      #) %>%
+      #            fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
+      #           ) %>%
       setView(lng = values$latlon[1], lat = values$latlon[2], zoom = 9)
   })
   
   output$map = renderLeaflet({
     map = leaflet(counties) %>%
       addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 0.5, 
-                  fillOpacity = 0.8, fillColor = ~pal(log(tox) * abs(log(tox)))
+                  fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
                   ) %>%
       addLegend(position = "topleft", title = "", pal = pal, values = log(counties@data$tox) * abs(log(counties@data$tox)))
     
@@ -101,6 +94,9 @@ function(input, output, session) {
     )
     comp = complete.cases(data$tract[, c(1:2, 4:11)])
     temp = data$tract[comp, ]
+    
+    print(temp[1:5, ])
+    print(data$tract[1:5, ])
     
     state = substr(values$current_c$GEOID, 1, nchar(values$current_c$GEOID) - 3)
     state_tox = subset(counties, counties@data$STATEFP == state)@data$tox
