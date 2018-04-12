@@ -13,28 +13,9 @@ library(rmapshaper)
 #TODO: create a warning thing for when geolocation fails.
 #TODO: figure out how to change latlon as the map is shifted
 
-data_county = read_feather("shapes/data_county.feather")
-data_tract = as.data.table(read_feather("shapes/data_tract.feather"))
-race_tract = as.data.table(read_feather("shapes/race_tract.feather"))
-#1000 on readin
-names(data_county) = c("county", "tox")
-names(data_tract) = c("tract", "tox", "area")
-race_tract$id = str_pad(race_tract$id, 11, "left", pad = "0")
-
-data_tract = merge(data_tract, race_tract, by.x = "tract", by.y = "id", all = TRUE) #300 ms
-data_tract[is.na(data_tract$tox), "tox"] = 1*10^-6
-
-
+data_tract = as.data.table(read_feather("shapes/data_tract_race.feather"))
 states = readRDS("shapes/states.rds")
-counties = readRDS("shapes/counties.rds")
-counties = subset(counties, !(counties$STATEFP %in% c("15", "02", "72")))
-counties@data = counties@data[, c(1, 5, 6, 8)]
-counties@data$GEOID = as.character(counties@data$GEOID)
-counties@data$STATEFP = as.character(counties@data$STATEFP)
-counties@data = data.frame(counties@data, data_county[match(counties@data$GEOID, data_county$county), ])
-counties@data$tox[is.na(counties@data$tox)] = 1*(10^-6)
-#counties = ms_simplify(counties, keep_shapes)
-
+counties = readRDS("shapes/counties_data.rds")
 matrix = read.csv("state_adjacent.csv", header = FALSE)
 p = proj4string(counties)
 
@@ -58,6 +39,7 @@ pal = colorNumeric("magma", log(counties@data$tox) * abs(log(counties@data$tox))
 function(input, output, session) {
   
   values = reactiveValues(
+    out = FALSE,
     latlon = c(-78.94001, 36.00153), 
     current_c = get_county(SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p))),
     states_list = c("37", "51", "47", "13", "45")
@@ -66,12 +48,35 @@ function(input, output, session) {
   data = reactiveValues(
     tract = data_tract[startsWith(as.character(data_tract$tract), as.character(isolate(values$current_c$GEOID))), ]
   )
+  
+  outside_area = reactive(values$out)
 
+  output$warning = renderText({
+    if (outside_area()){
+      values$out = FALSE
+      "This region is not supported."
+    }
+    else{
+      ""
+    }
+  
+  })
+  
   observeEvent(input$search, {
     values$latlon = geocode(input$addressInput, output = "latlon", source = "dsk")
     values$ll = SpatialPoints(matrix(as.numeric(values$latlon), nrow = 1), proj4string = CRS(p))
-    values$current_c = get_county(values$ll)
-    data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
+    #validate in us
+    if (is.na((values$ll %over% states)[1])) {
+      print("caught")
+      values$out = TRUE
+    }
+    else {
+      values$out = FALSE
+      values$current_c = get_county(values$ll)
+      data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
+      leafletProxy("map", session) %>%
+        setView(lng = values$latlon[1], lat = values$latlon[2], zoom = 9)
+    }
   })
   
   observeEvent(input$map_bounds, {
@@ -89,13 +94,6 @@ function(input, output, session) {
                  ) %>%
       addPolygons(data = states, color = "#333333", weight = 2, smoothFactor = 0.5,
                               opacity = 1, fill = FALSE)
-  })
-  
-
-  
-  observeEvent(input$search, {
-    leafletProxy("map", session) %>%
-      setView(lng = values$latlon[1], lat = values$latlon[2], zoom = 9)
   })
   
   output$map = renderLeaflet({

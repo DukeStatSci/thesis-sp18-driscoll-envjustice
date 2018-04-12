@@ -15,7 +15,8 @@ body <- dashboardBody(
     column(width = 4,
            box(width = NULL, status = "warning",
                textInput("addressInput", label = "Enter your address:", value = "Duke University, Durham, NC"),
-               actionButton("search", "Search")
+               actionButton("search", "Search"), 
+               span(textOutput("warning"), style="color:red")
            ),
            p(
              class = "text-muted", "This plot shows the distribution of toxicity experienced across the nation, the state, and within your county."
