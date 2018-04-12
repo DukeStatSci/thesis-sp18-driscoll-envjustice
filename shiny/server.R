@@ -7,9 +7,10 @@ library(rgdal)
 library(readr)
 library(data.table)
 library(stringr)
+library(rmapshaper)
 
-#TODO: profiling shiny apps
-#TODO: pass tract data when zoom is > 11
+
+
 #TODO: make the map appear on startup
 #TODO: create a warning thing for when geolocation fails.
 #TODO: figure out how to change latlon as the map is shifted
@@ -25,18 +26,20 @@ race_tract$id = str_pad(race_tract$id, 11, "left", pad = "0")
 data_tract = merge(data_tract, race_tract, by.x = "tract", by.y = "id", all = TRUE) #300 ms
 data_tract[is.na(data_tract$tox), "tox"] = 1*10^-6
 
-counties = readOGR("cb_2016_us_county_20m.shp", layer = "cb_2016_us_county_20m", GDAL1_integer64_policy = TRUE) #3000ms
+counties = readOGR("cb_2016_us_county_20m.shp", layer = "cb_2016_us_county_20m", GDAL1_integer64_policy = TRUE) #2000ms
 counties = subset(counties, !(counties$STATEFP %in% c("15", "02", "72")))
 counties@data = counties@data[, c(1, 5, 6, 8)]
 counties@data$GEOID = as.character(counties@data$GEOID)
 counties@data$STATEFP = as.character(counties@data$STATEFP)
 counties@data =data.frame(counties@data, data_county[match(counties@data$GEOID, data_county$county), ])
 counties@data$tox[is.na(counties@data$tox)] = 1*(10^-6)
+#counties = ms_simplify(counties, keep_shapes)
 
 matrix = read.csv("state_adjacent.csv", header = FALSE)
 nc = subset(counties, counties$STATEFP %in% c("37", "51", "47", "13", "45"))
-p = "+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
+p = proj4string(counties)
 
+#the map is 3890ms 
 
 pal = colorNumeric("magma", log(counties@data$tox) * abs(log(counties@data$tox)), na.color = "#C1C1C1", reverse = TRUE)
 
@@ -49,22 +52,22 @@ function(input, output, session) {
   data = reactiveValues(
     tract = data_tract[startsWith(as.character(data_tract$tract), as.character(isolate(values$current_c$GEOID))), ]
   )
-  print(isolate(values$latlon))
-  print(isolate(values$ll))
-  print(isolate(values$current_c))
-  print(isolate(values$current_c$GEOID))
-  print(isolate(data$tract[1:5, ]))
+  #print(isolate(values$latlon))
+  #print(isolate(values$ll))
+  #print(isolate(values$current_c))
+  #print(isolate(values$current_c$GEOID))
+  #print(isolate(data$tract[1:5, ]))
 
   observeEvent(input$search, {
-    print(data$tract[1, ])
+    #print(data$tract[1, ])
     values$latlon = geocode(input$addressInput, output = "latlon", source = "dsk")
     print(values$latlon)
     values$ll = SpatialPoints(matrix(as.numeric(values$latlon), nrow = 1), proj4string = CRS(p))
-    print(values$ll)
+    #print(values$ll)
     values$current_c = values$ll %over% counties
     print(values$current_c$GEOID)
     data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
-    print(data$tract[1, ])
+    print(data$tract[1:5, ])
   })
   
   map_data = reactive({ 
@@ -94,8 +97,7 @@ function(input, output, session) {
   
   output$national = renderPlot({
     validate(
-      need(nrow(data$tract)>0, "No data for this area."),
-      need(!anyNA(data$tract$concentration), "No data for this area.")
+      need(nrow(data$tract)>0, "No data for this area.")
     )
     comp = complete.cases(data$tract[, c(1:2, 4:11)])
     temp = data$tract[comp, ]
@@ -123,7 +125,7 @@ function(input, output, session) {
   output$race = renderPlot({
     validate(
       need(nrow(data$tract)>0, "No data for this area."),
-      need(!anyNA(data$tract$concentration), "No data for this area.")
+      need(!(max(data$tract$tox) == min(data$tract$tox) && min(data$tract$tox) == 1*(10^-6)), "There are no spills recorded in your area!")
     )
     comp = complete.cases(data$tract[, c(1:2, 4:11)])
     temp = data$tract[comp, ]
