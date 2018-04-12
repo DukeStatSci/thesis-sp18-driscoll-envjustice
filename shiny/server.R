@@ -13,9 +13,9 @@ library(rmapshaper)
 #TODO: create a warning thing for when geolocation fails.
 #TODO: figure out how to change latlon as the map is shifted
 
-data_county = fread("../index/data/toxic/toxic_2000_2010_county.csv")
-data_tract = fread("../index/data/toxic/tract/toxic_2000_2010_tract.csv")
-race_tract = fread("../index/data/census/race/race_tract_2000.csv")
+data_county = read_feather("shapes/data_county.feather")
+data_tract = read_feather("shapes/data_tract.feather")
+race_tract = read_feather("shapes/race_tract.feather")
 #1000 on readin
 names(data_county) = c("county", "tox")
 names(data_tract) = c("tract", "tox", "area")
@@ -31,7 +31,7 @@ counties = subset(counties, !(counties$STATEFP %in% c("15", "02", "72")))
 counties@data = counties@data[, c(1, 5, 6, 8)]
 counties@data$GEOID = as.character(counties@data$GEOID)
 counties@data$STATEFP = as.character(counties@data$STATEFP)
-counties@data =data.frame(counties@data, data_county[match(counties@data$GEOID, data_county$county), ])
+counties@data = data.frame(counties@data, data_county[match(counties@data$GEOID, data_county$county), ])
 counties@data$tox[is.na(counties@data$tox)] = 1*(10^-6)
 #counties = ms_simplify(counties, keep_shapes)
 
@@ -55,7 +55,7 @@ function(input, output, session) {
   
   values = reactiveValues(
     latlon = c(-78.94001, 36.00153), 
-    current_c = SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p)) %over% counties,
+    current_c = (SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p)) %over% counties),
     states_list = c("37", "51", "47", "13", "45")
   )
   
