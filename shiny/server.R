@@ -14,8 +14,8 @@ library(rmapshaper)
 #TODO: figure out how to change latlon as the map is shifted
 
 data_county = read_feather("shapes/data_county.feather")
-data_tract = read_feather("shapes/data_tract.feather")
-race_tract = read_feather("shapes/race_tract.feather")
+data_tract = as.data.table(read_feather("shapes/data_tract.feather"))
+race_tract = as.data.table(read_feather("shapes/race_tract.feather"))
 #1000 on readin
 names(data_county) = c("county", "tox")
 names(data_tract) = c("tract", "tox", "area")
@@ -41,12 +41,16 @@ p = proj4string(counties)
 find_adj_state = function(shape, states_list) {
   t = over(shape, states, returnList = TRUE)
   t = as.numeric(as.character(t[[1]]$STATEFP))
-  #t = matrix[matrix$V1 %in% t, 2:9] #gets all the surrounding states
-  #t = unique(unlist(t))
   t = as.character(t[!is.na(t)])
   t = t[!(t %in% states_list)]
   t = str_pad(t, 2, side = "left", pad = "0")
   t
+}
+
+get_county = function(latlon) {
+  current_s = as.character((latlon %over% states)$STATEFP)
+  temp_c = counties[startsWith(as.character(counties@data$GEOID), current_s), ]
+  latlon %over% temp_c
 }
 
 pal = colorNumeric("magma", log(counties@data$tox) * abs(log(counties@data$tox)), na.color = "#C1C1C1", reverse = TRUE)
@@ -55,7 +59,7 @@ function(input, output, session) {
   
   values = reactiveValues(
     latlon = c(-78.94001, 36.00153), 
-    current_c = (SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p)) %over% counties),
+    current_c = get_county(SpatialPoints(matrix(c(-78.94001, 36.00153), nrow = 1), proj4string = CRS(p))),
     states_list = c("37", "51", "47", "13", "45")
   )
   
@@ -66,7 +70,7 @@ function(input, output, session) {
   observeEvent(input$search, {
     values$latlon = geocode(input$addressInput, output = "latlon", source = "dsk")
     values$ll = SpatialPoints(matrix(as.numeric(values$latlon), nrow = 1), proj4string = CRS(p))
-    values$current_c = values$ll %over% counties
+    values$current_c = get_county(values$ll)
     data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
   })
   
@@ -81,9 +85,13 @@ function(input, output, session) {
     values$map_data = subset(counties, counties@data$STATEFP %in% states_adj)
     leafletProxy("map", session) %>%
       addPolygons(data = values$map_data, color = "#444444", weight = 1, smoothFactor = 0.5, 
-                  opacity = 0.5, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
-                 )
+                  opacity = 1, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
+                 ) %>%
+      addPolygons(data = states, color = "#333333", weight = 2, smoothFactor = 0.5,
+                              opacity = 1, fill = FALSE)
   })
+  
+
   
   observeEvent(input$search, {
     leafletProxy("map", session) %>%
@@ -94,8 +102,10 @@ function(input, output, session) {
     data = subset(counties, counties@data$STATEFP %in% c("37", "51", "47", "13", "45"))
     map = leaflet() %>%
       addPolygons(data = data, color = "#444444", weight = 1, smoothFactor = 0.5, 
-                  opacity = 0.5, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
+                  opacity = 1, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
                   ) %>%
+      addPolygons(data = states, color = "#333333", weight = 2, smoothFactor = 0.5,
+                  opacity = 1, fill = FALSE) %>%
       addLegend(position = "topleft", title = "", pal = pal, values = log(counties@data$tox) * abs(log(counties@data$tox)))
     
     map = map %>% setView(lng = -78.94001, lat = 36.00153, zoom = 9) 
