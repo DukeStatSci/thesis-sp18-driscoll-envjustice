@@ -38,13 +38,15 @@ counties@data$tox[is.na(counties@data$tox)] = 1*(10^-6)
 matrix = read.csv("state_adjacent.csv", header = FALSE)
 p = proj4string(counties)
 
-find_adj_state = function(latlon, states_list) {
-  t = SpatialPoints(matrix(as.numeric(latlon), nrow = 1), proj4string = CRS(p))
-  t = t %over% states
-  t = as.numeric(t$STATEFP)
-  t = matrix[matrix$V1 == t, ]
+find_adj_state = function(shape, states_list) {
+  t = over(shape, states, returnList = TRUE)
+  print(t)
+  t = as.numeric(as.character(t[[1]]$STATEFP))
+  t = matrix[matrix$V1 %in% t, 2:9]
+  t = unique(unlist(t))
   t = as.character(t[!is.na(t)])
   t = t[!(t %in% states_list)]
+  t = str_pad(t, 2, side = "left", pad = "0")
   t
 }
 
@@ -65,22 +67,19 @@ function(input, output, session) {
   observeEvent(input$search, {
     values$latlon = geocode(input$addressInput, output = "latlon", source = "dsk")
     values$ll = SpatialPoints(matrix(as.numeric(values$latlon), nrow = 1), proj4string = CRS(p))
-    print(values$ll)
     values$current_c = values$ll %over% counties
     data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
   })
   
   observeEvent(input$map_bounds, {
-    map_topleft = c(input$map_bounds$west, input$map_bounds$north)
-    map_topright= c(input$map_bounds$east, input$map_bounds$north)
-    map_botleft = c(input$map_bounds$east, input$map_bounds$south)
-    map_botright = c(input$map_bounds$east, input$map_bounds$south)
-    print(map_botright)
-    states_adj = union(union(find_adj_state(map_topleft, states_list), find_adj_state(map_botright, states_list)), 
-                       union(find_adj_state(map_topright, states_list), find_adj_state(map_botleft, states_list)))
-    values$states_list = append(states, states_adj)
+    shape = matrix(c(input$map_bounds$west, input$map_bounds$north, input$map_bounds$east, input$map_bounds$north, 
+                     input$map_bounds$east, input$map_bounds$south, input$map_bounds$west, input$map_bounds$south), 
+                   nrow = 4, byrow = TRUE)
+    shape = SpatialPolygons(list(Polygons(list(Polygon(shape)), 1)))
+    proj4string(shape) = p
+    states_adj = find_adj_state(shape, values$states_list)
+    values$states_list = append(values$states_list, states_adj)
     values$map_data = subset(counties, counties@data$STATEFP %in% states_adj)
-    print(states_adj)
     leafletProxy("map", session) %>%
       addPolygons(data = values$map_data, color = "#444444", weight = 1, smoothFactor = 0.5, 
                   opacity = 0.5, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
@@ -93,9 +92,10 @@ function(input, output, session) {
   })
   
   output$map = renderLeaflet({
-    map = leaflet(subset(counties, counties@data$STATEFP %in% c("37", "51", "47", "13", "45"))) %>%
-      addPolygons(color = "#444444", weight = 1, smoothFactor = 0.5, opacity = 0.5, 
-                  fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
+    data = subset(counties, counties@data$STATEFP %in% c("37", "51", "47", "13", "45"))
+    map = leaflet() %>%
+      addPolygons(data = data, color = "#444444", weight = 1, smoothFactor = 0.5, 
+                  opacity = 0.5, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
                   ) %>%
       addLegend(position = "topleft", title = "", pal = pal, values = log(counties@data$tox) * abs(log(counties@data$tox)))
     
