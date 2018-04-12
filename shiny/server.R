@@ -25,8 +25,8 @@ data_tract = merge(data_tract, race_tract, by.x = "tract", by.y = "id", all = TR
 data_tract[is.na(data_tract$tox), "tox"] = 1*10^-6
 
 
-states = readOGR("shapes/cb_2017_us_state_20m.shp", layer = "cb_2017_us_state_20m", GDAL1_integer64_policy = TRUE)
-counties = readOGR("shapes/cb_2016_us_county_20m.shp", layer = "cb_2016_us_county_20m", GDAL1_integer64_policy = TRUE) #2000ms
+states = readRDS("shapes/states.rds")
+counties = readRDS("shapes/counties.rds")
 counties = subset(counties, !(counties$STATEFP %in% c("15", "02", "72")))
 counties@data = counties@data[, c(1, 5, 6, 8)]
 counties@data$GEOID = as.character(counties@data$GEOID)
@@ -40,10 +40,9 @@ p = proj4string(counties)
 
 find_adj_state = function(shape, states_list) {
   t = over(shape, states, returnList = TRUE)
-  print(t)
   t = as.numeric(as.character(t[[1]]$STATEFP))
-  t = matrix[matrix$V1 %in% t, 2:9]
-  t = unique(unlist(t))
+  #t = matrix[matrix$V1 %in% t, 2:9] #gets all the surrounding states
+  #t = unique(unlist(t))
   t = as.character(t[!is.na(t)])
   t = t[!(t %in% states_list)]
   t = str_pad(t, 2, side = "left", pad = "0")
