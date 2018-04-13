@@ -2,7 +2,7 @@
 
 ## Risk Screening Environmental Indicators Model Data
 
-The Risk Screening Environmental Indicators (RSEI) Model is a geographically detailed data set produced by the United States Environmental Protection Agency (EPA). RSEI data is based upon the Toxic Release Inventory (TRI), a dataset on toxic releases in the United States. 
+The Risk Screening Environmental Indicators (RSEI) Model is a geographically detailed data set produced by the United States Environmental Protection Agency (EPA). RSEI data is based upon the Toxic Release Inventory (TRI), a data set on toxic releases in the United States. 
 
 TRI data is self reported by facilities, with each observation being a release of a reporting chemical at a reporting facility. For each observation, data is collected on which chemical was released, how much of it was released, and the facility from which it was released. This data is collected for a mandated list of industries, facilities, and chemicals that change over time. For a release to be reported it has to be a mandated chemical, released by a mandated facility in a mandated industry.
 
@@ -29,11 +29,11 @@ Below see an example of the disaggregated microdata:
 
 Due to the nature of the data, there are a few interesting caveats to consider. 
 
-The RSEI data is self reported, and has been thought to contain some severe underreporting (De Marchi and Hamilton, 2006). This could lead to low estimates of toxicity, and could bias results if certain areas or industries are more likely to underreport. Highly regulated chemicals may be more likely to be underreported, as facilities are incetivised to release as little as possible.
+The RSEI data is self reported, and has been thought to contain some severe under reporting (De Marchi and Hamilton, 2006). This could lead to low estimates of toxicity, and could bias results if certain areas or industries are more likely to under report. Highly regulated chemicals may be more likely to be under reported, as facilities are incentivized to release as little as possible.
 
 The data is entirely based off a black box fate and transport model. The model has uncertainty that is not reported in RSEI and therefore is not being addressed. The raw data we use are estimates to begin with, but are being treated as observed data. 
 
-The data only captures releases for certain facility types within certain industries, for certain chemical types within those facilities. Not all chemicals are mandated reporting, and any analysis that is done based off the data can't be extrapolated to discuss toxicity more generally. Some important industries (like mining) are not monitored over the entire period, and are removd to ensure consistency over time, so areas that strongly represent those industries will have deflated toxicity estimates. 
+The data only captures releases for certain facility types within certain industries, for certain chemical types within those facilities. Not all chemicals are mandated reporting, and any analysis that is done based off the data can't be extrapolated to discuss toxicity more generally. Some important industries (like mining) are not monitored over the entire period, and are removed to ensure consistency over time, so areas that strongly represent those industries will have deflated toxicity estimates. 
 
 Not only does the data not capture all chemicals, it also doesn't address many common nuisances. Because of this, it is difficult to relate the RSEI scores to health or quality of life outcomes in an area. There are many obvious environmental hazards that are likely to have strong influence on public health and living conditions that TRI doesn't address, eg: brownfields, solid waste disposal, animal farming, hazardous waste, etc.
 
@@ -49,15 +49,15 @@ RSEI data is available between 1988 and 2015, and over that time Census geograph
 
 ### Chemical Consistency
 
-Consistency across time, space, and chemicals is vital in oder to be able to compare toxicity values across time. Though the EPA is incredibly detailed in their data collection, they are also subject to changing scientific consensus and legislation, and therefore haven't been able to provide entirely consistent data. 
+Consistency across time, space, and chemicals is vital in order to be able to compare toxicity values across time. Though the EPA is incredibly detailed in their data collection, they are also subject to changing scientific consensus and legislation, and therefore haven't been able to provide entirely consistent data. 
 
-Over time, as chemicals have been found to be toxic, they have been added to the list of TRI mandated reporting chemicals. There are also chemicals that have been removed from the mandated reporting list. Because the list of chemicals reported changes over time, aggregating all the data would cause us to see artificial jumps in toxicity. These jumps wouldn't be reflective of actual increases in toxicity, but rather toxicity that was beginning to be measured. These jumps may change what areas appear toxic in the data, as industries that don't have to report at some point in the time frame will be entirely removed from the dataset. Several of those industries are very highly polluting, and after elimination locations that focus strongly on those industries will show deflated scores. 
+Over time, as chemicals have been found to be toxic, they have been added to the list of TRI mandated reporting chemicals. There are also chemicals that have been removed from the mandated reporting list. Because the list of chemicals reported changes over time, aggregating all the data would cause us to see artificial jumps in toxicity. These jumps wouldn't be reflective of actual increases in toxicity, but rather toxicity that was beginning to be measured. These jumps may change what areas appear toxic in the data, as industries that don't have to report at some point in the time frame will be entirely removed from the data set. Several of those industries are very highly polluting, and after elimination locations that focus strongly on those industries will show deflated scores. 
 
 ### Industry Reporting Consistency
 
 TRI regulates who needs to self report using the North American Industry Classification System (NAICS), and before NAICS was available used its predecessor, the Standard Industrial Classification (SIC) system. Just as we see changes in the regulations for chemicals, we see changes in the regulations of various industries. NAICS codes that need to report are regulated independently of chemical codes, and NAICS codes that are not consistently reported across the time period of interest must be removed to maintain continuity. 
 
-As an example, a textiles facility releasing mercury might fall under mandated reporting due to their NAICS code, but the neighboring mining facility that also releases mercury might not have to report becuase of the NAICS code. If that changes over the time period, and suddenly the mining industry also mandates reporting, we will see an artificial huge jump in the mercury present in that area if we don't remove by industry.
+As an example, a textiles facility releasing mercury might fall under mandated reporting due to their NAICS code, but the neighboring mining facility that also releases mercury might not have to report because of the NAICS code. If that changes over the time period, and suddenly the mining industry also mandates reporting, we will see an artificial huge jump in the mercury present in that area if we don't remove by industry.
 
 ## Data Cleanup
 

@@ -1,6 +1,6 @@
 # Goals {#goals}
 
-This work aims to address some of the limitations of the current environmental justice literature by examining a comprehensive dataset that covers the entire nation, with data spanning from 1988 to 2015. The broad temporal and spatial coverage is nearly unparalleled in environmental justice literature, with the last study of this length spanning the years 1970 to 1994 (Been and Gupta, 1997), relying solely upon tract level hazardous waste site data. 
+This work aims to address some of the limitations of the current environmental justice literature by examining a comprehensive data set that covers the entire nation, with data spanning from 1988 to 2015. The broad temporal and spatial coverage is nearly unparalleled in environmental justice literature, with the last study of this length spanning the years 1970 to 1994 (Been and Gupta, 1997), relying solely upon tract level hazardous waste site data. 
 
 The goals of this paper are:
 
