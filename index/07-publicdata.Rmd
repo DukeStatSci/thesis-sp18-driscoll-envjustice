@@ -16,7 +16,7 @@ The priority in organizing the app was to provide as much information as possibl
 
 The app functions through a location search. By geolocating the given search address, the relevant data and plots will be shown. 
 
-![](https://raw.githubusercontent.com/DukeStatSci/thesis-sp18-driscoll-envjustice/master/index/figure/north_carolina_shiny.png)
+![](https://raw.githubusercontent.com/DukeStatSci/thesis-sp18-driscoll-envjustice/master/index/figure/north_carolina_shiny.PNG)
 
 A choropleth map forms the centerpiece of the app, showing the average toxicity of counties in the area surrounding the point. This contextualizes the toxicity, which is unit-less and only interpretable in comparison to other toxicities. Choropleth maps are a familiar form of communicating location based data. 
 
