@@ -8,4 +8,4 @@ The goals of this paper are:
 
 * Simulating how minority distributions would look in 2015 given they had held constant their relative position in the overall distribution of 1990. This measure allows us to see how much of the improvement in relative toxicity is attributable to the compression of the overall toxicity distribution, and how much is attributable to changes in the relative state of minority groups. 
 
-* To create a web app that provides a searchable map database with information on local toxicity, and the local state of environmental justice. The goal of this app is to make complex data accessible for public use. 
+* To create a web app that provides a searchable map database with information on local toxicity, and the local state of environmental justice. The goal of this app is to make complex data accessible for public use. Additionally, to create a package containing functions that help convert RSEI dissaggregated microdata to a consistent Census compatible form, in order to make the base data more accessible. 

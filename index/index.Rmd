@@ -69,8 +69,10 @@ if(!require(devtools))
 if(!require(thesisdowndss))
   devtools::install_github("mine-cetinkaya-rundel/thesisdowndss")
 library(thesisdowndss)
-devtools::install_github("amd112/rseiAnalysis")
-library("rseiAnalysis")
+if(!require(rseiAnalysis)){
+  devtools::install_github("amd112/rseiAnalysis")
+  library("rseiAnalysis")
+}
 
 library(magrittr)
 library(readr)
@@ -226,11 +228,11 @@ on chapters.
 
 Environmental justice studies have been significantly limited by data availability, focusing on neighborhood level studies and working hand in hand with organizers to study toxicity disparity patterns within communities. As an injustice inherent to the societal structure of our nation, environmental justice questions should be addressed at a national scale. The Risk Screening Environmental Indicator model (RSEI) data was released for public use in 2015, allowing work with fine-grained toxicity data available nationally since 1988. 
 
-RSEI data is extremely fine-grained, however it contains many inconsistencies over time, and needs to be aggregated to the census geography. By aggregating RSEI data, we are able to calculate toxicity measures for each block group. In combination with the census data, this allows us to estimate distributions of toxicity experienced by minority groups in the United States. Additionally, we are able to analyze macro level trends over time, such as the overall geography of toxicity in the United States, how the 5^th^, 50^th^, and 95^th^ percentiles of toxicity experienced by each race group varies over time, and how protective higher incomes are for each race group. 
+RSEI data is fine-grained dataset, reporting toxicity on an 800m by 800m grid across the US. However RSEI contains many inconsistencies over time, and needs to be aggregated to the census geography. By aggregating RSEI data, we are able to calculate toxicity measures for each block group. In combination with the census data, this allows us to estimate distributions of toxicity experienced by minority groups in the United States. Additionally, we are able to analyze macro level trends over time, such as the overall geography of toxicity in the United States, how the 5^th^, 50^th^, and 95^th^ percentiles of toxicity experienced by each race group varies over time, and how income brackets relate to toxicity experienced for each race group. 
 
 Results show that toxicity is decreasing dramatically for all and, though the gap is closing, there still remains a large difference in toxicity experienced between white and minority groups. Additionally, the effects of income on experienced toxicity are unclear, and may need additional data to untangle.
 
-The results are incorporated into a publicly available app that allows users to investigate toxicity in their area relative to the U.S. at large, and investigate the differences in local racial toxicity burden.
+In order to make results accessible, they are incorporated into a publicly available app that allows users to investigate toxicity in their area relative to the U.S. at large, and investigate the differences in local race-related toxicity burden. Additionally, a package containing functions to help convert RSEI dissaggregated microdata to a consistent form was created to help make the work reproducible and encourage work on similar questions.
 
 
 ### Keywords {.unnumbered}

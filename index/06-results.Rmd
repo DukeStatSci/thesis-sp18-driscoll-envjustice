@@ -271,7 +271,7 @@ grid.arrange(arrangeGrob(sim_tox(perc50, 50), relative_sim(perc50, 50), nrow=1),
 
 Changes at the 50^th^ percentile were impressive in the initial analysis, and remain that way. The simulated distributions still show improvement, but very minor compared to the observed improvement. The simulated black 50^th^ percentile drops from 3 times to 2.75 times the white 50^th^ percentile, where the true distribution drops from 3 times to 1.5 times the white distribution. All the simulations show the same pattern, with the Hispanic group showing the largest difference between true and simulated 50^th^ percentile, the simulated group ending at 2.25 times the white distribution, and the true group ending at 0.75 times the white distribution. 
 
-Interpreting the differences in simulated and true values as the portion of change attributable to the position each group holds in the overall distribution, it seems that there has been significant change in the positions minorities hold in the overall toxicity distribution.
+Interpreting the differences in simulated and true values as the portion of change attributable to the position each group holds in the overall distribution, it seems that there has been change in the positions minorities hold in the overall toxicity distribution.
 
 ```{r, echo = FALSE, fig.width=10, fig.height=4, warning = FALSE}
 grid.arrange(arrangeGrob(sim_tox(perc95, 95), relative_sim(perc95, 95), nrow=1),
@@ -477,4 +477,4 @@ quant_den = rq(log(concentration)~year+p_white+p_black+p_hispanic+p_other+I(year
 plot_quant(exp(predict.rq(quant_den, test)))
 ```
 
-By adding additional block level data to this regression and testing model fit more rigorously, we may be able to discuss the magnitude of toxicity differences that are actually attributable to race, and will be informed on the other factors that hold importance in predicting toxicity. Above sections address the empirical reduction in toxicity and the reduction amount attributable to shifts of minority placement in the distribution. An approach able to take it a step further and find the differences attributable to race would add significant value.
+By adding additional block level data to this regression, we may be able to discuss the magnitude of toxicity differences that are actually attributable to race, and will be informed on the other factors that hold importance in predicting toxicity. Above sections address the empirical reduction in toxicity and the reduction amount attributable to shifts of minority placement in the distribution. An approach able to take it a step further and find the differences attributable to race would add significant value.

@@ -35,13 +35,13 @@ The data is entirely based off a black box fate and transport model. The model h
 
 The data only captures releases for certain facility types within certain industries, for certain chemical types within those facilities. Not all chemicals are mandated reporting, and any analysis that is done based off the data can't be extrapolated to discuss toxicity more generally. Some important industries (like mining) are not monitored over the entire period, and are removed to ensure consistency over time, so areas that strongly represent those industries will have deflated toxicity estimates. 
 
-Not only does the data not capture all chemicals, it also doesn't address many common nuisances. Because of this, it is difficult to relate the RSEI scores to health or quality of life outcomes in an area. There are many obvious environmental hazards that are likely to have strong influence on public health and living conditions that TRI doesn't address, eg: brownfields, solid waste disposal, animal farming, hazardous waste, etc.
+Because RSEI only captures a specific subset of chemicals, it is difficult to relate the RSEI scores to health or quality of life outcomes in an area. There are many obvious environmental hazards that are likely to have strong influence on public health and living conditions that TRI doesn't address, eg: brownfields, solid waste disposal, animal farming, hazardous waste, etc.
 
 Another detail of the data that makes interpreting results difficult is how chemicals are compared. RSEI gives the weight of the release and the chemical of the release, but chemicals have very different levels of toxicity. A small amount of mercury released is much worse than a small amount of CO2. To that end, the EPA assigned each chemical a 'toxicity' weight, by which the amount of the chemical released is multiplied. This means that we can aggregate all the chemicals in an area, and compare the overall toxicity over space and time. The toxicity weights allow us to compare to other chemicals' toxicity weight, and overall toxicity of a given chemical release, but also means that the values only have meaning in comparison.
 
 Despite the limitations that the data presents, it provides an incredibly detailed and complex view of toxicity in the United States that is worth delving in to. 
 
-## Data Consistency
+## Data Continuity
 
 ### Census Comparability
 
