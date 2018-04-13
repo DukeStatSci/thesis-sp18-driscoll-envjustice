@@ -45,6 +45,8 @@
 * **Gilbert A. & Chakraborty, J. (2011). Using geographically weighted regression for environmental justice analysis: Cumulative cancer risks from air toxics in Florida. *Social Science Research, 40*, pp. 273-286.**
 
 * **Hunter, Lori M., et al. "Environmental hazards, migration, and race." Population & Environment 25.1 (2003): 23-39.**
+
+* **Kirill Müller, Hadley Wickham, David A. James and Seth Falcon (2018). RSQLite: 'SQLite' Interface for R. R package version 2.1.0. https://CRAN.R-project.org/package=RSQLite**
      
 * **Kravitz-Wirtz N., Crowder K., Hajat A. & Sass V. (2016). The Long-term Dynamics of Racial/Ethnic Inequality in Neighborhood Air Pollution Exposure, 1990-2009. *Du Bois Review, 13*(2), pp. 237-259.**
 
@@ -60,6 +62,8 @@
 * **Pais J., Crowder K. & Downey L. (2013). Unequal Trajectories: Racial and Class Differences in Residential Exposure to Industrial Hazard. *Social Forces, 92*(3). pp. 1189-1215**
 
 * **Ringquist, Evan J. "Equity and the distribution of environmental risk: The case of TRI facilities." *Social science quarterly* (1997): 811-829.**
+
+* **R Special Interest Group on Databases (R-SIG-DB), Hadley Wickham and Kirill Müller (2018). DBI: R Database Interface. R package version 0.8. https://CRAN.R-project.org/package=DBI**
 
 * **Sadd, James L., et al. ""Every breath you take...": the demographics of toxic air releases in Southern California." *Economic Development Quarterly 13.2* (1999): 107-123.**
 
