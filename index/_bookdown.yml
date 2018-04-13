@@ -1,6 +1,5 @@
 book_filename: "thesis"
 chapter_name: "Chapter "
-bibliography: "citations.bib"
 rmd_files: ["index.Rmd", "01-env_justice.Rmd", "02-goals.Rmd", "03-data.Rmd", "04-eda.Rmd", "05-methods.Rmd", "06-results.Rmd", "07-publicdata.Rmd", "08-conclusion.Rmd"]
 download: [["thesis.pdf", "PDF"], ["thesis.epub", "EPUB"], ["thesis.docx", "Word"]]
 output_dir: "../docs"

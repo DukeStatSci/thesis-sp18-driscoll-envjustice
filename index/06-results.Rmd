@@ -414,7 +414,7 @@ Previous sections have focused on teasing apart patterns in the vast amounts of 
 
 In order to better tease out relationships in the data, and for easy interpretation of coefficients, a functionally similar analysis can be done with quantile regression, focusing on the computed parameters as indicators of the differences in experienced toxicity. 
 
-To illustrate the form this model could take, we build preliminary quantile regression models [@quantreg] on the 5^th^, 50^th^, and 95^th^ percentiles of the toxicity distribution. To predict log toxicity, we use the year, demographic information, population density and quadratic terms. This model operates on a tract level, using percentage of each population group, population density, and would ideally also include variables like unemployment rates, percentage renters, etc.
+To illustrate the form this model could take, we build preliminary quantile regression models on the 5^th^, 50^th^, and 95^th^ percentiles of the toxicity distribution. To predict log toxicity, we use the year, demographic information, population density and quadratic terms. This model operates on a tract level, using percentage of each population group, population density, and would ideally also include variables like unemployment rates, percentage renters, etc.
 
 The predictions shown for each race or ethnicity group are fairly consistent with the results shown above. The distinct separation between the white and Hispanic distributions as compared to the black and 'other' distributions is mirrored in the model predictions. The model appears to follow the observed patterns fairly well, aside from a strange fit for the 'other' distribution in the 5^th^ percentile. 
 

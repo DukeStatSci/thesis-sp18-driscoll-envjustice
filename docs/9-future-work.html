@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="8-conclusion.html">
-
+<link rel="next" href="A-annotated-bibliography.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -75,7 +75,7 @@
 <li class="chapter" data-level="3" data-path="3-data.html"><a href="3-data.html"><i class="fa fa-check"></i><b>3</b> Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="3-data.html"><a href="3-data.html#risk-screening-environmental-indicators-model-data"><i class="fa fa-check"></i><b>3.1</b> Risk Screening Environmental Indicators Model Data</a></li>
 <li class="chapter" data-level="3.2" data-path="3-data.html"><a href="3-data.html#important-caveats"><i class="fa fa-check"></i><b>3.2</b> Important Caveats</a></li>
-<li class="chapter" data-level="3.3" data-path="3-data.html"><a href="3-data.html#data-continuity"><i class="fa fa-check"></i><b>3.3</b> Data Continuity</a><ul>
+<li class="chapter" data-level="3.3" data-path="3-data.html"><a href="3-data.html#data-consistency"><i class="fa fa-check"></i><b>3.3</b> Data Consistency</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="3-data.html"><a href="3-data.html#census-comparability"><i class="fa fa-check"></i><b>3.3.1</b> Census Comparability</a></li>
 <li class="chapter" data-level="3.3.2" data-path="3-data.html"><a href="3-data.html#chemical-consistency"><i class="fa fa-check"></i><b>3.3.2</b> Chemical Consistency</a></li>
 <li class="chapter" data-level="3.3.3" data-path="3-data.html"><a href="3-data.html#industry-reporting-consistency"><i class="fa fa-check"></i><b>3.3.3</b> Industry Reporting Consistency</a></li>
@@ -97,16 +97,18 @@
 <li class="chapter" data-level="6.1" data-path="6-organization.html"><a href="6-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>6.1</b> Trends in Minority Toxicity Burden</a></li>
 <li class="chapter" data-level="6.2" data-path="6-organization.html"><a href="6-organization.html#trends-in-simulated-minority-toxicity-burden"><i class="fa fa-check"></i><b>6.2</b> Trends in Simulated Minority Toxicity Burden</a></li>
 <li class="chapter" data-level="6.3" data-path="6-organization.html"><a href="6-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>6.3</b> Interacting Risk Cases</a></li>
-<li class="chapter" data-level="6.4" data-path="6-organization.html"><a href="6-organization.html#exploration-of-quantile-regression"><i class="fa fa-check"></i><b>6.4</b> Exploration of Quantile Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="6-organization.html"><a href="6-organization.html#quantile-regression"><i class="fa fa-check"></i><b>6.4</b> Quantile Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-publicdata.html"><a href="7-publicdata.html"><i class="fa fa-check"></i><b>7</b> Public Interaction</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-publicdata.html"><a href="7-publicdata.html#data-accessibility"><i class="fa fa-check"></i><b>7.1</b> Data Accessibility</a></li>
 <li class="chapter" data-level="7.2" data-path="7-publicdata.html"><a href="7-publicdata.html#app-intent-and-description"><i class="fa fa-check"></i><b>7.2</b> App Intent and Description</a></li>
 <li class="chapter" data-level="7.3" data-path="7-publicdata.html"><a href="7-publicdata.html#computational-limitations"><i class="fa fa-check"></i><b>7.3</b> Computational Limitations</a></li>
-<li class="chapter" data-level="7.4" data-path="7-publicdata.html"><a href="7-publicdata.html#further-data-engagement"><i class="fa fa-check"></i><b>7.4</b> Further Data Engagement</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="8-conclusion.html"><a href="8-conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
 <li class="chapter" data-level="9" data-path="9-future-work.html"><a href="9-future-work.html"><i class="fa fa-check"></i><b>9</b> Future Work</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="A-annotated-bibliography.html"><a href="A-annotated-bibliography.html"><i class="fa fa-check"></i><b>A</b> Annotated Bibliography</a></li>
+<li class="chapter" data-level="B" data-path="B-access-to-rsei-data.html"><a href="B-access-to-rsei-data.html"><i class="fa fa-check"></i><b>B</b> Access to RSEI data</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -128,18 +130,18 @@
             <section class="normal" id="section-">
 <div id="future-work" class="section level1">
 <h1><span class="header-section-number">Chapter 9</span> Future Work</h1>
-<p>This work has yet to include geographic variables (such as census region, population density, suburb vs. city, level of manufacturing, availability of jobs, housing market, access to transportation etc.), which may add to both the explanatory and predictive power of this analysis.</p>
-<p>Potential areas for improvement include using more detailed income data, using small area estimation to generate cross tabulations at lower geographic levels, and creating models with more local data in order to investigate what portion of the difference is attributable to race. Currently presented results may be useful as a baseline on the current trends in environmental inequality at a national scale, and as a more interpretable individual level description of the experiences of various racial and ethnic groups.</p>
-<p>Data availability is very limited in this work, as the app only provides access to a very small set of data points. Though residents would likely be most interested in how their toxicity compares to those around them, they might also want more detailed data on what companies and chemicals are most common in their area. Unfortunately, hosting that much data in the Shiny app isn’t feasible.</p>
 
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="8-conclusion.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="8-conclusion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="A-annotated-bibliography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

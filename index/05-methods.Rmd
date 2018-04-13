@@ -101,7 +101,7 @@ These two explanations for decreasing toxicity can translate into two descriptor
   
 Positional convergence is of primary interest, since it would allow us to look at how much 'true' change there has been. By removing the distributional convergence we are able to compare the current observed reductions in inequality to what those changes would have been if minority populations had held static their position in the overall distribution.
 
-In order to find the positional convergence of minority distributions over the period of study, we use the percentiles that minority individuals held in the overall distribution at the start of the period of study and propagate them forward to simulate what each group's distribution would have been in later years. This simulation procedure was first discussed by Bayer, Patrick and Kerwin as a method of identifying the true gains in 'Black-White Earning Differences' [-@Bayer2016]. 
+In order to find the positional convergence of minority distributions over the period of study, we use the percentiles that minority individuals held in the overall distribution at the start of the period of study and propagate them forward to simulate what each group's distribution would have been in later years. This simulation procedure was first discussed by Bayer, Patrick and Kerwin as a method of identifying the true gains in 'Black-White Earning Differences' (2016). 
 
 This simulation proceeds as follows:
 

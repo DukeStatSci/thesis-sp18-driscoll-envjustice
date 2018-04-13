@@ -75,7 +75,7 @@
 <li class="chapter" data-level="3" data-path="3-data.html"><a href="3-data.html"><i class="fa fa-check"></i><b>3</b> Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="3-data.html"><a href="3-data.html#risk-screening-environmental-indicators-model-data"><i class="fa fa-check"></i><b>3.1</b> Risk Screening Environmental Indicators Model Data</a></li>
 <li class="chapter" data-level="3.2" data-path="3-data.html"><a href="3-data.html#important-caveats"><i class="fa fa-check"></i><b>3.2</b> Important Caveats</a></li>
-<li class="chapter" data-level="3.3" data-path="3-data.html"><a href="3-data.html#data-continuity"><i class="fa fa-check"></i><b>3.3</b> Data Continuity</a><ul>
+<li class="chapter" data-level="3.3" data-path="3-data.html"><a href="3-data.html#data-consistency"><i class="fa fa-check"></i><b>3.3</b> Data Consistency</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="3-data.html"><a href="3-data.html#census-comparability"><i class="fa fa-check"></i><b>3.3.1</b> Census Comparability</a></li>
 <li class="chapter" data-level="3.3.2" data-path="3-data.html"><a href="3-data.html#chemical-consistency"><i class="fa fa-check"></i><b>3.3.2</b> Chemical Consistency</a></li>
 <li class="chapter" data-level="3.3.3" data-path="3-data.html"><a href="3-data.html#industry-reporting-consistency"><i class="fa fa-check"></i><b>3.3.3</b> Industry Reporting Consistency</a></li>
@@ -97,16 +97,18 @@
 <li class="chapter" data-level="6.1" data-path="6-organization.html"><a href="6-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>6.1</b> Trends in Minority Toxicity Burden</a></li>
 <li class="chapter" data-level="6.2" data-path="6-organization.html"><a href="6-organization.html#trends-in-simulated-minority-toxicity-burden"><i class="fa fa-check"></i><b>6.2</b> Trends in Simulated Minority Toxicity Burden</a></li>
 <li class="chapter" data-level="6.3" data-path="6-organization.html"><a href="6-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>6.3</b> Interacting Risk Cases</a></li>
-<li class="chapter" data-level="6.4" data-path="6-organization.html"><a href="6-organization.html#exploration-of-quantile-regression"><i class="fa fa-check"></i><b>6.4</b> Exploration of Quantile Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="6-organization.html"><a href="6-organization.html#quantile-regression"><i class="fa fa-check"></i><b>6.4</b> Quantile Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-publicdata.html"><a href="7-publicdata.html"><i class="fa fa-check"></i><b>7</b> Public Interaction</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-publicdata.html"><a href="7-publicdata.html#data-accessibility"><i class="fa fa-check"></i><b>7.1</b> Data Accessibility</a></li>
 <li class="chapter" data-level="7.2" data-path="7-publicdata.html"><a href="7-publicdata.html#app-intent-and-description"><i class="fa fa-check"></i><b>7.2</b> App Intent and Description</a></li>
 <li class="chapter" data-level="7.3" data-path="7-publicdata.html"><a href="7-publicdata.html#computational-limitations"><i class="fa fa-check"></i><b>7.3</b> Computational Limitations</a></li>
-<li class="chapter" data-level="7.4" data-path="7-publicdata.html"><a href="7-publicdata.html#further-data-engagement"><i class="fa fa-check"></i><b>7.4</b> Further Data Engagement</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="8-conclusion.html"><a href="8-conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
 <li class="chapter" data-level="9" data-path="9-future-work.html"><a href="9-future-work.html"><i class="fa fa-check"></i><b>9</b> Future Work</a></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="A-annotated-bibliography.html"><a href="A-annotated-bibliography.html"><i class="fa fa-check"></i><b>A</b> Annotated Bibliography</a></li>
+<li class="chapter" data-level="B" data-path="B-access-to-rsei-data.html"><a href="B-access-to-rsei-data.html"><i class="fa fa-check"></i><b>B</b> Access to RSEI data</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -133,10 +135,10 @@
 </div>
 <div id="abstract" class="section level1 unnumbered">
 <h1>Abstract</h1>
-<p>Environmental justice studies have been significantly limited by data availability, focusing on neighborhood level studies and working hand in hand with organizers to study toxicity disparity patterns within communities. As an injustice inherent to the societal structure of our nation, environmental justice questions should be addressed at a national scale. The Risk Screening Environmental Indicator model (RSEI) data was released for public use in 2015, allowing work with fine-grained toxicity data available nationally since 1988.</p>
-<p>RSEI data is fine-grained dataset, reporting toxicity on an 800m by 800m grid across the US. However RSEI contains many inconsistencies over time, and needs to be aggregated to the census geography. By aggregating RSEI data, we are able to calculate toxicity measures for each block group. In combination with the census data, this allows us to estimate distributions of toxicity experienced by minority groups in the United States. Additionally, we are able to analyze macro level trends over time, such as the overall geography of toxicity in the United States, how the 5<sup>th</sup>, 50<sup>th</sup>, and 95<sup>th</sup> percentiles of toxicity experienced by each race group varies over time, and how income brackets relate to toxicity experienced for each race group.</p>
+<p>Environmental justice studies have been significantly limited by data availability, focusing on neighborhood level studies and working hand in hand with organizers to study toxcicity disparity patterns within communities. As an injustice inherent to the societal structure of our nation, environmental justice questions should be addressed at a national scale. The Risk Screening Environmental Indicator model (RSEI) data was released for public use in 2015, allowing work with fine grain toxicity data available nationally since 1988.</p>
+<p>RSEI data is extremely fine grain, but contains many inconsistencies over time, and needs to be aggregated to Census geography. By aggregating RSEI data, we are able to calculate toxicity measures for each block group. In combination with Census data, this allows us to build distributions of toxicity experienced by minority groups in America. This fine grain data, over an extended time period, allows discussion of macro level trends including: the overall geography of toxicity in America; how the 5th, 50th, and 95th percentiles of toxicity experienced by each race group varies over time; and how protective higher incomes are for each race group.</p>
 <p>Results show that toxicity is decreasing dramatically for all and, though the gap is closing, there still remains a large difference in toxicity experienced between white and minority groups. Additionally, the effects of income on experienced toxicity are unclear, and may need additional data to untangle.</p>
-<p>In order to make results accessible, they are incorporated into a publicly available app that allows users to investigate toxicity in their area relative to the U.S. at large, and investigate the differences in local race-related toxicity burden. Additionally, a package containing functions to help convert RSEI dissaggregated microdata to a consistent form was created to help make the work reproducible and encourage work on similar questions.</p>
+<p>RSEI data is released under The Emergency Planning and Community Right-to-Know Act (EPCRA,) and contains data that would be useful to communities, but is incredibly intricate and complex. These results are incorporated in to a publicly available app that allows users to investigate toxicity in their area relative to the US at large, and investigate the differences in local racial toxicty burden.</p>
 <div id="keywords" class="section level3 unnumbered">
 <h3>Keywords</h3>
 <p>Environmental Inequality, Racial Inequality, Public Use, Simulation, Toxicity, Temporal Analysis</p>

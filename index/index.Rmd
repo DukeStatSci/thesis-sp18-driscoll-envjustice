@@ -75,12 +75,11 @@ if(!require(rseiAnalysis)){
 }
 
 library(magrittr)
-#library(knitcitations)
 library(readr)
 library(ggplot2)
 library(dplyr)
 library(plyr)
-library(zoo)
+#library(zoo)
 library(lemon)
 library(stringr)
 library(spatstat)
