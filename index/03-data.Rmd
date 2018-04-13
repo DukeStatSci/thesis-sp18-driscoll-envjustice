@@ -61,7 +61,7 @@ As an example, a textiles facility releasing mercury might fall under mandated r
 
 ## Data Cleanup
 
-Data cleaning was done with R using the DBI and SQLite packages (R-SIG-DB et al., 2018; Müller et al., 2018.). Since there is so much data, it's not feasible to process it using typical R functions, so we used a SQL database. This significantly speeds up the processes detailed below.
+Data cleaning was done with R using the DBI and SQLite packages (R-SIG-DB et al., 2018; Muller et al., 2018.). Since there is so much data, it's not feasible to process it using typical R functions, so we used a SQL database. This significantly speeds up the processes detailed below.
 
 The disaggregated microdata from RSEI is one observation per release per cell on the 800m by 800m grid that it reached. We filter each of the observations to check that it is 
 

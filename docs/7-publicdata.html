@@ -75,7 +75,7 @@
 <li class="chapter" data-level="3" data-path="3-data.html"><a href="3-data.html"><i class="fa fa-check"></i><b>3</b> Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="3-data.html"><a href="3-data.html#risk-screening-environmental-indicators-model-data"><i class="fa fa-check"></i><b>3.1</b> Risk Screening Environmental Indicators Model Data</a></li>
 <li class="chapter" data-level="3.2" data-path="3-data.html"><a href="3-data.html#important-caveats"><i class="fa fa-check"></i><b>3.2</b> Important Caveats</a></li>
-<li class="chapter" data-level="3.3" data-path="3-data.html"><a href="3-data.html#data-consistency"><i class="fa fa-check"></i><b>3.3</b> Data Consistency</a><ul>
+<li class="chapter" data-level="3.3" data-path="3-data.html"><a href="3-data.html#data-continuity"><i class="fa fa-check"></i><b>3.3</b> Data Continuity</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="3-data.html"><a href="3-data.html#census-comparability"><i class="fa fa-check"></i><b>3.3.1</b> Census Comparability</a></li>
 <li class="chapter" data-level="3.3.2" data-path="3-data.html"><a href="3-data.html#chemical-consistency"><i class="fa fa-check"></i><b>3.3.2</b> Chemical Consistency</a></li>
 <li class="chapter" data-level="3.3.3" data-path="3-data.html"><a href="3-data.html#industry-reporting-consistency"><i class="fa fa-check"></i><b>3.3.3</b> Industry Reporting Consistency</a></li>
@@ -97,18 +97,16 @@
 <li class="chapter" data-level="6.1" data-path="6-organization.html"><a href="6-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>6.1</b> Trends in Minority Toxicity Burden</a></li>
 <li class="chapter" data-level="6.2" data-path="6-organization.html"><a href="6-organization.html#trends-in-simulated-minority-toxicity-burden"><i class="fa fa-check"></i><b>6.2</b> Trends in Simulated Minority Toxicity Burden</a></li>
 <li class="chapter" data-level="6.3" data-path="6-organization.html"><a href="6-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>6.3</b> Interacting Risk Cases</a></li>
-<li class="chapter" data-level="6.4" data-path="6-organization.html"><a href="6-organization.html#quantile-regression"><i class="fa fa-check"></i><b>6.4</b> Quantile Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="6-organization.html"><a href="6-organization.html#exploration-of-quantile-regression"><i class="fa fa-check"></i><b>6.4</b> Exploration of Quantile Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-publicdata.html"><a href="7-publicdata.html"><i class="fa fa-check"></i><b>7</b> Public Interaction</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-publicdata.html"><a href="7-publicdata.html#data-accessibility"><i class="fa fa-check"></i><b>7.1</b> Data Accessibility</a></li>
 <li class="chapter" data-level="7.2" data-path="7-publicdata.html"><a href="7-publicdata.html#app-intent-and-description"><i class="fa fa-check"></i><b>7.2</b> App Intent and Description</a></li>
 <li class="chapter" data-level="7.3" data-path="7-publicdata.html"><a href="7-publicdata.html#computational-limitations"><i class="fa fa-check"></i><b>7.3</b> Computational Limitations</a></li>
+<li class="chapter" data-level="7.4" data-path="7-publicdata.html"><a href="7-publicdata.html#further-data-engagement"><i class="fa fa-check"></i><b>7.4</b> Further Data Engagement</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="8-conclusion.html"><a href="8-conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
 <li class="chapter" data-level="9" data-path="9-future-work.html"><a href="9-future-work.html"><i class="fa fa-check"></i><b>9</b> Future Work</a></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A-annotated-bibliography.html"><a href="A-annotated-bibliography.html"><i class="fa fa-check"></i><b>A</b> Annotated Bibliography</a></li>
-<li class="chapter" data-level="B" data-path="B-access-to-rsei-data.html"><a href="B-access-to-rsei-data.html"><i class="fa fa-check"></i><b>B</b> Access to RSEI data</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -133,22 +131,28 @@
 <div id="data-accessibility" class="section level2">
 <h2><span class="header-section-number">7.1</span> Data Accessibility</h2>
 <p>TRI data originates from The Emergency Planning and Community Right-to-Know Act (EPCRA). The bill was largely motivated by an incident at a chemical production plant in Bhopal, India. Approximately 40 tons of Methyl Isocyanate was released in to the air, killing upwards of 5000 people living in the surrounding area. The disaster created a panic in the United States, and created public demand for transparency on toxic releases in their communities.</p>
-<p>Public use generally doesn’t extend in to the full depth of TRI data, due to its size and complexity. Simple tools were developed by the EPA to allow public access to the data, including <a href="https://www.epa.gov/rsei/rsei-results-map">a map</a> that allows you to click on a state and learn what number it is ranked in the US. Data available has incredible potential address the richness of the information we have on a much more local level. There is also <a href="https://www.epa.gov/rsei/get-easyrsei">an app</a> that allows for investigation of RSEI data. Though quite thourough, it requires extensive setup.</p>
-<p>The intent of this app is to allow an easier outlet to find information about local RSEI data, allow comparisons more complex than rankings, and introduce environmental justice related data.</p>
+<p>Public use generally doesn’t extend to the full depth of TRI data, due to its size and complexity. Simple tools were developed by the EPA to allow public access to the data, including <a href="https://www.epa.gov/rsei/rsei-results-map">a map</a> that allows you to click on a state and learn what number it is ranked in the US. Data available has incredible potential to allow access to much richer information on a much more local level. There is also <a href="https://www.epa.gov/rsei/get-easyrsei">an app</a> that allows for investigation of RSEI data. Though quite thorough, it requires extensive setup.</p>
+<p>The intent of this app is to allow an easier outlet to find information about local RSEI data, allow comparisons more complex than rankings, and introduce environmental justice concepts in the context of RSEI data.</p>
 </div>
 <div id="app-intent-and-description" class="section level2">
 <h2><span class="header-section-number">7.2</span> App Intent and Description</h2>
-<p>The app built focuses on communicating the distribution of toxicity in a given local area as compared to the national and state distributions. Additionally, it shows the difference in toxicity burden experienced by black communities as compared to white communities.</p>
-<p>The priority in organizing the app was to provide as much information as possible in as intuitive a form as possible. To do this, we prioritized three pieces of information we found to be most useful for communities interested in their toxicities.</p>
+<p>The app built focuses on communicating the distribution of toxicity in a given local area as compared to the national and state distributions. The app was build primarily through Shiny (Chang, 2017). Additionally, it shows the difference in toxicity burden experienced locally by black communities as compared to white communities.</p>
+<p>The priority in organizing the app was to provide as much information as possible in as intuitive a form as possible. To do this, we prioritized three pieces of information we found to be most useful for communities interested in their toxicities: a map of toxicities in surrounding areas, a plot showing the distribution of toxicities within their county, and the distribution of toxicities experienced by black and white groups within their county.</p>
 <p>The app functions through a location search. By geolocating the given search address, the relevant data and plots will be shown.</p>
-<p>A choropleth map forms the centerpiece of the app, showing the average toxicity of counties in the area surrounding the point. This contextualizes the toxicity, which is unitless and only interpretable when compared to other toxicites. Choropleth maps are a familiar form of communicating location based data.</p>
-<p>The second chart plots the distributions of toxicity experienced in the nation, the state, and within the county. This gives some additional context that the map doens’t provide, showing how the state varies from the national distribution, and how the county differs from the state. This might convey interesting information in areas that are especially clean or dirty compared to their state overall.</p>
+<p><img src="https://raw.githubusercontent.com/DukeStatSci/thesis-sp18-driscoll-envjustice/master/index/figure/north_carolina_shiny.png" /></p>
+<p>A choropleth map forms the centerpiece of the app, showing the average toxicity of counties in the area surrounding the point. This contextualizes the toxicity, which is unit-less and only interpretable in comparison to other toxicities. Choropleth maps are a familiar form of communicating location based data.</p>
+<p>The second chart plots the distributions of toxicity experienced in the nation, the state, and within the county. This gives some additional context that the map doesn’t provide, showing how the state varies from the national distribution, and how the county differs from the state. This might convey interesting information in areas that are especially clean or dirty compared to their state overall.</p>
 <p>The third, and last, chart is meant to convey the environmental justice themes discussed in this project at large. Instead of showing the distributions of toxicity experienced at different geographic levels, this plot shows the distributions of toxicity experienced by the black and white populations of the selected county.</p>
 </div>
 <div id="computational-limitations" class="section level2">
 <h2><span class="header-section-number">7.3</span> Computational Limitations</h2>
-<p>RSEI’s origin lies in corporate accountability, and that may be an area that the public would be interested in pursuing. Specifically, data on which companies are polluting locally, and which chemicals are being released. It would be possible, using the dissagregated microdata to filter toxicity by many metrics, including the facility, and the specific chemical, but it isn’t computationally feasible.</p>
-<p>Feasibility issues continue to arise when attempting to use block group and tract data. Visualizing geography at that level is very slow to render, and makes the app too slow to be reasonably useful. Despite that, mapping at a county level still provides significant context to the toxicity measure</p>
+<p>RSEI’s origin lies in corporate accountability, and that may be an area that the public would be interested in accessing data for. Specifically, data on which companies are polluting locally, and which chemicals are being released might be useful. It would be possible to filter toxicity by many metrics, including the facility, and the specific chemical, but it isn’t computationally feasible as it would need to reference the 4TB of disaggregated microdata.</p>
+<p>Feasibility issues also arise when attempting to use block group and tract data. Visualizing geography at that level is very slow to render, and makes the app too slow to be reasonably useful. Despite that, mapping at a county level still provides significant context to the toxicity measure.</p>
+</div>
+<div id="further-data-engagement" class="section level2">
+<h2><span class="header-section-number">7.4</span> Further Data Engagement</h2>
+<p>With the data publicly available, this work is entirely reproducible. To make that a more accessible process I’ve created a package, <a href="www.github.com/amd112/rseiAnalysis">“rseiAnalysis”</a>, that helps transform the initial disaggregated microdata in to consistent tract level estimates, and combines them with demographic data.</p>
+<p>The package contains functions that will aggregate geography, transform data from demographic count to percentile of toxicity for each demographic, create plots of the CDF’s for each group, or simulate what distributions would have been given percentile placement stayed the same across time.</p>
 
 </div>
 </div>
