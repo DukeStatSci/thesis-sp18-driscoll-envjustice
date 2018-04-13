@@ -2,7 +2,7 @@
 
 ## Risk Screening Environmental Indicators Model Data
 
-The Risk Screening Environmental Indicators (RSEI) Model is a geographically detailed data set produced by the Environmental Protection Agency (EPA). RSEI data is based upon the Toxic Release Inventory (TRI), which collects data on toxic releases in the US. 
+The Risk Screening Environmental Indicators (RSEI) Model is a geographically detailed data set produced by the Environmental Protection Agency (EPA). RSEI data is based upon the Toxic Release Inventory (TRI), which collects data on toxic releases in the United States. 
 
 TRI data is self reported by facilities, with each observation being a release of a reporting chemical at a reporting facility. For each observation, data is collected on which chemical was released, how much of it was released, and the facility from which it was released. This data is collected for a mandated set of industries, facilities, and chemicals that change over time.
 
@@ -39,7 +39,7 @@ Not only does the data not capture all chemicals, it also doesn't address many c
 
 Another detail of the data that makes interpreting results difficult is the way chemicals are compared. RSEI gives the weight of the release and the chemical of the release, but chemicals have very different levels of toxicity. A small amount of mercury released is much more problematic than a small amount of CO2. To that end, the EPA assigned each chemical a 'toxicity' weight, by which the amount of the chemical released is multiplied. This means that we can aggregate all the chemicals in an area, and compare the overall toxicity over space and time. The toxicity weights allow us to compare to other chemicals' toxicity weight, and overall toxicity of a given chemical release, but also means that the values only have meaning in comparison.
 
-Despite the limitations that the data presents, it provides an incredibly detailed and complex view of toxicity in America that is worth delving in to. 
+Despite the limitations that the data presents, it provides an incredibly detailed and complex view of toxicity in the United States that is worth delving in to. 
 
 ## Data Consistency
 
@@ -59,7 +59,7 @@ TRI regulates who needs to self report using the North American Industry Classif
 
 ## Data Cleanup
 
-This data cleaning is done through R, using the DBI and SQLite packages. Since there is so much data, it's not feasible to process it using typical R functions, so after loading the data in to a database, it becomes queryable using SQL. This significantly speeds up the processes detailed below.
+This data cleaning is done with R, using the DBI and SQLite packages. Since there is so much data, it's not feasible to process it using typical R functions, so after loading the data in to a database, it becomes queryable using SQL. This significantly speeds up the processes detailed below.
 
 The disaggregated microdata from RSEI is one observation per release per block on the 800m by 800m grid that it reached. We filter each of the billions of observations to check that it is 
 

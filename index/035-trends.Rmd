@@ -19,7 +19,7 @@ ggplot(pounds) + geom_line(aes(x = as.double(year), y = as.double(tox))) +
   theme(plot.title = element_text(hjust = 0.5))
 ```
 
-Looking at the net volume of TRI releases, we do see a fairly linear drop in the pounds of TRI chemicals being released nationally between 1988 and 2013. Despite the common use of volume of TRI releases as a study measure (Szasz and Meuser, 1997) the rest of this work proceeds to use TRI toxicity as the measure of interest. TRI toxicity refers to the weight of each release multiplied by the toxicity weight assigned to the chemical by the EPA. Given that TRI chemicals vary significantly in their potential human effects, toxicity experienced is a better measure of the potential human impact than the net weight of toxic chemicals experienced. Given that this seeks to find differences in pollution experienced by minority groups, toxicity is even more important, as there is potential that more toxic releases are focused in minority communities, which would not be evident by net weight.
+Looking at the net volume of TRI releases, we see a fairly linear drop in the pounds of TRI chemicals being released nationally between 1988 and 2013. Despite the common use of volume of TRI releases as a study measure (Szasz and Meuser, 1997) the rest of this work proceeds to use TRI toxicity as the measure of interest. TRI toxicity refers to the weight of each release multiplied by the toxicity weight assigned to the chemical by the EPA. Given that TRI chemicals vary significantly in their potential human effects, toxicity experienced is a better measure of the potential human impact than the net weight of toxic chemicals experienced. Given that this seeks to find differences in pollution experienced by minority groups, toxicity is even more important, as there is potential that more toxic releases are focused in minority communities, which would not be evident by net weight.
 
 Toxicity trends look very different than the net release trends shown above. This is partially attributable to the strongly skewed distribution of toxicity. As some releases are of extremely toxic chemicals, the distribution of toxicities experienced is extremely right skewed by toxic dumps. 
 
@@ -38,7 +38,6 @@ log = ggplot(data[data$year == 2000,]) + geom_density(aes(concentration, weight 
 
 grid.arrange(arrangeGrob(nonlog, log, nrow=1))
 ```
-
 
 Given the extremely right skewed nature of this distribution, for ease of analysis and interpretation, from here on toxicity is reported as log toxicity. The distributions of log toxicity are much more interpretable, but care must be used to contextualize the results. 
 

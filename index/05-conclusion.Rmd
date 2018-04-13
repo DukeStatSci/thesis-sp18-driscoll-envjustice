@@ -1,4 +1,4 @@
-# Conclusion {#conclusion}
+  # Conclusion {#conclusion}
 
 In the literature there is disagreement on the verifiability of environmental racism, with some studies finding extraordinary differences in environments experienced by minorities, others hypothesizing that none were found due to the geographic unit of analysis, and yet others claiming that all toxicity differences can be accounted for by other geographic or economic characteristics - not race. 
 

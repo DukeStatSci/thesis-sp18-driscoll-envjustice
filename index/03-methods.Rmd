@@ -8,7 +8,7 @@ We depend on two data sources, the disaggregated RSEI toxic release data (as com
 
 RSEI toxicity data can be obtained at extremely fine level (the 800m by 800m grid across the United States,) but the finest grain Census data is available at is the block level, which contains between 0 and a few thousand people. At such low geographic levels, cross tabs aren't available for demographics due to identifiability concerns. Using a low level of geography (like census blocks or block groups) is important for the environmental aspect of this analysis, since environmental hazards can be very localized, especially along neighborhood lines in urban areas. 
 
-Unfortunately, the availability of cross tabulations is equally important to the goal of this work in examining inequality of environmental burden held by minority groups in America. The intersection of social identities, especially those steeped in systems of oppression, is extremely important for identifying unequal burdens. For example, low income populations across the board may be more likely to experience environmental hazards, but low income minority populations may be much more likely than low income white populations to experience extreme hazard. The intersections of demographic characteristics, such as race and income or race and education are likely to be important in teasing out differences true inequality burden. 
+Unfortunately, the availability of cross tabulations is equally important to the goal of this work in examining inequality of environmental burden held by minority groups in the United States. The intersection of social identities, especially those steeped in systems of oppression, is extremely important for identifying unequal burdens. For example, low income populations across the board may be more likely to experience environmental hazards, but low income minority populations may be much more likely than low income white populations to experience extreme hazard. The intersections of demographic characteristics, such as race and income or race and education are likely to be important in teasing out differences true inequality burden. 
 
 We combine the computed aggregated toxicity for each block group and the demographic data. Now for each census geography, we have toxicity information as well as demographic data. 
 
@@ -100,7 +100,7 @@ These two explanations for decreasing toxicity can translate into two descriptor
   
 Positional convergence is of primary interest, since it would allow us to look at how much 'true' change there has been. By removing the distributional convergence we are able to compare the current observed reductions in inequality to what those changes would have been if minority populations had held static their position in the overall distribution.
 
-The percentile any given toxicity value holds in a minority distribution is different from the percentile it holds in the overall distribution. For example, in 2010 the 75th percentile of the black distribution was `r black2010`, while that same value was the `r overallperc`th percentile in the overall distribution. 
+The percentile any given toxicity value holds in a minority distribution is different from the percentile it holds in the overall distribution. For example, in 2010 the 75^th^ percentile of the black distribution was `r black2010`, while that same value was the `r overallperc`th percentile in the overall distribution. 
 
 In order to find the positional convergence of minority distributions over the period of study, we use the percentiles that minority individuals held in the overall distribution at the start of the period of study and propogate them forward to simulate how each group's distribution would have progressed through time. This simulation procedure was first discussed by Bayer, Patrick and Kerwin as a method of identifying the true gains in 'Black-White Earning Differences' (2016). 
 
@@ -124,7 +124,7 @@ If there had been positional improvement for a group, we would expect the simula
 
 In order to estimate the standard errors of simulated estimates of the 5^th^, 50^th^ and 95^th^ percentiles, we repeatedly execute the simulation process on data for the black population in 1990. Simulating the changes of the entire black population would mean dealing with a population of around 29 million, but with a large sample we should be able to get a good estimate. 
 
-To figure out how large the sample needs to be, we run the simulation 20 times for each n tested and show the mean and standard error of the estimate. 
+To determine how large the sample needs to be, we run the simulation 20 times for each n tested and show the mean and standard error of the estimate. 
 
 ```{r simulationSE, echo = FALSE, warning = FALSE, message = FALSE, fig.width=8, fig.height=6}
 sim_se_05 = read_csv("data/bootstrap_simulation_se_05.csv")
@@ -150,4 +150,4 @@ grid.arrange(s5, s50, s95, ncol=1)
 
 ```
 
-For the 5^th^ percentile, a relatively small sample produces a fairly stable result, as standard error does not reduce substantially with n larger than 20,000. Due to the extreme right skew of the data, the 95th percentile requires a larger sample to reach a stable estimate. Still n = 50,000 is sufficient, and that size is used for all samples. 
+For the 5^th^ percentile, a relatively small sample produces a fairly stable result, as standard error does not reduce substantially with n larger than 20,000. Due to the extreme right skew of the data, the 95^th^ percentile requires a larger sample to reach a stable estimate. Still n = 50,000 is sufficient, and that size is used for all samples. 
