@@ -29,7 +29,7 @@ Below see an example of the disaggregated microdata:
 
 Due to the nature of the data, there are a few interesting caveats to consider. 
 
-The RSEI data is self reported, and has been thought to contain some severe under reporting (De Marchi and Hamilton, 2006). This could lead to low estimates of toxicity, and could bias results if certain areas or industries are more likely to under report. Highly regulated chemicals may be more likely to be under reported, as facilities are incentivized to release as little as possible.
+The RSEI data is self reported, and has been thought to contain some severe under reporting [@Marchi2006]. This could lead to low estimates of toxicity, and could bias results if certain areas or industries are more likely to under report. Highly regulated chemicals may be more likely to be under reported, as facilities are incentivized to release as little as possible.
 
 The data is entirely based off a black box fate and transport model. The model has uncertainty that is not reported in RSEI and therefore is not being addressed. The raw data we use are estimates to begin with, but are being treated as observed data. 
 
@@ -61,7 +61,7 @@ As an example, a textiles facility releasing mercury might fall under mandated r
 
 ## Data Cleanup
 
-Data cleaning was done with R using the DBI and SQLite packages (R-SIG-DB et al., 2018; Müller et al., 2018.). Since there is so much data, it's not feasible to process it using typical R functions, so we used a SQL database. This significantly speeds up the processes detailed below.
+Data cleaning was done with R using the DBI and SQLite packages [@dbi; @rsqlite]. Since there is so much data, it's not feasible to process it using typical R functions, so we used a SQL database. This significantly speeds up the processes detailed below.
 
 The disaggregated microdata from RSEI is one observation per release per cell on the 800m by 800m grid that it reached. We filter each of the observations to check that it is 
 

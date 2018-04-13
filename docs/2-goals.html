@@ -75,7 +75,7 @@
 <li class="chapter" data-level="3" data-path="3-data.html"><a href="3-data.html"><i class="fa fa-check"></i><b>3</b> Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="3-data.html"><a href="3-data.html#risk-screening-environmental-indicators-model-data"><i class="fa fa-check"></i><b>3.1</b> Risk Screening Environmental Indicators Model Data</a></li>
 <li class="chapter" data-level="3.2" data-path="3-data.html"><a href="3-data.html#important-caveats"><i class="fa fa-check"></i><b>3.2</b> Important Caveats</a></li>
-<li class="chapter" data-level="3.3" data-path="3-data.html"><a href="3-data.html#data-consistency"><i class="fa fa-check"></i><b>3.3</b> Data Consistency</a><ul>
+<li class="chapter" data-level="3.3" data-path="3-data.html"><a href="3-data.html#data-continuity"><i class="fa fa-check"></i><b>3.3</b> Data Continuity</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="3-data.html"><a href="3-data.html#census-comparability"><i class="fa fa-check"></i><b>3.3.1</b> Census Comparability</a></li>
 <li class="chapter" data-level="3.3.2" data-path="3-data.html"><a href="3-data.html#chemical-consistency"><i class="fa fa-check"></i><b>3.3.2</b> Chemical Consistency</a></li>
 <li class="chapter" data-level="3.3.3" data-path="3-data.html"><a href="3-data.html#industry-reporting-consistency"><i class="fa fa-check"></i><b>3.3.3</b> Industry Reporting Consistency</a></li>
@@ -97,18 +97,16 @@
 <li class="chapter" data-level="6.1" data-path="6-organization.html"><a href="6-organization.html#trends-in-minority-toxicity-burden"><i class="fa fa-check"></i><b>6.1</b> Trends in Minority Toxicity Burden</a></li>
 <li class="chapter" data-level="6.2" data-path="6-organization.html"><a href="6-organization.html#trends-in-simulated-minority-toxicity-burden"><i class="fa fa-check"></i><b>6.2</b> Trends in Simulated Minority Toxicity Burden</a></li>
 <li class="chapter" data-level="6.3" data-path="6-organization.html"><a href="6-organization.html#interacting-risk-cases"><i class="fa fa-check"></i><b>6.3</b> Interacting Risk Cases</a></li>
-<li class="chapter" data-level="6.4" data-path="6-organization.html"><a href="6-organization.html#quantile-regression"><i class="fa fa-check"></i><b>6.4</b> Quantile Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="6-organization.html"><a href="6-organization.html#exploration-of-quantile-regression"><i class="fa fa-check"></i><b>6.4</b> Exploration of Quantile Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="7-publicdata.html"><a href="7-publicdata.html"><i class="fa fa-check"></i><b>7</b> Public Interaction</a><ul>
 <li class="chapter" data-level="7.1" data-path="7-publicdata.html"><a href="7-publicdata.html#data-accessibility"><i class="fa fa-check"></i><b>7.1</b> Data Accessibility</a></li>
 <li class="chapter" data-level="7.2" data-path="7-publicdata.html"><a href="7-publicdata.html#app-intent-and-description"><i class="fa fa-check"></i><b>7.2</b> App Intent and Description</a></li>
 <li class="chapter" data-level="7.3" data-path="7-publicdata.html"><a href="7-publicdata.html#computational-limitations"><i class="fa fa-check"></i><b>7.3</b> Computational Limitations</a></li>
+<li class="chapter" data-level="7.4" data-path="7-publicdata.html"><a href="7-publicdata.html#further-data-engagement"><i class="fa fa-check"></i><b>7.4</b> Further Data Engagement</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="8-conclusion.html"><a href="8-conclusion.html"><i class="fa fa-check"></i><b>8</b> Conclusion</a></li>
 <li class="chapter" data-level="9" data-path="9-future-work.html"><a href="9-future-work.html"><i class="fa fa-check"></i><b>9</b> Future Work</a></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="A-annotated-bibliography.html"><a href="A-annotated-bibliography.html"><i class="fa fa-check"></i><b>A</b> Annotated Bibliography</a></li>
-<li class="chapter" data-level="B" data-path="B-access-to-rsei-data.html"><a href="B-access-to-rsei-data.html"><i class="fa fa-check"></i><b>B</b> Access to RSEI data</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -130,12 +128,12 @@
             <section class="normal" id="section-">
 <div id="goals" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Goals</h1>
-<p>This work aims to address some of the limitations of the current environmental justice literature by examining a comprehensive dataset that covers the entire nation, with data spanning from 1990 to 2013. The broad temporal and spatial coverage is nearly unparalleled in environmental justice literature, with the last study of this length spanning the years 1970 to 1994 (Been and Gupta, 1997), which relied only upon tract level hazardous waste site data.</p>
-<p>Several questions will be addressed:</p>
+<p>This work aims to address some of the limitations of the current environmental justice literature by examining a comprehensive data set that covers the entire nation, with data spanning from 1988 to 2015. The broad temporal and spatial coverage is nearly unparalleled in environmental justice literature, with the last study of this length spanning the years 1970 to 1994 <span class="citation">(<span class="citeproc-not-found" data-reference-id="Been1997"><strong>???</strong></span>)</span>, relying solely upon tract level hazardous waste site data.</p>
+<p>The goals of this paper are:</p>
 <ul>
-<li><p>Finding the empirical 5<sup>th</sup>, 50<sup>th</sup>, and 95<sup>th</sup> percentiles of experienced toxicity for white, black, and Hispanic populations over time. These percentiles give us an idea of which groups have access to areas with low toxicity, which groups are most at risk at the high end of the distribution, and an idea of how the median changes for each group.</p></li>
-<li><p>Simulating how minority distributions would currently look given they had held constant their relative position in the overall distributions. This measure allows us to see how much of the improvement we see is attributable to the compression of the overall toxicity distribution, and how much improvement is attributable to changes in the relative state of minority groups.</p></li>
-<li><p>A web app that provides a searchable map database with information on local toxicity, and the local state of environmental justice. The goal of this app is to make complex data accessible for public use.</p></li>
+<li><p>To build empirical distributions of toxicity experienced by the American public. Using those distributions to find empirical 5<sup>th</sup>, 50<sup>th</sup>, and 95<sup>th</sup> percentiles of experienced toxicity for white, black, and Hispanic populations over time. Rather than examining the mean of each group, these percentiles give us an idea of which groups have access to areas with low toxicity, which groups are most at risk for extreme toxicity (which is most likely to relate to lifestyle or health effects,) and an idea of how the median changes for each group.</p></li>
+<li><p>Simulating how minority distributions would look in 2015 given they had held constant their relative position in the overall distribution of 1990. This measure allows us to see how much of the improvement in relative toxicity is attributable to the compression of the overall toxicity distribution, and how much is attributable to changes in the relative state of minority groups.</p></li>
+<li><p>To create a web app that provides a searchable map database with information on local toxicity, and the local state of environmental justice. The goal of this app is to make complex data accessible for public use. Additionally, to create a package containing functions that help convert RSEI dissaggregated microdata to a consistent Census compatible form, in order to make the base data more accessible.</p></li>
 </ul>
 
 </div>

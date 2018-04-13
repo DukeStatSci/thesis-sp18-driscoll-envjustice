@@ -10,7 +10,7 @@ The intent of this app is to allow an easier outlet to find information about lo
 
 ## App Intent and Description
 
-The app built focuses on communicating the distribution of toxicity in a given local area as compared to the national and state distributions. The app was build primarily through Shiny (Chang, 2017). Additionally, it shows the difference in toxicity burden experienced locally by black communities as compared to white communities. 
+The app built focuses on communicating the distribution of toxicity in a given local area as compared to the national and state distributions. The app was build primarily through Shiny [@shiny]. Additionally, it shows the difference in toxicity burden experienced locally by black communities as compared to white communities. 
 
 The priority in organizing the app was to provide as much information as possible in as intuitive a form as possible. To do this, we prioritized three pieces of information we found to be most useful for communities interested in their toxicities: a map of toxicities in surrounding areas, a plot showing the distribution of toxicities within their county, and the distribution of toxicities experienced by black and white groups within their county.
 
