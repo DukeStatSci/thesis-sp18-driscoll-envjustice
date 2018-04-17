@@ -6,6 +6,7 @@ library(ggmap)
 library(rgdal)
 library(readr)
 library(data.table)
+library(feather)
 library(stringr)
 library(rmapshaper)
 
@@ -28,13 +29,17 @@ find_adj_state = function(shape, states_list) {
   t
 }
 
+convert_to_color = function(data) {
+  data = data^.1
+  (data - mean((counties@data$tox)^.1))/sd(counties@data$tox^.1)
+}
 get_county = function(latlon) {
   current_s = as.character((latlon %over% states)$STATEFP)
   temp_c = counties[startsWith(as.character(counties@data$GEOID), current_s), ]
   latlon %over% temp_c
 }
 
-pal = colorNumeric("magma", log(counties@data$tox) * abs(log(counties@data$tox)), na.color = "#C1C1C1", reverse = TRUE)
+pal = colorNumeric("magma", convert_to_color(counties@data$tox), na.color = "#C1C1C1", reverse = TRUE)
 
 function(input, output, session) {
   
@@ -64,18 +69,17 @@ function(input, output, session) {
   
   observeEvent(input$search, {
     values$latlon = geocode(input$addressInput, output = "latlon", source = "dsk")
-    values$ll = SpatialPoints(matrix(as.numeric(values$latlon), nrow = 1), proj4string = CRS(p))
-    #validate in us
-    if (is.na((values$ll %over% states)[1])) {
-      print("caught")
-      values$out = TRUE
-    }
-    else {
-      values$out = FALSE
-      values$current_c = get_county(values$ll)
-      data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
-      leafletProxy("map", session) %>%
-        setView(lng = values$latlon[1], lat = values$latlon[2], zoom = 9)
+    #validate location found
+    if (!is.na(values$latlon)[1]) {
+      values$ll = SpatialPoints(matrix(as.numeric(values$latlon), nrow = 1), proj4string = CRS(p))
+      #validate in us
+      if (!is.na((values$ll %over% states)[1])) {
+        values$out = FALSE
+        values$current_c = get_county(values$ll)
+        data$tract = data_tract[startsWith(as.character(data_tract$tract), as.character(values$current_c$GEOID)), ]
+        leafletProxy("map", session) %>%
+          setView(lng = values$latlon[1], lat = values$latlon[2], zoom = 9)
+      }
     }
   })
   
@@ -89,22 +93,22 @@ function(input, output, session) {
     values$states_list = append(values$states_list, states_adj)
     values$map_data = subset(counties, counties@data$STATEFP %in% states_adj)
     leafletProxy("map", session) %>%
-      addPolygons(data = values$map_data, color = "#444444", weight = 1, smoothFactor = 0.5, 
-                  opacity = 1, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
+      addPolygons(data = values$map_data, color = "#444444", weight = 0.5, smoothFactor = 0.5, 
+                  opacity = 1, fillOpacity = 1, fillColor = ~pal(convert_to_color(tox))
                  ) %>%
-      addPolygons(data = states, color = "#333333", weight = 2, smoothFactor = 0.5,
+      addPolygons(data = states, color = "#333333", weight = 1, smoothFactor = 0.5,
                               opacity = 1, fill = FALSE)
   })
   
   output$map = renderLeaflet({
     data = subset(counties, counties@data$STATEFP %in% c("37", "51", "47", "13", "45"))
     map = leaflet() %>%
-      addPolygons(data = data, color = "#444444", weight = 1, smoothFactor = 0.5, 
-                  opacity = 1, fillOpacity = 1, fillColor = ~pal(log(tox) * abs(log(tox)))
+      addPolygons(data = data, color = "#444444", weight = 0.5, smoothFactor = 0.5, 
+                  opacity = 1, fillOpacity = 1, fillColor = ~pal(convert_to_color(tox))
                   ) %>%
-      addPolygons(data = states, color = "#333333", weight = 2, smoothFactor = 0.5,
+      addPolygons(data = states, color = "#333333", weight = 1, smoothFactor = 0.5,
                   opacity = 1, fill = FALSE) %>%
-      addLegend(position = "topleft", title = "", pal = pal, values = log(counties@data$tox) * abs(log(counties@data$tox)))
+      addLegend(position = "topleft", title = "", pal = pal, values = convert_to_color(counties@data$tox))
     
     map = map %>% setView(lng = -78.94001, lat = 36.00153, zoom = 9) 
     
@@ -129,7 +133,7 @@ function(input, output, session) {
       xlab("Log Toxicity") +
       scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
                     labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                    limits = c(1, 160000)) +
+                    limits = c(.01, 160000)) +
       annotation_logticks(
         short = unit(.5,"mm"),
         mid = unit(2,"mm"), 
@@ -141,17 +145,18 @@ function(input, output, session) {
   output$race = renderPlot({
     validate(
       need(nrow(data$tract)>0, "No data for this area."),
-      need(!(max(data$tract$tox) == min(data$tract$tox) && min(data$tract$tox) == 1*(10^-6)), "There are no spills recorded in your area!")
+      need(!(max(data$tract$tox) == min(data$tract$tox)), "There are no spills recorded in your area!")
     )
     comp = complete.cases(data$tract[, c(1:2, 4:11)])
     temp = data$tract[comp, ]
+    head(temp)
     ggplot() + geom_density(aes(temp$tox, weight = temp$black/sum(temp$black), fill = "black"), alpha = 0.4 , color = NA) + xlab("Log Toxicity") +
       geom_density(aes(temp$tox, weight = temp$white/sum(temp$white), fill = "white"), alpha = 0.4 , color = NA) +
       theme_classic() +
       theme(legend.position = "bottom", axis.line.y = element_line(color = "grey"), axis.line.x = element_line(color = "grey")) +
       scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
                     labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                    limits = c(1, 160000)) +
+                    limits = c(.01, 160000)) +
       annotation_logticks(
         short = unit(.5,"mm"),
         mid = unit(2,"mm"), 
